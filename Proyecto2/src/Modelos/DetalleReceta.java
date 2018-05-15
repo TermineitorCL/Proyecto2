@@ -7,8 +7,8 @@ package Modelos;
 
 /**
  *
- * @author Pyther
+ * @author Matia
  */
-public class Persona {
+public class DetalleReceta {
     
 }
