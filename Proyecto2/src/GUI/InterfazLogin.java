@@ -5,8 +5,6 @@
  */
 package GUI;
 
-import javax.swing.JOptionPane;
-
 /**
  *
  * @author Matia
@@ -18,7 +16,6 @@ public class InterfazLogin extends javax.swing.JFrame {
      */
     public InterfazLogin() {
         initComponents();
-        
     }
 
     /**
@@ -30,89 +27,21 @@ public class InterfazLogin extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
-        passcontra = new javax.swing.JPasswordField();
-        jLabel2 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        txtusuario = new javax.swing.JTextField();
-
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        jLabel1.setText("Usuario");
-
-        jLabel2.setText("Contraseña");
-
-        jButton1.setText("Ingresar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel1))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButton1)
-                    .addComponent(passcontra)
-                    .addComponent(txtusuario, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE))
-                .addContainerGap(216, Short.MAX_VALUE))
+            .addGap(0, 400, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(54, 54, 54)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(txtusuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(passcontra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2))
-                .addGap(30, 30, 30)
-                .addComponent(jButton1)
-                .addContainerGap(135, Short.MAX_VALUE))
+            .addGap(0, 300, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-        
-
-    String[] Usuario = {"admin"};
-        String[] Claves = new String[1];
-        Claves[0] = "123";
-        
-
-        String usuario = txtusuario.getText();
-        String password = passcontra.getText();
-        boolean mensaje = false;
-        for (int i = 0; i < Usuario.length; i++) {
-            if (Usuario[i].equals(usuario) && Claves[i].equals(password)) {
-                mensaje = true;
-
-            }
-            if (mensaje) {
-                new ProduccionDiarioPan().setVisible(true);
-                this.dispose();
-            } else {
-                JOptionPane.showMessageDialog(null, "Intentelo otra vez");
-                txtusuario.setText("");
-                passcontra.setText("");
-            }
-        }
-        
-        
-    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -150,10 +79,5 @@ public class InterfazLogin extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JPasswordField passcontra;
-    private javax.swing.JTextField txtusuario;
     // End of variables declaration//GEN-END:variables
 }
