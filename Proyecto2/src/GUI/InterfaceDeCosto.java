@@ -7,14 +7,14 @@ package GUI;
 
 /**
  *
- * @author Matia
+ * @author HP
  */
-public class InterfazPrueba extends javax.swing.JInternalFrame {
+public class InterfaceDeCosto extends javax.swing.JInternalFrame {
 
     /**
-     * Creates new form InterfazPrueba
+     * Creates new form InterfaceDeCosto
      */
-    public InterfazPrueba() {
+    public InterfaceDeCosto() {
         initComponents();
     }
 
