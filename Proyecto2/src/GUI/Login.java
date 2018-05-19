@@ -5,6 +5,13 @@
  */
 package GUI;
 
+import Data.ClassConnection;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Matia
@@ -45,6 +52,11 @@ public class Login extends javax.swing.JInternalFrame {
         });
 
         jButton1.setText("Ingresar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -53,9 +65,8 @@ public class Login extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(73, 73, 73)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 88, Short.MAX_VALUE))
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 88, Short.MAX_VALUE)
                     .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 127, Short.MAX_VALUE)
                     .addComponent(tf_contraseña)
                     .addComponent(tf_usuario))
@@ -84,6 +95,57 @@ public class Login extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_tf_contraseñaActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // Ingresar al login
+        String usuario= tf_usuario.getText();
+        String password = tf_contraseña.getText();
+        if(usuario.equals("")){
+            JOptionPane.showMessageDialog(null, "Deve ingresar usuario");
+        }
+        if (password.equals("")) {
+            JOptionPane.showMessageDialog(null, "Deve ingresar contraseña");
+        }
+        else{
+            try{
+                // llamando mi metodo
+                login_a(usuario,password);
+            } catch (SQLException ex){
+                JOptionPane.showMessageDialog(null, ex);
+            }
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+    //metodo login el cual verifica si los datos escritos son correctos
+    public void login_a(String usuario, String password)throws SQLException{
+        String SQL;
+        String TipoUsuario = null;
+        // se pone el nombre de la clase de conexion a la base de datos 
+        ClassConnection con =new ClassConnection();
+        Connection cnn = con.getConexion();
+        //crear base de datos nombre tabla ingreso con su nombre de columnas usuario y password y tipousuario
+        // agregar el nombre de usuario y password and tipousuario
+        // despues de from se pone el nombre de la tabla de base de datos
+        // despues de where usuario nombre de la tabla usuario y de la password
+        SQL="select * from ingreso where usuario='"+usuario+"'and password='"+password+"'";
+        Statement s = cnn.createStatement();
+        ResultSet rs = s.executeQuery(SQL);
+        while(rs.next()){
+            TipoUsuario = rs.getString("tipousuario");
+        }
+        //si se quiere agregar otro tipo de usuario crear con otro if 
+        if (TipoUsuario.equals("administrador")) {
+            //se pone el nombre de el menu al cual tiene que entrar despues de login
+            Menu menu =new Menu();
+            this.dispose();
+            menu.setVisible(true);
+        }//if (TipoUsuario.equals("usuario")){
+    
+        //}
+        
+            
+        tf_usuario.setText("");
+        tf_contraseña.setText("");
+        tf_usuario.requestFocus();
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;

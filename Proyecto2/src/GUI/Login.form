@@ -22,10 +22,8 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="73" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="jLabel1" max="32767" attributes="0"/>
-                      <Component id="jLabel2" pref="88" max="32767" attributes="0"/>
-                  </Group>
+                  <Component id="jLabel1" max="32767" attributes="0"/>
+                  <Component id="jLabel2" pref="88" max="32767" attributes="0"/>
                   <Component id="jButton1" pref="127" max="32767" attributes="0"/>
                   <Component id="tf_contraseña" alignment="0" max="32767" attributes="0"/>
                   <Component id="tf_usuario" alignment="0" max="32767" attributes="0"/>
@@ -77,6 +75,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Ingresar"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>
