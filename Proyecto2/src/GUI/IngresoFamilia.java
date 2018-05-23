@@ -9,12 +9,12 @@ package GUI;
  *
  * @author Pyther
  */
-public class Interfaz_Familia extends javax.swing.JInternalFrame {
+public class IngresoFamilia extends javax.swing.JInternalFrame {
 
     /**
      * Creates new form Interfaz_Familia
      */
-    public Interfaz_Familia() {
+    public IngresoFamilia() {
         initComponents();
     }
 
@@ -73,7 +73,7 @@ public class Interfaz_Familia extends javax.swing.JInternalFrame {
                     .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(35, 35, 35)
                 .addComponent(jButton1)
-                .addContainerGap(110, Short.MAX_VALUE))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
 
         getContentPane().add(jPanel1, java.awt.BorderLayout.CENTER);

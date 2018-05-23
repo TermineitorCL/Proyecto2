@@ -9,12 +9,12 @@ package GUI;
  *
  * @author HP
  */
-public class Ingreso_receta extends javax.swing.JInternalFrame {
+public class IngresoReceta extends javax.swing.JInternalFrame {
 
     /**
      * Creates new form Ingreso_receta
      */
-    public Ingreso_receta() {
+    public IngresoReceta() {
         initComponents();
     }
 
@@ -54,8 +54,6 @@ public class Ingreso_receta extends javax.swing.JInternalFrame {
 
         jLabel2.setText("Estado");
 
-        tf_Estado.setText("jTextField1");
-
         jLabel3.setText("Ingreso Insumos");
 
         jLabel4.setText("Unidad de medida");
@@ -70,14 +68,16 @@ public class Ingreso_receta extends javax.swing.JInternalFrame {
 
         tb_Tablareceta.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"sal", "kg", "2"},
-                {"sal", "kg", "2"},
-                {"sal", "kg", "2"},
-                {"sal", "kg", "2"},
-                {"sal", "kg", "2"},
-                {"sal", "kg", "2"},
-                {"sal", "kg", "2"},
-                {"sal", "kg", null}
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
             },
             new String [] {
                 "Insumos", "Unidad de Medida", "Cantidad"
@@ -114,7 +114,7 @@ public class Ingreso_receta extends javax.swing.JInternalFrame {
                                 .addComponent(tf_Cantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(61, 61, 61)
                                 .addComponent(bt_Guardar)
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                .addContainerGap(32, Short.MAX_VALUE))))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1)
@@ -131,10 +131,10 @@ public class Ingreso_receta extends javax.swing.JInternalFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                    .addComponent(jScrollPane1)
+                    .addGroup(layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(bt_Guardarreceta, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(bt_Guardarreceta, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -161,11 +161,11 @@ public class Ingreso_receta extends javax.swing.JInternalFrame {
                     .addComponent(tf_Unidadmedida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(tf_Cantidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(bt_Guardar))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(bt_Guardarreceta)
-                .addGap(221, 221, 221))
+                .addContainerGap())
         );
 
         pack();
