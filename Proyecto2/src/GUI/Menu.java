@@ -62,6 +62,11 @@ public class Menu extends javax.swing.JFrame {
 
         ps_registro.setMnemonic('s');
         ps_registro.setText("Registar Usuario");
+        ps_registro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ps_registroActionPerformed(evt);
+            }
+        });
         fileMenu.add(ps_registro);
 
         ps_salir.setMnemonic('x');
@@ -302,6 +307,10 @@ public class Menu extends javax.swing.JFrame {
         desktopPane.add(internal);
         internal.setVisible(true);
     }//GEN-LAST:event_ps_reporte_panActionPerformed
+
+    private void ps_registroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ps_registroActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ps_registroActionPerformed
 
     /**
      * @param args the command line arguments
