@@ -30,73 +30,144 @@ public class Menu extends javax.swing.JFrame {
         desktopPane = new javax.swing.JDesktopPane();
         menuBar = new javax.swing.JMenuBar();
         fileMenu = new javax.swing.JMenu();
-        openMenuItem = new javax.swing.JMenuItem();
-        saveMenuItem = new javax.swing.JMenuItem();
-        exitMenuItem = new javax.swing.JMenuItem();
+        ps_login = new javax.swing.JMenuItem();
+        ps_registro = new javax.swing.JMenuItem();
+        ps_salir = new javax.swing.JMenuItem();
         editMenu = new javax.swing.JMenu();
-        cutMenuItem = new javax.swing.JMenuItem();
-        copyMenuItem = new javax.swing.JMenuItem();
-        pasteMenuItem = new javax.swing.JMenuItem();
-        deleteMenuItem = new javax.swing.JMenuItem();
+        ps_add_producto = new javax.swing.JMenuItem();
+        ps_add_valores = new javax.swing.JMenuItem();
+        ps_add_produccion = new javax.swing.JMenuItem();
+        ps_add_medidas = new javax.swing.JMenuItem();
+        ps_add_recetas = new javax.swing.JMenuItem();
+        ps_add_costos = new javax.swing.JMenuItem();
+        ps_add_familia = new javax.swing.JMenuItem();
+        ps_add_linea = new javax.swing.JMenuItem();
         helpMenu = new javax.swing.JMenu();
-        contentMenuItem = new javax.swing.JMenuItem();
-        aboutMenuItem = new javax.swing.JMenuItem();
+        ps_reporte_todo = new javax.swing.JMenuItem();
+        ps_reporte_pan = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         fileMenu.setMnemonic('f');
         fileMenu.setText("Usuario");
 
-        openMenuItem.setMnemonic('o');
-        openMenuItem.setText("Ingresar Usuario");
-        fileMenu.add(openMenuItem);
-
-        saveMenuItem.setMnemonic('s');
-        saveMenuItem.setText("Registar Usuario");
-        fileMenu.add(saveMenuItem);
-
-        exitMenuItem.setMnemonic('x');
-        exitMenuItem.setText("Salir");
-        exitMenuItem.addActionListener(new java.awt.event.ActionListener() {
+        ps_login.setMnemonic('o');
+        ps_login.setText("Ingresar Usuario");
+        ps_login.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                exitMenuItemActionPerformed(evt);
+                ps_loginActionPerformed(evt);
             }
         });
-        fileMenu.add(exitMenuItem);
+        fileMenu.add(ps_login);
+
+        ps_registro.setMnemonic('s');
+        ps_registro.setText("Registar Usuario");
+        fileMenu.add(ps_registro);
+
+        ps_salir.setMnemonic('x');
+        ps_salir.setText("Salir");
+        ps_salir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ps_salirActionPerformed(evt);
+            }
+        });
+        fileMenu.add(ps_salir);
 
         menuBar.add(fileMenu);
 
         editMenu.setMnemonic('e');
-        editMenu.setText("Edit");
+        editMenu.setText("Ingresos");
 
-        cutMenuItem.setMnemonic('t');
-        cutMenuItem.setText("Cut");
-        editMenu.add(cutMenuItem);
+        ps_add_producto.setMnemonic('t');
+        ps_add_producto.setText("Ingreso de Producto");
+        ps_add_producto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ps_add_productoActionPerformed(evt);
+            }
+        });
+        editMenu.add(ps_add_producto);
 
-        copyMenuItem.setMnemonic('y');
-        copyMenuItem.setText("Copy");
-        editMenu.add(copyMenuItem);
+        ps_add_valores.setMnemonic('y');
+        ps_add_valores.setText("Ingreso de Valores");
+        ps_add_valores.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ps_add_valoresActionPerformed(evt);
+            }
+        });
+        editMenu.add(ps_add_valores);
 
-        pasteMenuItem.setMnemonic('p');
-        pasteMenuItem.setText("Paste");
-        editMenu.add(pasteMenuItem);
+        ps_add_produccion.setMnemonic('p');
+        ps_add_produccion.setText("Ingreso de Produccion");
+        ps_add_produccion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ps_add_produccionActionPerformed(evt);
+            }
+        });
+        editMenu.add(ps_add_produccion);
 
-        deleteMenuItem.setMnemonic('d');
-        deleteMenuItem.setText("Delete");
-        editMenu.add(deleteMenuItem);
+        ps_add_medidas.setMnemonic('d');
+        ps_add_medidas.setText("Ingreso de Medidas");
+        ps_add_medidas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ps_add_medidasActionPerformed(evt);
+            }
+        });
+        editMenu.add(ps_add_medidas);
+
+        ps_add_recetas.setText("Ingreso de Recetas");
+        ps_add_recetas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ps_add_recetasActionPerformed(evt);
+            }
+        });
+        editMenu.add(ps_add_recetas);
+
+        ps_add_costos.setText("Ingreso de Costos");
+        ps_add_costos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ps_add_costosActionPerformed(evt);
+            }
+        });
+        editMenu.add(ps_add_costos);
+
+        ps_add_familia.setText("Ingreso de Familia");
+        ps_add_familia.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ps_add_familiaActionPerformed(evt);
+            }
+        });
+        editMenu.add(ps_add_familia);
+
+        ps_add_linea.setText("Ingreso de Linea");
+        ps_add_linea.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ps_add_lineaActionPerformed(evt);
+            }
+        });
+        editMenu.add(ps_add_linea);
 
         menuBar.add(editMenu);
 
         helpMenu.setMnemonic('h');
-        helpMenu.setText("Help");
+        helpMenu.setText("Reportes");
 
-        contentMenuItem.setMnemonic('c');
-        contentMenuItem.setText("Contents");
-        helpMenu.add(contentMenuItem);
+        ps_reporte_todo.setMnemonic('c');
+        ps_reporte_todo.setText("Reporte de Productos");
+        ps_reporte_todo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ps_reporte_todoActionPerformed(evt);
+            }
+        });
+        helpMenu.add(ps_reporte_todo);
 
-        aboutMenuItem.setMnemonic('a');
-        aboutMenuItem.setText("About");
-        helpMenu.add(aboutMenuItem);
+        ps_reporte_pan.setMnemonic('a');
+        ps_reporte_pan.setText("Reporte Segun Producto");
+        ps_reporte_pan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ps_reporte_panActionPerformed(evt);
+            }
+        });
+        helpMenu.add(ps_reporte_pan);
 
         menuBar.add(helpMenu);
 
@@ -106,23 +177,131 @@ public class Menu extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(desktopPane, javax.swing.GroupLayout.PREFERRED_SIZE, 466, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(desktopPane, javax.swing.GroupLayout.DEFAULT_SIZE, 800, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(desktopPane, javax.swing.GroupLayout.PREFERRED_SIZE, 357, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(desktopPane, javax.swing.GroupLayout.PREFERRED_SIZE, 516, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void exitMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitMenuItemActionPerformed
+    private void ps_salirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ps_salirActionPerformed
         System.exit(0);
-    }//GEN-LAST:event_exitMenuItemActionPerformed
+    }//GEN-LAST:event_ps_salirActionPerformed
+
+    private void ps_loginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ps_loginActionPerformed
+        Login internal = new Login();
+
+        internal.pack();
+        internal.setResizable(true);
+        internal.setClosable(true);
+        desktopPane.add(internal);
+        internal.setVisible(true);
+    }//GEN-LAST:event_ps_loginActionPerformed
+
+    private void ps_add_productoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ps_add_productoActionPerformed
+        IngresoProducto internal = new IngresoProducto();
+
+        internal.pack();
+        internal.setResizable(true);
+        internal.setClosable(true);
+        desktopPane.add(internal);
+        internal.setVisible(true);
+    }//GEN-LAST:event_ps_add_productoActionPerformed
+
+    private void ps_add_valoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ps_add_valoresActionPerformed
+        IngresoPrecio internal = new IngresoPrecio();
+
+        internal.pack();
+        internal.setResizable(true);
+        internal.setClosable(true);
+        desktopPane.add(internal);
+        internal.setVisible(true);
+    }//GEN-LAST:event_ps_add_valoresActionPerformed
+
+    private void ps_add_produccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ps_add_produccionActionPerformed
+        IngresoProduccion internal = new IngresoProduccion();
+
+        internal.pack();
+        internal.setResizable(true);
+        internal.setClosable(true);
+        desktopPane.add(internal);
+        internal.setVisible(true);
+    }//GEN-LAST:event_ps_add_produccionActionPerformed
+
+    private void ps_add_medidasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ps_add_medidasActionPerformed
+        IngresoUnidadMedida internal = new IngresoUnidadMedida();
+
+        internal.pack();
+        internal.setResizable(true);
+        internal.setClosable(true);
+        desktopPane.add(internal);
+        internal.setVisible(true);
+    }//GEN-LAST:event_ps_add_medidasActionPerformed
+
+    private void ps_add_recetasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ps_add_recetasActionPerformed
+        IngresoReceta internal = new IngresoReceta();
+
+        internal.pack();
+        internal.setResizable(true);
+        internal.setClosable(true);
+        desktopPane.add(internal);
+        internal.setVisible(true);
+    }//GEN-LAST:event_ps_add_recetasActionPerformed
+
+    private void ps_add_costosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ps_add_costosActionPerformed
+        IngresoCostos internal = new IngresoCostos();
+
+        internal.pack();
+        internal.setResizable(true);
+        internal.setClosable(true);
+        desktopPane.add(internal);
+        internal.setVisible(true);
+    }//GEN-LAST:event_ps_add_costosActionPerformed
+
+    private void ps_add_familiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ps_add_familiaActionPerformed
+        IngresoFamilia internal = new IngresoFamilia();
+
+        internal.pack();
+        internal.setResizable(true);
+        internal.setClosable(true);
+        desktopPane.add(internal);
+        internal.setVisible(true);
+    }//GEN-LAST:event_ps_add_familiaActionPerformed
+
+    private void ps_add_lineaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ps_add_lineaActionPerformed
+        IngresoLinea internal = new IngresoLinea();
+
+        internal.pack();
+        internal.setResizable(true);
+        internal.setClosable(true);
+        desktopPane.add(internal);
+        internal.setVisible(true);
+    }//GEN-LAST:event_ps_add_lineaActionPerformed
+
+    private void ps_reporte_todoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ps_reporte_todoActionPerformed
+        ReporteTodo internal = new ReporteTodo();
+
+        internal.pack();
+        internal.setResizable(true);
+        internal.setClosable(true);
+        desktopPane.add(internal);
+        internal.setVisible(true);
+    }//GEN-LAST:event_ps_reporte_todoActionPerformed
+
+    private void ps_reporte_panActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ps_reporte_panActionPerformed
+        ReporteTipoPan internal = new ReporteTipoPan();
+
+        internal.pack();
+        internal.setResizable(true);
+        internal.setClosable(true);
+        desktopPane.add(internal);
+        internal.setVisible(true);
+    }//GEN-LAST:event_ps_reporte_panActionPerformed
 
     /**
      * @param args the command line arguments
@@ -163,20 +342,24 @@ public class Menu extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenuItem aboutMenuItem;
-    private javax.swing.JMenuItem contentMenuItem;
-    private javax.swing.JMenuItem copyMenuItem;
-    private javax.swing.JMenuItem cutMenuItem;
-    private javax.swing.JMenuItem deleteMenuItem;
     private javax.swing.JDesktopPane desktopPane;
     private javax.swing.JMenu editMenu;
-    private javax.swing.JMenuItem exitMenuItem;
     private javax.swing.JMenu fileMenu;
     private javax.swing.JMenu helpMenu;
     private javax.swing.JMenuBar menuBar;
-    private javax.swing.JMenuItem openMenuItem;
-    private javax.swing.JMenuItem pasteMenuItem;
-    private javax.swing.JMenuItem saveMenuItem;
+    private javax.swing.JMenuItem ps_add_costos;
+    private javax.swing.JMenuItem ps_add_familia;
+    private javax.swing.JMenuItem ps_add_linea;
+    private javax.swing.JMenuItem ps_add_medidas;
+    private javax.swing.JMenuItem ps_add_produccion;
+    private javax.swing.JMenuItem ps_add_producto;
+    private javax.swing.JMenuItem ps_add_recetas;
+    private javax.swing.JMenuItem ps_add_valores;
+    private javax.swing.JMenuItem ps_login;
+    private javax.swing.JMenuItem ps_registro;
+    private javax.swing.JMenuItem ps_reporte_pan;
+    private javax.swing.JMenuItem ps_reporte_todo;
+    private javax.swing.JMenuItem ps_salir;
     // End of variables declaration//GEN-END:variables
 
 }
