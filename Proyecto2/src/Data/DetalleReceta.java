@@ -6,10 +6,10 @@
 package Data;
 
 import java.io.Serializable;
-import javax.persistence.Basic;
-import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -24,65 +24,60 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "DetalleReceta.findAll", query = "SELECT d FROM DetalleReceta d")
-    , @NamedQuery(name = "DetalleReceta.findByRecetaId", query = "SELECT d FROM DetalleReceta d WHERE d.recetaId = :recetaId")
-    , @NamedQuery(name = "DetalleReceta.findByProductoId", query = "SELECT d FROM DetalleReceta d WHERE d.productoId = :productoId")
-    , @NamedQuery(name = "DetalleReceta.findByCantidad", query = "SELECT d FROM DetalleReceta d WHERE d.cantidad = :cantidad")})
+    , @NamedQuery(name = "DetalleReceta.findByCantidad", query = "SELECT d FROM DetalleReceta d WHERE d.detalleRecetaPK.cantidad = :cantidad")
+    , @NamedQuery(name = "DetalleReceta.findByRecetaId", query = "SELECT d FROM DetalleReceta d WHERE d.detalleRecetaPK.recetaId = :recetaId")
+    , @NamedQuery(name = "DetalleReceta.findByProductoId", query = "SELECT d FROM DetalleReceta d WHERE d.detalleRecetaPK.productoId = :productoId")})
 public class DetalleReceta implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    @Basic(optional = false)
-    @Column(name = "receta_id")
-    private int recetaId;
-    @Basic(optional = false)
-    @Column(name = "producto_id")
-    private int productoId;
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
-    @Id
-    @Basic(optional = false)
-    @Column(name = "cantidad")
-    private Float cantidad;
+    @EmbeddedId
+    protected DetalleRecetaPK detalleRecetaPK;
+    @JoinColumn(name = "producto_id", referencedColumnName = "id", insertable = false, updatable = false)
+    @ManyToOne(optional = false)
+    private Producto producto;
+    @JoinColumn(name = "receta_id", referencedColumnName = "id", insertable = false, updatable = false)
+    @ManyToOne(optional = false)
+    private Receta receta;
 
     public DetalleReceta() {
     }
 
-    public DetalleReceta(Float cantidad) {
-        this.cantidad = cantidad;
+    public DetalleReceta(DetalleRecetaPK detalleRecetaPK) {
+        this.detalleRecetaPK = detalleRecetaPK;
     }
 
-    public DetalleReceta(Float cantidad, int recetaId, int productoId) {
-        this.cantidad = cantidad;
-        this.recetaId = recetaId;
-        this.productoId = productoId;
+    public DetalleReceta(float cantidad, int recetaId, int productoId) {
+        this.detalleRecetaPK = new DetalleRecetaPK(cantidad, recetaId, productoId);
     }
 
-    public int getRecetaId() {
-        return recetaId;
+    public DetalleRecetaPK getDetalleRecetaPK() {
+        return detalleRecetaPK;
     }
 
-    public void setRecetaId(int recetaId) {
-        this.recetaId = recetaId;
+    public void setDetalleRecetaPK(DetalleRecetaPK detalleRecetaPK) {
+        this.detalleRecetaPK = detalleRecetaPK;
     }
 
-    public int getProductoId() {
-        return productoId;
+    public Producto getProducto() {
+        return producto;
     }
 
-    public void setProductoId(int productoId) {
-        this.productoId = productoId;
+    public void setProducto(Producto producto) {
+        this.producto = producto;
     }
 
-    public Float getCantidad() {
-        return cantidad;
+    public Receta getReceta() {
+        return receta;
     }
 
-    public void setCantidad(Float cantidad) {
-        this.cantidad = cantidad;
+    public void setReceta(Receta receta) {
+        this.receta = receta;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (cantidad != null ? cantidad.hashCode() : 0);
+        hash += (detalleRecetaPK != null ? detalleRecetaPK.hashCode() : 0);
         return hash;
     }
 
@@ -93,7 +88,7 @@ public class DetalleReceta implements Serializable {
             return false;
         }
         DetalleReceta other = (DetalleReceta) object;
-        if ((this.cantidad == null && other.cantidad != null) || (this.cantidad != null && !this.cantidad.equals(other.cantidad))) {
+        if ((this.detalleRecetaPK == null && other.detalleRecetaPK != null) || (this.detalleRecetaPK != null && !this.detalleRecetaPK.equals(other.detalleRecetaPK))) {
             return false;
         }
         return true;
@@ -101,7 +96,7 @@ public class DetalleReceta implements Serializable {
 
     @Override
     public String toString() {
-        return "Data.DetalleReceta[ cantidad=" + cantidad + " ]";
+        return "Data.DetalleReceta[ detalleRecetaPK=" + detalleRecetaPK + " ]";
     }
     
 }

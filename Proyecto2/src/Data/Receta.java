@@ -6,16 +6,22 @@
 package Data;
 
 import java.io.Serializable;
+import java.util.Collection;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -26,8 +32,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Receta.findAll", query = "SELECT r FROM Receta r")
-    , @NamedQuery(name = "Receta.findById", query = "SELECT r FROM Receta r WHERE r.id = :id")
-    , @NamedQuery(name = "Receta.findByProductoId", query = "SELECT r FROM Receta r WHERE r.productoId = :productoId")})
+    , @NamedQuery(name = "Receta.findById", query = "SELECT r FROM Receta r WHERE r.id = :id")})
 public class Receta implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -36,20 +41,17 @@ public class Receta implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
-    @Basic(optional = false)
-    @Column(name = "producto_id")
-    private int productoId;
+    @JoinColumn(name = "producto_id", referencedColumnName = "id")
+    @ManyToOne(optional = false)
+    private Producto productoId;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "receta")
+    private Collection<DetalleReceta> detalleRecetaCollection;
 
     public Receta() {
     }
 
     public Receta(Integer id) {
         this.id = id;
-    }
-
-    public Receta(Integer id, int productoId) {
-        this.id = id;
-        this.productoId = productoId;
     }
 
     public Integer getId() {
@@ -60,12 +62,21 @@ public class Receta implements Serializable {
         this.id = id;
     }
 
-    public int getProductoId() {
+    public Producto getProductoId() {
         return productoId;
     }
 
-    public void setProductoId(int productoId) {
+    public void setProductoId(Producto productoId) {
         this.productoId = productoId;
+    }
+
+    @XmlTransient
+    public Collection<DetalleReceta> getDetalleRecetaCollection() {
+        return detalleRecetaCollection;
+    }
+
+    public void setDetalleRecetaCollection(Collection<DetalleReceta> detalleRecetaCollection) {
+        this.detalleRecetaCollection = detalleRecetaCollection;
     }
 
     @Override

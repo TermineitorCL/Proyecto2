@@ -6,19 +6,25 @@
 package Data;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -33,8 +39,6 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "Producto.findByNombre", query = "SELECT p FROM Producto p WHERE p.nombre = :nombre")
     , @NamedQuery(name = "Producto.findByMarca", query = "SELECT p FROM Producto p WHERE p.marca = :marca")
     , @NamedQuery(name = "Producto.findByFormato", query = "SELECT p FROM Producto p WHERE p.formato = :formato")
-    , @NamedQuery(name = "Producto.findByFamiliaId", query = "SELECT p FROM Producto p WHERE p.familiaId = :familiaId")
-    , @NamedQuery(name = "Producto.findByUnidadMedidaId", query = "SELECT p FROM Producto p WHERE p.unidadMedidaId = :unidadMedidaId")
     , @NamedQuery(name = "Producto.findByCreadoEl", query = "SELECT p FROM Producto p WHERE p.creadoEl = :creadoEl")
     , @NamedQuery(name = "Producto.findByModificadoEl", query = "SELECT p FROM Producto p WHERE p.modificadoEl = :modificadoEl")
     , @NamedQuery(name = "Producto.findByEliminadoEl", query = "SELECT p FROM Producto p WHERE p.eliminadoEl = :eliminadoEl")})
@@ -56,12 +60,6 @@ public class Producto implements Serializable {
     @Column(name = "formato")
     private int formato;
     @Basic(optional = false)
-    @Column(name = "familia_id")
-    private int familiaId;
-    @Basic(optional = false)
-    @Column(name = "unidad_medida_id")
-    private int unidadMedidaId;
-    @Basic(optional = false)
     @Column(name = "creado_el")
     @Temporal(TemporalType.TIMESTAMP)
     private Date creadoEl;
@@ -73,6 +71,20 @@ public class Producto implements Serializable {
     @Column(name = "eliminado_el")
     @Temporal(TemporalType.TIMESTAMP)
     private Date eliminadoEl;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "productoId")
+    private Collection<Receta> recetaCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "productoId")
+    private Collection<Costo> costoCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "producto")
+    private Collection<DetalleReceta> detalleRecetaCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "productoId")
+    private Collection<PrecioVenta> precioVentaCollection;
+    @JoinColumn(name = "familia_id", referencedColumnName = "id")
+    @ManyToOne(optional = false)
+    private Familia familiaId;
+    @JoinColumn(name = "unidad_medida_id", referencedColumnName = "id")
+    @ManyToOne(optional = false)
+    private UnidadMedida unidadMedidaId;
 
     public Producto() {
     }
@@ -81,13 +93,11 @@ public class Producto implements Serializable {
         this.id = id;
     }
 
-    public Producto(Integer id, String nombre, String marca, int formato, int familiaId, int unidadMedidaId, Date creadoEl, Date modificadoEl, Date eliminadoEl) {
+    public Producto(Integer id, String nombre, String marca, int formato, Date creadoEl, Date modificadoEl, Date eliminadoEl) {
         this.id = id;
         this.nombre = nombre;
         this.marca = marca;
         this.formato = formato;
-        this.familiaId = familiaId;
-        this.unidadMedidaId = unidadMedidaId;
         this.creadoEl = creadoEl;
         this.modificadoEl = modificadoEl;
         this.eliminadoEl = eliminadoEl;
@@ -125,22 +135,6 @@ public class Producto implements Serializable {
         this.formato = formato;
     }
 
-    public int getFamiliaId() {
-        return familiaId;
-    }
-
-    public void setFamiliaId(int familiaId) {
-        this.familiaId = familiaId;
-    }
-
-    public int getUnidadMedidaId() {
-        return unidadMedidaId;
-    }
-
-    public void setUnidadMedidaId(int unidadMedidaId) {
-        this.unidadMedidaId = unidadMedidaId;
-    }
-
     public Date getCreadoEl() {
         return creadoEl;
     }
@@ -163,6 +157,58 @@ public class Producto implements Serializable {
 
     public void setEliminadoEl(Date eliminadoEl) {
         this.eliminadoEl = eliminadoEl;
+    }
+
+    @XmlTransient
+    public Collection<Receta> getRecetaCollection() {
+        return recetaCollection;
+    }
+
+    public void setRecetaCollection(Collection<Receta> recetaCollection) {
+        this.recetaCollection = recetaCollection;
+    }
+
+    @XmlTransient
+    public Collection<Costo> getCostoCollection() {
+        return costoCollection;
+    }
+
+    public void setCostoCollection(Collection<Costo> costoCollection) {
+        this.costoCollection = costoCollection;
+    }
+
+    @XmlTransient
+    public Collection<DetalleReceta> getDetalleRecetaCollection() {
+        return detalleRecetaCollection;
+    }
+
+    public void setDetalleRecetaCollection(Collection<DetalleReceta> detalleRecetaCollection) {
+        this.detalleRecetaCollection = detalleRecetaCollection;
+    }
+
+    @XmlTransient
+    public Collection<PrecioVenta> getPrecioVentaCollection() {
+        return precioVentaCollection;
+    }
+
+    public void setPrecioVentaCollection(Collection<PrecioVenta> precioVentaCollection) {
+        this.precioVentaCollection = precioVentaCollection;
+    }
+
+    public Familia getFamiliaId() {
+        return familiaId;
+    }
+
+    public void setFamiliaId(Familia familiaId) {
+        this.familiaId = familiaId;
+    }
+
+    public UnidadMedida getUnidadMedidaId() {
+        return unidadMedidaId;
+    }
+
+    public void setUnidadMedidaId(UnidadMedida unidadMedidaId) {
+        this.unidadMedidaId = unidadMedidaId;
     }
 
     @Override

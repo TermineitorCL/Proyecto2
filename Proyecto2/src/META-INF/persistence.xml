@@ -2,14 +2,14 @@
 <persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
   <persistence-unit name="Proyecto2PU" transaction-type="RESOURCE_LOCAL">
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
-    <class>Data.Producto</class>
+    <class>Data.Linea</class>
     <class>Data.UnidadMedida</class>
+    <class>Data.PrecioVenta</class>
+    <class>Data.Producto</class>
+    <class>Data.Familia</class>
+    <class>Data.Costo</class>
     <class>Data.DetalleReceta</class>
     <class>Data.Receta</class>
-    <class>Data.PrecioVenta</class>
-    <class>Data.Familia</class>
-    <class>Data.Linea</class>
-    <class>Data.Costo</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/negocio?zeroDateTimeBehavior=convertToNull"/>
       <property name="javax.persistence.jdbc.user" value="root"/>
