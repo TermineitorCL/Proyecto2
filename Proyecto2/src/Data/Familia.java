@@ -6,19 +6,25 @@
 package Data;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -33,8 +39,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "Familia.findByNombre", query = "SELECT f FROM Familia f WHERE f.nombre = :nombre")
     , @NamedQuery(name = "Familia.findByCreadoEl", query = "SELECT f FROM Familia f WHERE f.creadoEl = :creadoEl")
     , @NamedQuery(name = "Familia.findByModificadoEl", query = "SELECT f FROM Familia f WHERE f.modificadoEl = :modificadoEl")
-    , @NamedQuery(name = "Familia.findByEliminadoEl", query = "SELECT f FROM Familia f WHERE f.eliminadoEl = :eliminadoEl")
-    , @NamedQuery(name = "Familia.findByLineaId", query = "SELECT f FROM Familia f WHERE f.lineaId = :lineaId")})
+    , @NamedQuery(name = "Familia.findByEliminadoEl", query = "SELECT f FROM Familia f WHERE f.eliminadoEl = :eliminadoEl")})
 public class Familia implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -58,9 +63,11 @@ public class Familia implements Serializable {
     @Column(name = "eliminado_el")
     @Temporal(TemporalType.TIMESTAMP)
     private Date eliminadoEl;
-    @Basic(optional = false)
-    @Column(name = "linea_id")
-    private int lineaId;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "familiaId")
+    private Collection<Producto> productoCollection;
+    @JoinColumn(name = "linea_id", referencedColumnName = "id")
+    @ManyToOne(optional = false)
+    private Linea lineaId;
 
     public Familia() {
     }
@@ -69,13 +76,12 @@ public class Familia implements Serializable {
         this.id = id;
     }
 
-    public Familia(Integer id, String nombre, Date creadoEl, Date modificadoEl, Date eliminadoEl, int lineaId) {
+    public Familia(Integer id, String nombre, Date creadoEl, Date modificadoEl, Date eliminadoEl) {
         this.id = id;
         this.nombre = nombre;
         this.creadoEl = creadoEl;
         this.modificadoEl = modificadoEl;
         this.eliminadoEl = eliminadoEl;
-        this.lineaId = lineaId;
     }
 
     public Integer getId() {
@@ -118,11 +124,20 @@ public class Familia implements Serializable {
         this.eliminadoEl = eliminadoEl;
     }
 
-    public int getLineaId() {
+    @XmlTransient
+    public Collection<Producto> getProductoCollection() {
+        return productoCollection;
+    }
+
+    public void setProductoCollection(Collection<Producto> productoCollection) {
+        this.productoCollection = productoCollection;
+    }
+
+    public Linea getLineaId() {
         return lineaId;
     }
 
-    public void setLineaId(int lineaId) {
+    public void setLineaId(Linea lineaId) {
         this.lineaId = lineaId;
     }
 

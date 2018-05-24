@@ -13,6 +13,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -35,8 +37,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "Costo.findByEsActual", query = "SELECT c FROM Costo c WHERE c.esActual = :esActual")
     , @NamedQuery(name = "Costo.findByCreadoEl", query = "SELECT c FROM Costo c WHERE c.creadoEl = :creadoEl")
     , @NamedQuery(name = "Costo.findByModificadoEl", query = "SELECT c FROM Costo c WHERE c.modificadoEl = :modificadoEl")
-    , @NamedQuery(name = "Costo.findByEliminadoEl", query = "SELECT c FROM Costo c WHERE c.eliminadoEl = :eliminadoEl")
-    , @NamedQuery(name = "Costo.findByProductoId", query = "SELECT c FROM Costo c WHERE c.productoId = :productoId")})
+    , @NamedQuery(name = "Costo.findByEliminadoEl", query = "SELECT c FROM Costo c WHERE c.eliminadoEl = :eliminadoEl")})
 public class Costo implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -67,9 +68,9 @@ public class Costo implements Serializable {
     @Column(name = "eliminado_el")
     @Temporal(TemporalType.TIMESTAMP)
     private Date eliminadoEl;
-    @Basic(optional = false)
-    @Column(name = "producto_id")
-    private int productoId;
+    @JoinColumn(name = "producto_id", referencedColumnName = "id")
+    @ManyToOne(optional = false)
+    private Producto productoId;
 
     public Costo() {
     }
@@ -78,7 +79,7 @@ public class Costo implements Serializable {
         this.id = id;
     }
 
-    public Costo(Integer id, Date fecha, int valor, int esActual, Date creadoEl, Date modificadoEl, Date eliminadoEl, int productoId) {
+    public Costo(Integer id, Date fecha, int valor, int esActual, Date creadoEl, Date modificadoEl, Date eliminadoEl) {
         this.id = id;
         this.fecha = fecha;
         this.valor = valor;
@@ -86,7 +87,6 @@ public class Costo implements Serializable {
         this.creadoEl = creadoEl;
         this.modificadoEl = modificadoEl;
         this.eliminadoEl = eliminadoEl;
-        this.productoId = productoId;
     }
 
     public Integer getId() {
@@ -145,11 +145,11 @@ public class Costo implements Serializable {
         this.eliminadoEl = eliminadoEl;
     }
 
-    public int getProductoId() {
+    public Producto getProductoId() {
         return productoId;
     }
 
-    public void setProductoId(int productoId) {
+    public void setProductoId(Producto productoId) {
         this.productoId = productoId;
     }
 
