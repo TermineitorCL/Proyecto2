@@ -5,6 +5,14 @@
  */
 package GUI;
 
+import Data.UnidadMedida;
+import java.time.Instant;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+import javax.persistence.Query;
+import java.util.Date;
+
 /**
  *
  * @author gabri
@@ -27,11 +35,13 @@ public class IngresoUnidadMedida extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        entityManager1 = java.beans.Beans.isDesignTime() ? null : javax.persistence.Persistence.createEntityManagerFactory("Proyecto2PU").createEntityManager();
+        entityManager2 = java.beans.Beans.isDesignTime() ? null : javax.persistence.Persistence.createEntityManagerFactory("Proyecto2PU").createEntityManager();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        tf_codigo = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
+        tf_descripcion = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
         Guardar = new javax.swing.JButton();
 
@@ -39,15 +49,26 @@ public class IngresoUnidadMedida extends javax.swing.JInternalFrame {
 
         jLabel1.setText("Codigo");
         jPanel1.add(jLabel1);
-        jPanel1.add(jTextField1);
+
+        tf_codigo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tf_codigoActionPerformed(evt);
+            }
+        });
+        jPanel1.add(tf_codigo);
 
         jLabel2.setText("Descripcion");
         jPanel1.add(jLabel2);
-        jPanel1.add(jTextField2);
+        jPanel1.add(tf_descripcion);
 
         jPanel2.setLayout(new java.awt.GridLayout(1, 0));
 
         Guardar.setText("Guardar");
+        Guardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                GuardarActionPerformed(evt);
+            }
+        });
         jPanel2.add(Guardar);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -68,14 +89,37 @@ public class IngresoUnidadMedida extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void tf_codigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tf_codigoActionPerformed
+
+    }//GEN-LAST:event_tf_codigoActionPerformed
+
+    private void GuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GuardarActionPerformed
+        // TODO add your handling code here:
+        entityManager1.getTransaction().begin();
+        Date d = new Date();
+        UnidadMedida u = new UnidadMedida();
+        u.setCodigo(tf_codigo.getText().toString());
+        u.setDescripcion(tf_descripcion.getText().toString());
+        u.setCreadoEl(d);
+        u.setModificadoEl(d);
+        u.setEliminadoEl(null);
+        entityManager1.persist(u);
+        entityManager1.flush();
+        entityManager1.getTransaction().commit();
+        entityManager1.close();
+
+    }//GEN-LAST:event_GuardarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Guardar;
+    private javax.persistence.EntityManager entityManager1;
+    private javax.persistence.EntityManager entityManager2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
+    private javax.swing.JTextField tf_codigo;
+    private javax.swing.JTextField tf_descripcion;
     // End of variables declaration//GEN-END:variables
 }
