@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
 <Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JInternalFrameFormInfo">
+  <NonVisualComponents>
+    <Component class="javax.persistence.EntityManager" name="entityManager1">
+      <Properties>
+        <Property name="persistenceUnit" type="java.lang.String" value="pu"/>
+      </Properties>
+    </Component>
+  </NonVisualComponents>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
   </SyntheticProperties>
@@ -30,8 +37,8 @@
               <Group type="103" groupAlignment="0" max="-2" attributes="0">
                   <Component id="tf_guardarRegistro" min="-2" max="-2" attributes="0"/>
                   <Component id="tf_correoRegistro" pref="133" max="32767" attributes="0"/>
-                  <Component id="tf_contraRegistro" alignment="0" max="32767" attributes="0"/>
                   <Component id="tf_nombreRegistro" alignment="0" max="32767" attributes="0"/>
+                  <Component id="tf_contraRegistro" max="32767" attributes="0"/>
               </Group>
               <EmptySpace pref="77" max="32767" attributes="0"/>
           </Group>
@@ -57,7 +64,7 @@
               </Group>
               <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
               <Component id="tf_guardarRegistro" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="70" max="32767" attributes="0"/>
+              <EmptySpace pref="74" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -82,15 +89,18 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Guardar"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="tf_guardarRegistroActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="tf_nombreRegistro">
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="tf_nombreRegistroActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JTextField" name="tf_contraRegistro">
-    </Component>
     <Component class="javax.swing.JTextField" name="tf_correoRegistro">
+    </Component>
+    <Component class="javax.swing.JPasswordField" name="tf_contraRegistro">
     </Component>
   </SubComponents>
 </Form>
