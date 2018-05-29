@@ -6,10 +6,8 @@
 package Data;
 
 import java.io.Serializable;
-import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -17,16 +15,14 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Matia
+ * @author Pyther
  */
 @Entity
 @Table(name = "unidad_medida")
@@ -61,12 +57,9 @@ public class UnidadMedida implements Serializable {
     @Column(name = "modificado_el")
     @Temporal(TemporalType.TIMESTAMP)
     private Date modificadoEl;
-    @Basic(optional = false)
     @Column(name = "eliminado_el")
     @Temporal(TemporalType.TIMESTAMP)
     private Date eliminadoEl;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "unidadMedidaId")
-    private Collection<Producto> productoCollection;
 
     public UnidadMedida() {
     }
@@ -75,13 +68,12 @@ public class UnidadMedida implements Serializable {
         this.id = id;
     }
 
-    public UnidadMedida(Integer id, String codigo, String descripcion, Date creadoEl, Date modificadoEl, Date eliminadoEl) {
+    public UnidadMedida(Integer id, String codigo, String descripcion, Date creadoEl, Date modificadoEl) {
         this.id = id;
         this.codigo = codigo;
         this.descripcion = descripcion;
         this.creadoEl = creadoEl;
         this.modificadoEl = modificadoEl;
-        this.eliminadoEl = eliminadoEl;
     }
 
     public Integer getId() {
@@ -130,15 +122,6 @@ public class UnidadMedida implements Serializable {
 
     public void setEliminadoEl(Date eliminadoEl) {
         this.eliminadoEl = eliminadoEl;
-    }
-
-    @XmlTransient
-    public Collection<Producto> getProductoCollection() {
-        return productoCollection;
-    }
-
-    public void setProductoCollection(Collection<Producto> productoCollection) {
-        this.productoCollection = productoCollection;
     }
 
     @Override
