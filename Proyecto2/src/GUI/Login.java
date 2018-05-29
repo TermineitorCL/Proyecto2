@@ -5,6 +5,14 @@
  */
 package GUI;
 
+import Data.Usuario;
+import java.util.List;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+import javax.persistence.Query;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Matia
@@ -17,7 +25,8 @@ public class Login extends javax.swing.JInternalFrame {
     public Login() {
         initComponents();
     }
-
+    
+    private static final String PERSISTENCE_UNIT_NAME = "Proyecto2PU";
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -29,13 +38,13 @@ public class Login extends javax.swing.JInternalFrame {
 
         entityManager1 = java.beans.Beans.isDesignTime() ? null : javax.persistence.Persistence.createEntityManagerFactory("Proyecto2PU").createEntityManager();
         jLabel1 = new javax.swing.JLabel();
-        tf_usuario = new javax.swing.JTextField();
+        tf_correo = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         tf_contraseña = new javax.swing.JPasswordField();
-        jButton1 = new javax.swing.JButton();
+        bt_login = new javax.swing.JButton();
 
         jLabel1.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
-        jLabel1.setText("Usuario");
+        jLabel1.setText("Correo");
 
         jLabel2.setText("Contraseña");
 
@@ -45,10 +54,10 @@ public class Login extends javax.swing.JInternalFrame {
             }
         });
 
-        jButton1.setText("Ingresar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        bt_login.setText("Ingresar");
+        bt_login.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                bt_loginActionPerformed(evt);
             }
         });
 
@@ -61,9 +70,9 @@ public class Login extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 88, Short.MAX_VALUE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 127, Short.MAX_VALUE)
+                    .addComponent(bt_login, javax.swing.GroupLayout.DEFAULT_SIZE, 127, Short.MAX_VALUE)
                     .addComponent(tf_contraseña)
-                    .addComponent(tf_usuario))
+                    .addComponent(tf_correo))
                 .addContainerGap(161, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -72,13 +81,13 @@ public class Login extends javax.swing.JInternalFrame {
                 .addGap(72, 72, 72)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(tf_usuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(tf_correo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(tf_contraseña, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(29, 29, 29)
-                .addComponent(jButton1)
+                .addComponent(bt_login)
                 .addContainerGap(138, Short.MAX_VALUE))
         );
 
@@ -86,20 +95,43 @@ public class Login extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void tf_contraseñaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tf_contraseñaActionPerformed
-        // TODO add your handling code here:
+        
+
     }//GEN-LAST:event_tf_contraseñaActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void bt_loginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_loginActionPerformed
+       
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
+        EntityManager entityManager = emf.createEntityManager();
+
+        try {
+
+            entityManager.getTransaction().begin();
+            
+            
+            String qlQuery = "SELECT u.correo FROM Usuario u";
+            Query query = entityManager.createQuery(qlQuery);
+            List<Usuario> usuarios = query.getResultList();
+            entityManager.getTransaction().commit();
+            
+            System.out.println(usuarios);
+                 
+        }finally {
+
+            entityManager.close();
+            emf.close();
+        }
+    
+        
+    }//GEN-LAST:event_bt_loginActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton bt_login;
     private javax.persistence.EntityManager entityManager1;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPasswordField tf_contraseña;
-    private javax.swing.JTextField tf_usuario;
+    private javax.swing.JTextField tf_correo;
     // End of variables declaration//GEN-END:variables
 }

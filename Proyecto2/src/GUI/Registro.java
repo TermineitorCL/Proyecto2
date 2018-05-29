@@ -5,6 +5,7 @@
  */
 package GUI;
 import Data.Usuario;
+import javax.swing.JOptionPane;
 /**
  *
  * @author da
@@ -106,14 +107,16 @@ public class Registro extends javax.swing.JInternalFrame {
         entityManager1.getTransaction().begin();
 
         Usuario u = new Usuario();
-        u.setNombre(tf_nombreRegistro.getText().toString());
-        u.setPass(tf_contraRegistro.getText().toString());
-        u.setCorreo(tf_correoRegistro.getText().toString());
+        u.setNombre(tf_nombreRegistro.getText());
+        u.setPass(tf_contraRegistro.getText());
+        u.setCorreo(tf_correoRegistro.getText());
 
         entityManager1.persist(u);
         entityManager1.flush();
         entityManager1.getTransaction().commit();
         entityManager1.close();
+        JOptionPane.showMessageDialog(null, "Registro guardado con exito");
+        this.dispose();
 
 
     }//GEN-LAST:event_tf_guardarRegistroActionPerformed

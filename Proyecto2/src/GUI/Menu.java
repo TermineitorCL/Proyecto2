@@ -5,6 +5,7 @@
  */
 package GUI;
 
+
 /**
  *
  * @author Matia
@@ -16,6 +17,8 @@ public class Menu extends javax.swing.JFrame {
      */
     public Menu() {
         initComponents();
+        //this.editMenu.setVisible(false);
+        //this.helpMenu.setVisible(false);
     }
 
     /**
@@ -358,9 +361,9 @@ public class Menu extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane desktopPane;
-    private javax.swing.JMenu editMenu;
+    public javax.swing.JMenu editMenu;
     private javax.swing.JMenu fileMenu;
-    private javax.swing.JMenu helpMenu;
+    public javax.swing.JMenu helpMenu;
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JMenuItem ps_add_costos;
     private javax.swing.JMenuItem ps_add_familia;
