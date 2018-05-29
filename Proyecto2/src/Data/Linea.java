@@ -50,15 +50,15 @@ public class Linea implements Serializable {
     @Column(name = "nombre")
     private String nombre;
     @Basic(optional = false)
-    @Column(name = "creado_el")
+    @Column(name = "creadoEl")
     @Temporal(TemporalType.TIMESTAMP)
     private Date creadoEl;
     @Basic(optional = false)
-    @Column(name = "modificado_el")
+    @Column(name = "modificadoEl")
     @Temporal(TemporalType.TIMESTAMP)
     private Date modificadoEl;
     @Basic(optional = false)
-    @Column(name = "eliminado_el")
+    @Column(name = "eliminadoEl")
     @Temporal(TemporalType.TIMESTAMP)
     private Date eliminadoEl;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "lineaId")
