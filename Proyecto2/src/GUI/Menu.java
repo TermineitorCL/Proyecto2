@@ -309,7 +309,13 @@ public class Menu extends javax.swing.JFrame {
     }//GEN-LAST:event_ps_reporte_panActionPerformed
 
     private void ps_registroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ps_registroActionPerformed
-        // TODO add your handling code here:
+        Registro internal = new Registro();
+
+        internal.pack();
+        internal.setResizable(true);
+        internal.setClosable(true);
+        desktopPane.add(internal);
+        internal.setVisible(true);
     }//GEN-LAST:event_ps_registroActionPerformed
 
     /**

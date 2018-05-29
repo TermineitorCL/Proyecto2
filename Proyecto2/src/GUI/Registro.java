@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 package GUI;
-
+import Data.Usuario;
 /**
  *
  * @author da
@@ -27,13 +27,14 @@ public class Registro extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        entityManager1 = java.beans.Beans.isDesignTime() ? null : javax.persistence.Persistence.createEntityManagerFactory("Proyecto2PU").createEntityManager();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         tf_guardarRegistro = new javax.swing.JButton();
         tf_nombreRegistro = new javax.swing.JTextField();
-        tf_contraRegistro = new javax.swing.JTextField();
         tf_correoRegistro = new javax.swing.JTextField();
+        tf_contraRegistro = new javax.swing.JPasswordField();
 
         jLabel1.setText("Nombre");
 
@@ -42,6 +43,11 @@ public class Registro extends javax.swing.JInternalFrame {
         jLabel3.setText("Correo");
 
         tf_guardarRegistro.setText("Guardar");
+        tf_guardarRegistro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tf_guardarRegistroActionPerformed(evt);
+            }
+        });
 
         tf_nombreRegistro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -63,8 +69,8 @@ public class Registro extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(tf_guardarRegistro)
                     .addComponent(tf_correoRegistro, javax.swing.GroupLayout.DEFAULT_SIZE, 133, Short.MAX_VALUE)
-                    .addComponent(tf_contraRegistro)
-                    .addComponent(tf_nombreRegistro))
+                    .addComponent(tf_nombreRegistro)
+                    .addComponent(tf_contraRegistro))
                 .addContainerGap(77, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -84,7 +90,7 @@ public class Registro extends javax.swing.JInternalFrame {
                     .addComponent(tf_correoRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(29, 29, 29)
                 .addComponent(tf_guardarRegistro)
-                .addContainerGap(70, Short.MAX_VALUE))
+                .addContainerGap(74, Short.MAX_VALUE))
         );
 
         pack();
@@ -94,12 +100,31 @@ public class Registro extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_tf_nombreRegistroActionPerformed
 
+    private void tf_guardarRegistroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tf_guardarRegistroActionPerformed
+
+        // TODO add your handling code here:
+        entityManager1.getTransaction().begin();
+
+        Usuario u = new Usuario();
+        u.setNombre(tf_nombreRegistro.getText().toString());
+        u.setPass(tf_contraRegistro.getText().toString());
+        u.setCorreo(tf_correoRegistro.getText().toString());
+
+        entityManager1.persist(u);
+        entityManager1.flush();
+        entityManager1.getTransaction().commit();
+        entityManager1.close();
+
+
+    }//GEN-LAST:event_tf_guardarRegistroActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.persistence.EntityManager entityManager1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JTextField tf_contraRegistro;
+    private javax.swing.JPasswordField tf_contraRegistro;
     private javax.swing.JTextField tf_correoRegistro;
     private javax.swing.JButton tf_guardarRegistro;
     private javax.swing.JTextField tf_nombreRegistro;
