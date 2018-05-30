@@ -5,6 +5,9 @@
  */
 package GUI;
 
+import Data.Linea;
+import java.util.List;
+
 /**
  *
  * @author Pyther
@@ -16,6 +19,11 @@ public class IngresoFamilia extends javax.swing.JInternalFrame {
      */
     public IngresoFamilia() {
         initComponents();
+        List<Linea> lineas= query1.getResultList();
+        jComboBox1.removeAllItems();
+        for (Linea ln : lineas) {
+            jComboBox1.addItem(ln.getNombre());
+        }
     }
 
     /**
@@ -27,6 +35,8 @@ public class IngresoFamilia extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        entityManager1 = java.beans.Beans.isDesignTime() ? null : javax.persistence.Persistence.createEntityManagerFactory("Proyecto2PU").createEntityManager();
+        query1 = java.beans.Beans.isDesignTime() ? null : entityManager1.createQuery("select l from Linea l");
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -83,11 +93,13 @@ public class IngresoFamilia extends javax.swing.JInternalFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.persistence.EntityManager entityManager1;
     private javax.swing.JButton jButton1;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField jTextField1;
+    private javax.persistence.Query query1;
     // End of variables declaration//GEN-END:variables
 }
