@@ -46,7 +46,7 @@ public class Usuario implements Serializable {
     private String pass;
     @Basic(optional = false)
     @Column(name = "correo")
-    private String correo;
+    public String correo;
 
     public Usuario() {
     }

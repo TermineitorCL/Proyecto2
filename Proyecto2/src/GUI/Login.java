@@ -100,22 +100,23 @@ public class Login extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_tf_contraseñaActionPerformed
 
     private void bt_loginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_loginActionPerformed
-       
+        Usuario us = new Usuario();
         EntityManagerFactory emf = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
         EntityManager entityManager = emf.createEntityManager();
 
         try {
-
             entityManager.getTransaction().begin();
-            
             
             String qlQuery = "SELECT u.correo FROM Usuario u";
             Query query = entityManager.createQuery(qlQuery);
             List<Usuario> usuarios = query.getResultList();
             entityManager.getTransaction().commit();
+           
             
+            JOptionPane.showMessageDialog(null, "Bienvenido " + us.getCorreo());
             System.out.println(usuarios);
-                 
+            
+
         }finally {
 
             entityManager.close();
