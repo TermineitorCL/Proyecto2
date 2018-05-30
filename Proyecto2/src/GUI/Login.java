@@ -100,22 +100,26 @@ public class Login extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_tf_contraseñaActionPerformed
 
     private void bt_loginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_loginActionPerformed
-        Usuario us = new Usuario();
+        Menu me = new Menu();
         EntityManagerFactory emf = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
         EntityManager entityManager = emf.createEntityManager();
 
         try {
-            entityManager.getTransaction().begin();
             
-            String qlQuery = "SELECT u.correo FROM Usuario u";
+            entityManager.getTransaction().begin();  
+            String qlQuery = "SELECT u.correo FROM Usuario u  WHERE u.correo = '"+tf_correo.getText()+"' AND u.pass = '"+tf_contraseña.getText()+"'";
             Query query = entityManager.createQuery(qlQuery);
             List<Usuario> usuarios = query.getResultList();
             entityManager.getTransaction().commit();
            
             
-            JOptionPane.showMessageDialog(null, "Bienvenido " + us.getCorreo());
-            System.out.println(usuarios);
-            
+            if (usuarios.isEmpty()) {
+                JOptionPane.showMessageDialog(null, "La contraseña o el correo esta incorrecto intentelo denuevo");
+            }else{
+                JOptionPane.showMessageDialog(null, "Bienvenido ");
+            }
+       
+
 
         }finally {
 

@@ -17,8 +17,8 @@ public class Menu extends javax.swing.JFrame {
      */
     public Menu() {
         initComponents();
-        //this.editMenu.setVisible(false);
-        //this.helpMenu.setVisible(false);
+        this.editMenu.setVisible(false);
+        this.helpMenu.setVisible(false);
     }
 
     /**
