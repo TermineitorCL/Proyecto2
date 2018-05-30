@@ -27,6 +27,7 @@ public class Login extends javax.swing.JInternalFrame {
     }
     
     private static final String PERSISTENCE_UNIT_NAME = "Proyecto2PU";
+    String logeado = "no";
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -116,11 +117,11 @@ public class Login extends javax.swing.JInternalFrame {
             if (usuarios.isEmpty()) {
                 JOptionPane.showMessageDialog(null, "La contraseña o el correo esta incorrecto intentelo denuevo");
             }else{
-                JOptionPane.showMessageDialog(null, "Bienvenido ");
+                JOptionPane.showMessageDialog(null, "Bienvenido");
+                logeado = "si";
+                me.login_menu();
             }
        
-
-
         }finally {
 
             entityManager.close();
