@@ -94,7 +94,7 @@ public class IngresoLinea extends javax.swing.JInternalFrame {
         entityManager1.getTransaction().begin();
         Date d = new Date();
         Linea l = new Linea();
-        l.setNombre(txt_descripcion_linea.getText().toString());
+        l.setNombre(txt_descripcion_linea.getText());
         l.setEliminadoEl(d);
         l.setModificadoEl(d);
         l.setCreadoEl(d);

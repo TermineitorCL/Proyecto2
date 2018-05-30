@@ -98,8 +98,8 @@ public class IngresoUnidadMedida extends javax.swing.JInternalFrame {
         entityManager1.getTransaction().begin();
         Date d = new Date();
         UnidadMedida u = new UnidadMedida();
-        u.setCodigo(tf_codigo.getText().toString());
-        u.setDescripcion(tf_descripcion.getText().toString());
+        u.setCodigo(tf_codigo.getText());
+        u.setDescripcion(tf_descripcion.getText());
         u.setCreadoEl(d);
         u.setModificadoEl(d);
         u.setEliminadoEl(null);
