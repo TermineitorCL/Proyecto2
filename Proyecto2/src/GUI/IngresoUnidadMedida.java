@@ -12,6 +12,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 import java.util.Date;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -102,7 +103,8 @@ public class IngresoUnidadMedida extends javax.swing.JInternalFrame {
         u.setDescripcion(tf_descripcion.getText());
         u.setCreadoEl(d);
         u.setModificadoEl(d);
-        u.setEliminadoEl(null);
+        u.setEliminadoEl(d);
+        JOptionPane.showMessageDialog(null,"Se a guardado correctamente");
         entityManager1.persist(u);
         entityManager1.flush();
         entityManager1.getTransaction().commit();
