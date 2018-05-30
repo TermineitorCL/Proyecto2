@@ -22,7 +22,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author Pyther
+ * @author Matia
  */
 @Entity
 @Table(name = "unidad_medida")
@@ -57,6 +57,7 @@ public class UnidadMedida implements Serializable {
     @Column(name = "modificado_el")
     @Temporal(TemporalType.TIMESTAMP)
     private Date modificadoEl;
+    @Basic(optional = false)
     @Column(name = "eliminado_el")
     @Temporal(TemporalType.TIMESTAMP)
     private Date eliminadoEl;
@@ -68,12 +69,13 @@ public class UnidadMedida implements Serializable {
         this.id = id;
     }
 
-    public UnidadMedida(Integer id, String codigo, String descripcion, Date creadoEl, Date modificadoEl) {
+    public UnidadMedida(Integer id, String codigo, String descripcion, Date creadoEl, Date modificadoEl, Date eliminadoEl) {
         this.id = id;
         this.codigo = codigo;
         this.descripcion = descripcion;
         this.creadoEl = creadoEl;
         this.modificadoEl = modificadoEl;
+        this.eliminadoEl = eliminadoEl;
     }
 
     public Integer getId() {

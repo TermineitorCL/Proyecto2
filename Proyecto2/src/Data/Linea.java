@@ -6,10 +6,8 @@
 package Data;
 
 import java.io.Serializable;
-import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -17,12 +15,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -50,19 +46,17 @@ public class Linea implements Serializable {
     @Column(name = "nombre")
     private String nombre;
     @Basic(optional = false)
-    @Column(name = "creadoEl")
+    @Column(name = "creado_el")
     @Temporal(TemporalType.TIMESTAMP)
     private Date creadoEl;
     @Basic(optional = false)
-    @Column(name = "modificadoEl")
+    @Column(name = "modificado_el")
     @Temporal(TemporalType.TIMESTAMP)
     private Date modificadoEl;
     @Basic(optional = false)
-    @Column(name = "eliminadoEl")
+    @Column(name = "eliminado_el")
     @Temporal(TemporalType.TIMESTAMP)
     private Date eliminadoEl;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "lineaId")
-    private Collection<Familia> familiaCollection;
 
     public Linea() {
     }
@@ -117,15 +111,6 @@ public class Linea implements Serializable {
 
     public void setEliminadoEl(Date eliminadoEl) {
         this.eliminadoEl = eliminadoEl;
-    }
-
-    @XmlTransient
-    public Collection<Familia> getFamiliaCollection() {
-        return familiaCollection;
-    }
-
-    public void setFamiliaCollection(Collection<Familia> familiaCollection) {
-        this.familiaCollection = familiaCollection;
     }
 
     @Override
