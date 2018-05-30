@@ -6,6 +6,7 @@
 package GUI;
 
 
+
 /**
  *
  * @author Matia
@@ -17,8 +18,17 @@ public class Menu extends javax.swing.JFrame {
      */
     public Menu() {
         initComponents();
-        this.editMenu.setVisible(false);
-        this.helpMenu.setVisible(false);
+        
+        /**
+        Login l = new Login();
+        if (l.logeado.equals("no")) {
+            this.editMenu.setVisible(false);
+            this.helpMenu.setVisible(false);
+        } else if (l.logeado.equals("si")) {
+            this.editMenu.setVisible(true);
+            this.helpMenu.setVisible(true);
+        }
+        */ 
     }
 
     /**
@@ -320,7 +330,11 @@ public class Menu extends javax.swing.JFrame {
         desktopPane.add(internal);
         internal.setVisible(true);
     }//GEN-LAST:event_ps_registroActionPerformed
-
+    
+    public void login_menu() {
+        initComponents();
+    }
+    
     /**
      * @param args the command line arguments
      */
