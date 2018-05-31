@@ -116,8 +116,10 @@ public class Login extends javax.swing.JInternalFrame {
             
             if (usuarios.isEmpty()) {
                 JOptionPane.showMessageDialog(null, "La contraseña o el correo esta incorrecto intentelo denuevo");
+                this.dispose();
             }else{
                 JOptionPane.showMessageDialog(null, "Bienvenido");
+                this.dispose();
                 logeado = "si";
                 me.login_menu();
             }
