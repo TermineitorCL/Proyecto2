@@ -6,10 +6,8 @@
 package Data;
 
 import java.io.Serializable;
-import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -19,12 +17,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -63,8 +59,6 @@ public class Familia implements Serializable {
     @Column(name = "eliminado_el")
     @Temporal(TemporalType.TIMESTAMP)
     private Date eliminadoEl;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "familiaId")
-    private Collection<Producto> productoCollection;
     @JoinColumn(name = "linea_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Linea lineaId;
@@ -124,20 +118,11 @@ public class Familia implements Serializable {
         this.eliminadoEl = eliminadoEl;
     }
 
-    @XmlTransient
-    public Collection<Producto> getProductoCollection() {
-        return productoCollection;
-    }
-
-    public void setProductoCollection(Collection<Producto> productoCollection) {
-        this.productoCollection = productoCollection;
-    }
-
     public Linea getLineaId() {
         return lineaId;
     }
 
-    public void setLineaId( Linea lineaId) {
+    public void setLineaId(Linea lineaId) {
         this.lineaId = lineaId;
     }
 
