@@ -6,8 +6,10 @@
 package GUI;
 
 import Data.Linea;
+import Data.Familia;
 import java.util.List;
-
+import java.util.Date;
+import javax.swing.JOptionPane;
 /**
  *
  * @author Pyther
@@ -20,9 +22,9 @@ public class IngresoFamilia extends javax.swing.JInternalFrame {
     public IngresoFamilia() {
         initComponents();
         List<Linea> lineas= query1.getResultList();
-        jComboBox1.removeAllItems();
+        cb_codigo_linea.removeAllItems();
         for (Linea ln : lineas) {
-            jComboBox1.addItem(ln.getNombre());
+            cb_codigo_linea.addItem(ln.getNombre());
         }
     }
 
@@ -40,17 +42,33 @@ public class IngresoFamilia extends javax.swing.JInternalFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jTextField1 = new javax.swing.JTextField();
+        cb_codigo_linea = new javax.swing.JComboBox<>();
+        tf_familia_descripcion = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
 
         jLabel1.setText("Codigo linea");
 
         jLabel2.setText("Descripcion Familia ");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cb_codigo_linea.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cb_codigo_linea.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cb_codigo_lineaActionPerformed(evt);
+            }
+        });
+
+        tf_familia_descripcion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tf_familia_descripcionActionPerformed(evt);
+            }
+        });
 
         jButton1.setText("Guardar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -66,8 +84,8 @@ public class IngresoFamilia extends javax.swing.JInternalFrame {
                             .addComponent(jLabel2))
                         .addGap(40, 40, 40)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jTextField1)
-                            .addComponent(jComboBox1, 0, 74, Short.MAX_VALUE))))
+                            .addComponent(tf_familia_descripcion)
+                            .addComponent(cb_codigo_linea, 0, 74, Short.MAX_VALUE))))
                 .addContainerGap(147, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -76,11 +94,11 @@ public class IngresoFamilia extends javax.swing.JInternalFrame {
                 .addGap(50, 50, 50)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cb_codigo_linea, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(20, 20, 20)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel2)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(tf_familia_descripcion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(35, 35, 35)
                 .addComponent(jButton1)
                 .addContainerGap(19, Short.MAX_VALUE))
@@ -91,15 +109,41 @@ public class IngresoFamilia extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        
+         entityManager1.getTransaction().begin();
+        Date d = new Date();
+        Familia f = new Familia();
+       
+        f.setNombre(tf_familia_descripcion.getText());
+        f.setEliminadoEl(d);
+        f.setModificadoEl(d);
+        f.setCreadoEl(d);
+        JOptionPane.showMessageDialog(null,"Se a guardado correctamente");
+
+        entityManager1.persist(f);
+        entityManager1.flush();
+        entityManager1.getTransaction().commit();
+        entityManager1.close();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void cb_codigo_lineaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cb_codigo_lineaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cb_codigo_lineaActionPerformed
+
+    private void tf_familia_descripcionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tf_familia_descripcionActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tf_familia_descripcionActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> cb_codigo_linea;
     private javax.persistence.EntityManager entityManager1;
     private javax.swing.JButton jButton1;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField jTextField1;
     private javax.persistence.Query query1;
+    private javax.swing.JTextField tf_familia_descripcion;
     // End of variables declaration//GEN-END:variables
 }

@@ -137,7 +137,7 @@ public class Familia implements Serializable {
         return lineaId;
     }
 
-    public void setLineaId(Linea lineaId) {
+    public void setLineaId( Linea lineaId) {
         this.lineaId = lineaId;
     }
 
