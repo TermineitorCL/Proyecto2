@@ -99,6 +99,7 @@ public class IngresoLinea extends javax.swing.JInternalFrame {
         l.setModificadoEl(d);
         l.setCreadoEl(d);
         JOptionPane.showMessageDialog(null,"Se a guardado correctamente");
+        this.dispose();
 
         entityManager1.persist(l);
         entityManager1.flush();

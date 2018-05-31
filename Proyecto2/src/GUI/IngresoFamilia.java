@@ -19,14 +19,17 @@ public class IngresoFamilia extends javax.swing.JInternalFrame {
     /**
      * Creates new form Interfaz_Familia
      */
+ 
     public IngresoFamilia() {
         initComponents();
         List<Linea> lineas= query1.getResultList();
         cb_codigo_linea.removeAllItems();
+        
         for (Linea ln : lineas) {
             cb_codigo_linea.addItem(ln.getNombre());
         }
     }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -84,9 +87,9 @@ public class IngresoFamilia extends javax.swing.JInternalFrame {
                             .addComponent(jLabel2))
                         .addGap(40, 40, 40)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(tf_familia_descripcion)
-                            .addComponent(cb_codigo_linea, 0, 74, Short.MAX_VALUE))))
-                .addContainerGap(147, Short.MAX_VALUE))
+                            .addComponent(cb_codigo_linea, 0, 110, Short.MAX_VALUE)
+                            .addComponent(tf_familia_descripcion))))
+                .addContainerGap(79, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -114,19 +117,23 @@ public class IngresoFamilia extends javax.swing.JInternalFrame {
         Date d = new Date();
         Familia f = new Familia();
         Linea l = new Linea();
+        
         f.setNombre(tf_familia_descripcion.getText());
         f.setEliminadoEl(d);
         f.setModificadoEl(d);
         f.setCreadoEl(d);
-        int x=(cb_codigo_linea.getSelectedIndex())+1;
+        
+        int x=(cb_codigo_linea.getSelectedIndex()+1);
         l.setId(x);
         f.setLineaId(l);
+        
         JOptionPane.showMessageDialog(null,"Se a guardado correctamente");
-
+        this.dispose();
         entityManager1.persist(f);
         entityManager1.flush();
         entityManager1.getTransaction().commit();
         entityManager1.close();
+        
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void cb_codigo_lineaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cb_codigo_lineaActionPerformed
