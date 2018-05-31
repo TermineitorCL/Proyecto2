@@ -110,16 +110,17 @@ public class IngresoFamilia extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        
         entityManager1.getTransaction().begin();
         Date d = new Date();
         Familia f = new Familia();
-       
+        Linea l = new Linea();
         f.setNombre(tf_familia_descripcion.getText());
         f.setEliminadoEl(d);
         f.setModificadoEl(d);
         f.setCreadoEl(d);
-        //f.LineaId(cb_codigo_linea.getSelectedItem());
+        int x=(cb_codigo_linea.getSelectedIndex())+1;
+        l.setId(x);
+        f.setLineaId(l);
         JOptionPane.showMessageDialog(null,"Se a guardado correctamente");
 
         entityManager1.persist(f);
