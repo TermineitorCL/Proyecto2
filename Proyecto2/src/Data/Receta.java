@@ -35,19 +35,6 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Receta.findById", query = "SELECT r FROM Receta r WHERE r.id = :id")})
 public class Receta implements Serializable {
 
-    @Basic(optional = false)
-    @Column(name = "estado")
-    private String estado;
-    @Basic(optional = false)
-    @Column(name = "insumos")
-    private String insumos;
-    @Basic(optional = false)
-    @Column(name = "cantidad")
-    private int cantidad;
-    @JoinColumn(name = "unidad_medidad_id", referencedColumnName = "id")
-    @ManyToOne(optional = false)
-    private UnidadMedida unidadMedidadId;
-
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -115,38 +102,6 @@ public class Receta implements Serializable {
     @Override
     public String toString() {
         return "Data.Receta[ id=" + id + " ]";
-    }
-
-    public String getEstado() {
-        return estado;
-    }
-
-    public void setEstado(String estado) {
-        this.estado = estado;
-    }
-
-    public String getInsumos() {
-        return insumos;
-    }
-
-    public void setInsumos(String insumos) {
-        this.insumos = insumos;
-    }
-
-    public int getCantidad() {
-        return cantidad;
-    }
-
-    public void setCantidad(int cantidad) {
-        this.cantidad = cantidad;
-    }
-
-    public UnidadMedida getUnidadMedidadId() {
-        return unidadMedidadId;
-    }
-
-    public void setUnidadMedidadId(UnidadMedida unidadMedidadId) {
-        this.unidadMedidadId = unidadMedidadId;
     }
     
 }

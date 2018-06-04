@@ -5,13 +5,9 @@
  */
 package Data;
 
-import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeSupport;
 import java.io.Serializable;
-import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -21,13 +17,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -44,12 +37,6 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Familia.findByModificadoEl", query = "SELECT f FROM Familia f WHERE f.modificadoEl = :modificadoEl")
     , @NamedQuery(name = "Familia.findByEliminadoEl", query = "SELECT f FROM Familia f WHERE f.eliminadoEl = :eliminadoEl")})
 public class Familia implements Serializable {
-
-    @Transient
-    private PropertyChangeSupport changeSupport = new PropertyChangeSupport(this);
-
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "familiaId")
-    private Collection<Producto> productoCollection;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -96,9 +83,7 @@ public class Familia implements Serializable {
     }
 
     public void setId(Integer id) {
-        Integer oldId = this.id;
         this.id = id;
-        changeSupport.firePropertyChange("id", oldId, id);
     }
 
     public String getNombre() {
@@ -106,9 +91,7 @@ public class Familia implements Serializable {
     }
 
     public void setNombre(String nombre) {
-        String oldNombre = this.nombre;
         this.nombre = nombre;
-        changeSupport.firePropertyChange("nombre", oldNombre, nombre);
     }
 
     public Date getCreadoEl() {
@@ -116,9 +99,7 @@ public class Familia implements Serializable {
     }
 
     public void setCreadoEl(Date creadoEl) {
-        Date oldCreadoEl = this.creadoEl;
         this.creadoEl = creadoEl;
-        changeSupport.firePropertyChange("creadoEl", oldCreadoEl, creadoEl);
     }
 
     public Date getModificadoEl() {
@@ -126,9 +107,7 @@ public class Familia implements Serializable {
     }
 
     public void setModificadoEl(Date modificadoEl) {
-        Date oldModificadoEl = this.modificadoEl;
         this.modificadoEl = modificadoEl;
-        changeSupport.firePropertyChange("modificadoEl", oldModificadoEl, modificadoEl);
     }
 
     public Date getEliminadoEl() {
@@ -136,9 +115,7 @@ public class Familia implements Serializable {
     }
 
     public void setEliminadoEl(Date eliminadoEl) {
-        Date oldEliminadoEl = this.eliminadoEl;
         this.eliminadoEl = eliminadoEl;
-        changeSupport.firePropertyChange("eliminadoEl", oldEliminadoEl, eliminadoEl);
     }
 
     public Linea getLineaId() {
@@ -146,9 +123,7 @@ public class Familia implements Serializable {
     }
 
     public void setLineaId(Linea lineaId) {
-        Linea oldLineaId = this.lineaId;
         this.lineaId = lineaId;
-        changeSupport.firePropertyChange("lineaId", oldLineaId, lineaId);
     }
 
     @Override
@@ -173,24 +148,7 @@ public class Familia implements Serializable {
 
     @Override
     public String toString() {
-        return nombre;
-    }
-
-    @XmlTransient
-    public Collection<Producto> getProductoCollection() {
-        return productoCollection;
-    }
-
-    public void setProductoCollection(Collection<Producto> productoCollection) {
-        this.productoCollection = productoCollection;
-    }
-
-    public void addPropertyChangeListener(PropertyChangeListener listener) {
-        changeSupport.addPropertyChangeListener(listener);
-    }
-
-    public void removePropertyChangeListener(PropertyChangeListener listener) {
-        changeSupport.removePropertyChangeListener(listener);
+        return "Data.Familia[ id=" + id + " ]";
     }
     
 }
