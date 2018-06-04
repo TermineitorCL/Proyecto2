@@ -5,9 +5,13 @@
  */
 package Data;
 
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -15,10 +19,13 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -36,6 +43,16 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "UnidadMedida.findByModificadoEl", query = "SELECT u FROM UnidadMedida u WHERE u.modificadoEl = :modificadoEl")
     , @NamedQuery(name = "UnidadMedida.findByEliminadoEl", query = "SELECT u FROM UnidadMedida u WHERE u.eliminadoEl = :eliminadoEl")})
 public class UnidadMedida implements Serializable {
+
+    @Transient
+    private PropertyChangeSupport changeSupport = new PropertyChangeSupport(this);
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "unidadMedidadId")
+    private Collection<Receta> recetaCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "unidadMedidaId")
+    private Collection<Producto> productoCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "unidadMedidaId")
+    private Collection<Produccion> produccionCollection;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -83,7 +100,9 @@ public class UnidadMedida implements Serializable {
     }
 
     public void setId(Integer id) {
+        Integer oldId = this.id;
         this.id = id;
+        changeSupport.firePropertyChange("id", oldId, id);
     }
 
     public String getCodigo() {
@@ -91,7 +110,9 @@ public class UnidadMedida implements Serializable {
     }
 
     public void setCodigo(String codigo) {
+        String oldCodigo = this.codigo;
         this.codigo = codigo;
+        changeSupport.firePropertyChange("codigo", oldCodigo, codigo);
     }
 
     public String getDescripcion() {
@@ -99,7 +120,9 @@ public class UnidadMedida implements Serializable {
     }
 
     public void setDescripcion(String descripcion) {
+        String oldDescripcion = this.descripcion;
         this.descripcion = descripcion;
+        changeSupport.firePropertyChange("descripcion", oldDescripcion, descripcion);
     }
 
     public Date getCreadoEl() {
@@ -107,7 +130,9 @@ public class UnidadMedida implements Serializable {
     }
 
     public void setCreadoEl(Date creadoEl) {
+        Date oldCreadoEl = this.creadoEl;
         this.creadoEl = creadoEl;
+        changeSupport.firePropertyChange("creadoEl", oldCreadoEl, creadoEl);
     }
 
     public Date getModificadoEl() {
@@ -115,7 +140,9 @@ public class UnidadMedida implements Serializable {
     }
 
     public void setModificadoEl(Date modificadoEl) {
+        Date oldModificadoEl = this.modificadoEl;
         this.modificadoEl = modificadoEl;
+        changeSupport.firePropertyChange("modificadoEl", oldModificadoEl, modificadoEl);
     }
 
     public Date getEliminadoEl() {
@@ -123,7 +150,9 @@ public class UnidadMedida implements Serializable {
     }
 
     public void setEliminadoEl(Date eliminadoEl) {
+        Date oldEliminadoEl = this.eliminadoEl;
         this.eliminadoEl = eliminadoEl;
+        changeSupport.firePropertyChange("eliminadoEl", oldEliminadoEl, eliminadoEl);
     }
 
     @Override
@@ -148,7 +177,42 @@ public class UnidadMedida implements Serializable {
 
     @Override
     public String toString() {
-        return "Data.UnidadMedida[ id=" + id + " ]";
+        return descripcion;
+    }
+
+    @XmlTransient
+    public Collection<Receta> getRecetaCollection() {
+        return recetaCollection;
+    }
+
+    public void setRecetaCollection(Collection<Receta> recetaCollection) {
+        this.recetaCollection = recetaCollection;
+    }
+
+    @XmlTransient
+    public Collection<Producto> getProductoCollection() {
+        return productoCollection;
+    }
+
+    public void setProductoCollection(Collection<Producto> productoCollection) {
+        this.productoCollection = productoCollection;
+    }
+
+    @XmlTransient
+    public Collection<Produccion> getProduccionCollection() {
+        return produccionCollection;
+    }
+
+    public void setProduccionCollection(Collection<Produccion> produccionCollection) {
+        this.produccionCollection = produccionCollection;
+    }
+
+    public void addPropertyChangeListener(PropertyChangeListener listener) {
+        changeSupport.addPropertyChangeListener(listener);
+    }
+
+    public void removePropertyChangeListener(PropertyChangeListener listener) {
+        changeSupport.removePropertyChangeListener(listener);
     }
     
 }
