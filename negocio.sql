@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 30-05-2018 a las 23:52:02
+-- Tiempo de generación: 04-06-2018 a las 06:39:31
 -- Versión del servidor: 10.1.31-MariaDB
 -- Versión de PHP: 5.6.35
 
@@ -60,11 +60,23 @@ CREATE TABLE `detalle_receta` (
 CREATE TABLE `familia` (
   `id` int(11) NOT NULL,
   `nombre` varchar(45) NOT NULL,
-  `creado_el` datetime NOT NULL,
-  `modificado_el` datetime NOT NULL,
-  `eliminado_el` datetime NOT NULL,
+  `creado_el` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `modificado_el` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `eliminado_el` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `linea_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `familia`
+--
+
+INSERT INTO `familia` (`id`, `nombre`, `creado_el`, `modificado_el`, `eliminado_el`, `linea_id`) VALUES
+(4, 'Mani', '2018-05-31 12:59:14', '2018-05-31 12:59:14', '2018-05-31 12:59:14', 1),
+(5, 'Duro', '2018-05-31 13:00:36', '2018-05-31 13:00:36', '2018-05-31 13:00:36', 2),
+(6, 'Pampita', '2018-06-03 18:45:41', '2018-06-03 18:45:41', '2018-06-03 18:45:41', 2),
+(9, 'Genjibre', '2018-06-03 22:00:08', '2018-06-03 22:00:08', '2018-06-03 22:00:08', 1),
+(12, 'Coche', '2018-06-03 23:48:29', '2018-06-03 23:48:29', '2018-06-03 23:48:29', 10),
+(13, 'Cruzeiro', '2018-06-03 23:50:51', '2018-06-03 23:50:51', '2018-06-03 23:50:51', 11);
 
 -- --------------------------------------------------------
 
@@ -85,8 +97,11 @@ CREATE TABLE `linea` (
 --
 
 INSERT INTO `linea` (`id`, `nombre`, `creado_el`, `modificado_el`, `eliminado_el`) VALUES
-(1, 'PAN', '2018-05-30 17:45:28', '2018-05-30 17:45:28', '2018-05-30 17:45:28'),
-(2, 'PATE', '2018-05-30 17:48:20', '2018-05-30 17:48:20', '2018-05-30 17:48:20');
+(1, 'Salados', '2018-05-31 12:48:54', '2018-05-31 12:48:54', '2018-05-31 12:48:54'),
+(2, 'Pan', '2018-05-31 12:59:53', '2018-05-31 12:59:53', '2018-05-31 12:59:53'),
+(3, 'Lacteos', '2018-05-31 13:05:46', '2018-05-31 13:05:46', '2018-05-31 13:05:46'),
+(10, 'Grasa', '2018-05-31 13:40:32', '2018-05-31 13:40:32', '2018-05-31 13:40:32'),
+(11, 'Cafe', '2018-06-03 23:50:18', '2018-06-03 23:50:18', '2018-06-03 23:50:18');
 
 -- --------------------------------------------------------
 
@@ -108,6 +123,18 @@ CREATE TABLE `precio_venta` (
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `produccion`
+--
+
+CREATE TABLE `produccion` (
+  `id` int(255) NOT NULL,
+  `unidad_medida_id` int(255) NOT NULL,
+  `produccion_cantidad` int(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `producto`
 --
 
@@ -120,7 +147,8 @@ CREATE TABLE `producto` (
   `modificado_el` datetime NOT NULL,
   `eliminado_el` datetime NOT NULL,
   `familia_id` int(11) NOT NULL,
-  `unidad_medida_id` int(11) NOT NULL
+  `unidad_medida_id` int(11) NOT NULL,
+  `linea_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -131,7 +159,11 @@ CREATE TABLE `producto` (
 
 CREATE TABLE `receta` (
   `id` int(11) NOT NULL,
-  `producto_id` int(11) NOT NULL
+  `producto_id` int(11) NOT NULL,
+  `estado` varchar(255) NOT NULL,
+  `insumos` varchar(255) NOT NULL,
+  `cantidad` int(255) NOT NULL,
+  `unidad_medidad_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -154,7 +186,8 @@ CREATE TABLE `unidad_medida` (
 --
 
 INSERT INTO `unidad_medida` (`id`, `codigo`, `descripcion`, `creado_el`, `modificado_el`, `eliminado_el`) VALUES
-(1, 'kg', 'kilos', '2018-05-30 17:51:12', '2018-05-30 17:51:12', '2018-05-30 17:51:12');
+(1, 'kg', 'kilos', '2018-05-30 17:51:12', '2018-05-30 17:51:12', '2018-05-30 17:51:12'),
+(2, 'MT', 'METROS', '2018-05-30 17:54:27', '2018-05-30 17:54:27', '2018-05-30 17:54:27');
 
 -- --------------------------------------------------------
 
@@ -221,19 +254,28 @@ ALTER TABLE `precio_venta`
   ADD KEY `fk_precio_venta_producto1_idx` (`producto_id`);
 
 --
+-- Indices de la tabla `produccion`
+--
+ALTER TABLE `produccion`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY ` 	fk_produccion_unidad_idx` (`unidad_medida_id`);
+
+--
 -- Indices de la tabla `producto`
 --
 ALTER TABLE `producto`
   ADD PRIMARY KEY (`id`),
   ADD KEY `fk_producto_familia1_idx` (`familia_id`),
-  ADD KEY `fk_producto_unidad_medida1_idx` (`unidad_medida_id`);
+  ADD KEY `fk_producto_unidad_medida1_idx` (`unidad_medida_id`),
+  ADD KEY `fk_producto_linea_idx` (`linea_id`);
 
 --
 -- Indices de la tabla `receta`
 --
 ALTER TABLE `receta`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `fk_receta_producto1_idx` (`producto_id`);
+  ADD KEY `fk_receta_producto1_idx` (`producto_id`),
+  ADD KEY `fk_reseta_unidad_medida` (`unidad_medidad_id`);
 
 --
 -- Indices de la tabla `unidad_medida`
@@ -261,19 +303,25 @@ ALTER TABLE `costo`
 -- AUTO_INCREMENT de la tabla `familia`
 --
 ALTER TABLE `familia`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT de la tabla `linea`
 --
 ALTER TABLE `linea`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT de la tabla `precio_venta`
 --
 ALTER TABLE `precio_venta`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `produccion`
+--
+ALTER TABLE `produccion`
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `producto`
@@ -291,7 +339,7 @@ ALTER TABLE `receta`
 -- AUTO_INCREMENT de la tabla `unidad_medida`
 --
 ALTER TABLE `unidad_medida`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `usuario`
@@ -329,17 +377,25 @@ ALTER TABLE `precio_venta`
   ADD CONSTRAINT `fk_precio_venta_producto1` FOREIGN KEY (`producto_id`) REFERENCES `producto` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
+-- Filtros para la tabla `produccion`
+--
+ALTER TABLE `produccion`
+  ADD CONSTRAINT ` 	fk_produccion_unidad_idx` FOREIGN KEY (`unidad_medida_id`) REFERENCES `unidad_medida` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
 -- Filtros para la tabla `producto`
 --
 ALTER TABLE `producto`
   ADD CONSTRAINT `fk_producto_familia1` FOREIGN KEY (`familia_id`) REFERENCES `familia` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_producto_linea_idx` FOREIGN KEY (`linea_id`) REFERENCES `linea` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_producto_unidad_medida1` FOREIGN KEY (`unidad_medida_id`) REFERENCES `unidad_medida` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Filtros para la tabla `receta`
 --
 ALTER TABLE `receta`
-  ADD CONSTRAINT `fk_receta_producto1` FOREIGN KEY (`producto_id`) REFERENCES `producto` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_receta_producto1` FOREIGN KEY (`producto_id`) REFERENCES `producto` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_reseta_unidad_medida` FOREIGN KEY (`unidad_medidad_id`) REFERENCES `unidad_medida` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
