@@ -5,6 +5,12 @@
  */
 package GUI;
 
+import Data.Producto;
+import Data.Receta;
+import Data.UnidadMedida;
+import java.util.Date;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author HP
@@ -26,7 +32,14 @@ public class IngresoReceta extends javax.swing.JInternalFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+        bindingGroup = new org.jdesktop.beansbinding.BindingGroup();
 
+        entityManager1 = java.beans.Beans.isDesignTime() ? null : javax.persistence.Persistence.createEntityManagerFactory("Proyecto2PU").createEntityManager();
+        Proyecto2PUEntityManager = java.beans.Beans.isDesignTime() ? null : javax.persistence.Persistence.createEntityManagerFactory("Proyecto2PU").createEntityManager();
+        productoQuery = java.beans.Beans.isDesignTime() ? null : Proyecto2PUEntityManager.createQuery("SELECT p FROM Producto p");
+        productoList = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : productoQuery.getResultList();
+        unidadMedidaQuery = java.beans.Beans.isDesignTime() ? null : Proyecto2PUEntityManager.createQuery("SELECT u FROM UnidadMedida u");
+        unidadMedidaList = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : unidadMedidaQuery.getResultList();
         jLabel1 = new javax.swing.JLabel();
         cb_Productofinal = new javax.swing.JComboBox<>();
         jLabel2 = new javax.swing.JLabel();
@@ -45,6 +58,11 @@ public class IngresoReceta extends javax.swing.JInternalFrame {
 
         jLabel1.setText("Producto Final");
 
+        org.jdesktop.swingbinding.JComboBoxBinding jComboBoxBinding = org.jdesktop.swingbinding.SwingBindings.createJComboBoxBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, productoList, cb_Productofinal);
+        bindingGroup.addBinding(jComboBoxBinding);
+        org.jdesktop.beansbinding.Binding binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, cb_Productofinal, org.jdesktop.beansbinding.ELProperty.create("${selectedItem.nombre}"), cb_Productofinal, org.jdesktop.beansbinding.BeanProperty.create("selectedItem"));
+        bindingGroup.addBinding(binding);
+
         cb_Productofinal.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cb_ProductofinalActionPerformed(evt);
@@ -60,6 +78,11 @@ public class IngresoReceta extends javax.swing.JInternalFrame {
         jLabel5.setText("Cantidad");
 
         bt_Guardar.setText("Guardar");
+        bt_Guardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bt_GuardarActionPerformed(evt);
+            }
+        });
 
         jLabel6.setText("Receta Pan");
 
@@ -82,9 +105,12 @@ public class IngresoReceta extends javax.swing.JInternalFrame {
         ));
         jScrollPane1.setViewportView(tb_Tablareceta);
 
-        bt_Guardarreceta.setText("Guardar Receta");
+        bt_Guardarreceta.setText("Actualizar Tabla");
 
-        cb_unidadMedida.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBoxBinding = org.jdesktop.swingbinding.SwingBindings.createJComboBoxBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, unidadMedidaList, cb_unidadMedida);
+        bindingGroup.addBinding(jComboBoxBinding);
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, cb_unidadMedida, org.jdesktop.beansbinding.ELProperty.create("${selectedItem.descripcion}"), cb_unidadMedida, org.jdesktop.beansbinding.BeanProperty.create("selectedItem"));
+        bindingGroup.addBinding(binding);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -164,6 +190,8 @@ public class IngresoReceta extends javax.swing.JInternalFrame {
                 .addContainerGap())
         );
 
+        bindingGroup.bind();
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -171,12 +199,34 @@ public class IngresoReceta extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_cb_ProductofinalActionPerformed
 
+    private void bt_GuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_GuardarActionPerformed
+        entityManager1.getTransaction().begin();
+        Date d = new Date();
+        Receta r = new Receta();
+        
+        r.setEstado(tf_Estado.getText());
+        r.setInsumos(tf_Insumos.getText());
+        r.setCantidad(Integer.parseInt(tf_Cantidad.getText()));
+        Producto pr = (Producto)cb_Productofinal.getSelectedItem();
+        r.setProductoId(pr);
+        UnidadMedida um = (UnidadMedida)cb_unidadMedida.getSelectedItem();
+        r.setUnidadMedidadId(um);
+        JOptionPane.showMessageDialog(null,"Se a guardado correctamente");
+
+        entityManager1.persist(r);
+        entityManager1.flush();
+        entityManager1.getTransaction().commit();
+        entityManager1.close();
+    }//GEN-LAST:event_bt_GuardarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.persistence.EntityManager Proyecto2PUEntityManager;
     private javax.swing.JButton bt_Guardar;
     private javax.swing.JButton bt_Guardarreceta;
     private javax.swing.JComboBox<String> cb_Productofinal;
     private javax.swing.JComboBox<String> cb_unidadMedida;
+    private javax.persistence.EntityManager entityManager1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -184,9 +234,14 @@ public class IngresoReceta extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JScrollPane jScrollPane1;
+    private java.util.List<Data.Producto> productoList;
+    private javax.persistence.Query productoQuery;
     private javax.swing.JTable tb_Tablareceta;
     private javax.swing.JTextField tf_Cantidad;
     private javax.swing.JTextField tf_Estado;
     private javax.swing.JTextField tf_Insumos;
+    private java.util.List<Data.UnidadMedida> unidadMedidaList;
+    private javax.persistence.Query unidadMedidaQuery;
+    private org.jdesktop.beansbinding.BindingGroup bindingGroup;
     // End of variables declaration//GEN-END:variables
 }
