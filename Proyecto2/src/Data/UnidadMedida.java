@@ -6,8 +6,10 @@
 package Data;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -15,10 +17,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -36,6 +40,13 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "UnidadMedida.findByModificadoEl", query = "SELECT u FROM UnidadMedida u WHERE u.modificadoEl = :modificadoEl")
     , @NamedQuery(name = "UnidadMedida.findByEliminadoEl", query = "SELECT u FROM UnidadMedida u WHERE u.eliminadoEl = :eliminadoEl")})
 public class UnidadMedida implements Serializable {
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "unidadMedidadId")
+    private Collection<Receta> recetaCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "unidadMedidaId")
+    private Collection<Producto> productoCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "unidadMedidaId")
+    private Collection<Produccion> produccionCollection;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -149,6 +160,33 @@ public class UnidadMedida implements Serializable {
     @Override
     public String toString() {
         return "Data.UnidadMedida[ id=" + id + " ]";
+    }
+
+    @XmlTransient
+    public Collection<Receta> getRecetaCollection() {
+        return recetaCollection;
+    }
+
+    public void setRecetaCollection(Collection<Receta> recetaCollection) {
+        this.recetaCollection = recetaCollection;
+    }
+
+    @XmlTransient
+    public Collection<Producto> getProductoCollection() {
+        return productoCollection;
+    }
+
+    public void setProductoCollection(Collection<Producto> productoCollection) {
+        this.productoCollection = productoCollection;
+    }
+
+    @XmlTransient
+    public Collection<Produccion> getProduccionCollection() {
+        return produccionCollection;
+    }
+
+    public void setProduccionCollection(Collection<Produccion> produccionCollection) {
+        this.produccionCollection = produccionCollection;
     }
     
 }

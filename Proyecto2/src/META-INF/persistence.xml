@@ -11,6 +11,7 @@
     <class>Data.Costo</class>
     <class>Data.Linea</class>
     <class>Data.Usuario</class>
+    <class>Data.Produccion</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/negocio?zeroDateTimeBehavior=convertToNull"/>
       <property name="javax.persistence.jdbc.user" value="root"/>
