@@ -1,6 +1,54 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
 <Form version="1.5" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JInternalFrameFormInfo">
+  <NonVisualComponents>
+    <Component class="javax.persistence.EntityManager" name="entityManager1">
+      <Properties>
+        <Property name="persistenceUnit" type="java.lang.String" value="pu"/>
+      </Properties>
+    </Component>
+    <Component class="javax.persistence.EntityManager" name="Proyecto2PUEntityManager">
+      <Properties>
+        <Property name="persistenceUnit" type="java.lang.String" value="Proyecto2PU"/>
+      </Properties>
+    </Component>
+    <Component class="javax.persistence.Query" name="productoQuery">
+      <Properties>
+        <Property name="query" type="java.lang.String" value="SELECT p FROM Producto p"/>
+        <Property name="entityManager" type="java.lang.Object" editor="org.netbeans.modules.form.j2ee.J2EEPropertyModifier$EMProperty$EntityManagerEditor">
+          <ComponentRef name="Proyecto2PUEntityManager"/>
+        </Property>
+      </Properties>
+    </Component>
+    <Component class="java.util.List" name="productoList">
+      <Properties>
+        <Property name="query" type="java.lang.Object" editor="org.netbeans.modules.form.j2ee.J2EEPropertyModifier$QueryBeanProperty$QueryEditor">
+          <ComponentRef name="productoQuery"/>
+        </Property>
+      </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;Data.Producto&gt;"/>
+      </AuxValues>
+    </Component>
+    <Component class="javax.persistence.Query" name="unidadMedidaQuery">
+      <Properties>
+        <Property name="query" type="java.lang.String" value="SELECT u FROM UnidadMedida u"/>
+        <Property name="entityManager" type="java.lang.Object" editor="org.netbeans.modules.form.j2ee.J2EEPropertyModifier$EMProperty$EntityManagerEditor">
+          <ComponentRef name="Proyecto2PUEntityManager"/>
+        </Property>
+      </Properties>
+    </Component>
+    <Component class="java.util.List" name="unidadMedidaList">
+      <Properties>
+        <Property name="query" type="java.lang.Object" editor="org.netbeans.modules.form.j2ee.J2EEPropertyModifier$QueryBeanProperty$QueryEditor">
+          <ComponentRef name="unidadMedidaQuery"/>
+        </Property>
+      </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;Data.UnidadMedida&gt;"/>
+      </AuxValues>
+    </Component>
+  </NonVisualComponents>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
   </SyntheticProperties>
@@ -122,11 +170,10 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JComboBox" name="cb_Productofinal">
-      <Properties>
-        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="0"/>
-        </Property>
-      </Properties>
+      <BindingProperties>
+        <BindingProperty name="elements" source="productoList" target="cb_Productofinal" targetPath="elements" updateStrategy="0" immediately="false"/>
+        <BindingProperty name="selectedItem" source="cb_Productofinal" sourcePath="${selectedItem.nombre}" target="cb_Productofinal" targetPath="selectedItem" updateStrategy="0" immediately="false"/>
+      </BindingProperties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cb_ProductofinalActionPerformed"/>
       </Events>
@@ -162,6 +209,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Guardar"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bt_GuardarActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel6">
       <Properties>
@@ -212,22 +262,16 @@
     </Container>
     <Component class="javax.swing.JButton" name="bt_Guardarreceta">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Guardar Receta"/>
+        <Property name="text" type="java.lang.String" value="Actualizar Tabla"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="tf_Insumos">
     </Component>
     <Component class="javax.swing.JComboBox" name="cb_unidadMedida">
-      <Properties>
-        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="4">
-            <StringItem index="0" value="Item 1"/>
-            <StringItem index="1" value="Item 2"/>
-            <StringItem index="2" value="Item 3"/>
-            <StringItem index="3" value="Item 4"/>
-          </StringArray>
-        </Property>
-      </Properties>
+      <BindingProperties>
+        <BindingProperty name="elements" source="unidadMedidaList" target="cb_unidadMedida" targetPath="elements" updateStrategy="0" immediately="false"/>
+        <BindingProperty name="selectedItem" source="cb_unidadMedida" sourcePath="${selectedItem.descripcion}" target="cb_unidadMedida" targetPath="selectedItem" updateStrategy="0" immediately="false"/>
+      </BindingProperties>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
       </AuxValues>

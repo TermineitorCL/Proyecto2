@@ -5,6 +5,8 @@
  */
 package Data;
 
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
@@ -23,6 +25,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -43,6 +46,9 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Producto.findByModificadoEl", query = "SELECT p FROM Producto p WHERE p.modificadoEl = :modificadoEl")
     , @NamedQuery(name = "Producto.findByEliminadoEl", query = "SELECT p FROM Producto p WHERE p.eliminadoEl = :eliminadoEl")})
 public class Producto implements Serializable {
+
+    @Transient
+    private PropertyChangeSupport changeSupport = new PropertyChangeSupport(this);
 
     @Basic(optional = false)
     @Column(name = "formato")
@@ -115,7 +121,9 @@ public class Producto implements Serializable {
     }
 
     public void setId(Integer id) {
+        Integer oldId = this.id;
         this.id = id;
+        changeSupport.firePropertyChange("id", oldId, id);
     }
 
     public String getNombre() {
@@ -123,7 +131,9 @@ public class Producto implements Serializable {
     }
 
     public void setNombre(String nombre) {
+        String oldNombre = this.nombre;
         this.nombre = nombre;
+        changeSupport.firePropertyChange("nombre", oldNombre, nombre);
     }
 
     public String getMarca() {
@@ -131,7 +141,9 @@ public class Producto implements Serializable {
     }
 
     public void setMarca(String marca) {
+        String oldMarca = this.marca;
         this.marca = marca;
+        changeSupport.firePropertyChange("marca", oldMarca, marca);
     }
 
 
@@ -140,7 +152,9 @@ public class Producto implements Serializable {
     }
 
     public void setCreadoEl(Date creadoEl) {
+        Date oldCreadoEl = this.creadoEl;
         this.creadoEl = creadoEl;
+        changeSupport.firePropertyChange("creadoEl", oldCreadoEl, creadoEl);
     }
 
     public Date getModificadoEl() {
@@ -148,7 +162,9 @@ public class Producto implements Serializable {
     }
 
     public void setModificadoEl(Date modificadoEl) {
+        Date oldModificadoEl = this.modificadoEl;
         this.modificadoEl = modificadoEl;
+        changeSupport.firePropertyChange("modificadoEl", oldModificadoEl, modificadoEl);
     }
 
     public Date getEliminadoEl() {
@@ -156,7 +172,9 @@ public class Producto implements Serializable {
     }
 
     public void setEliminadoEl(Date eliminadoEl) {
+        Date oldEliminadoEl = this.eliminadoEl;
         this.eliminadoEl = eliminadoEl;
+        changeSupport.firePropertyChange("eliminadoEl", oldEliminadoEl, eliminadoEl);
     }
 
     @XmlTransient
@@ -200,7 +218,9 @@ public class Producto implements Serializable {
     }
 
     public void setFamiliaId(Familia familiaId) {
+        Familia oldFamiliaId = this.familiaId;
         this.familiaId = familiaId;
+        changeSupport.firePropertyChange("familiaId", oldFamiliaId, familiaId);
     }
 
     public UnidadMedida getUnidadMedidaId() {
@@ -208,7 +228,9 @@ public class Producto implements Serializable {
     }
 
     public void setUnidadMedidaId(UnidadMedida unidadMedidaId) {
+        UnidadMedida oldUnidadMedidaId = this.unidadMedidaId;
         this.unidadMedidaId = unidadMedidaId;
+        changeSupport.firePropertyChange("unidadMedidaId", oldUnidadMedidaId, unidadMedidaId);
     }
 
     @Override
@@ -233,7 +255,7 @@ public class Producto implements Serializable {
 
     @Override
     public String toString() {
-        return "Data.Producto[ id=" + id + " ]";
+        return nombre;
     }
 
     public String getFormato() {
@@ -241,7 +263,9 @@ public class Producto implements Serializable {
     }
 
     public void setFormato(String formato) {
+        String oldFormato = this.formato;
         this.formato = formato;
+        changeSupport.firePropertyChange("formato", oldFormato, formato);
     }
 
     public int getCodigoBarra() {
@@ -249,7 +273,9 @@ public class Producto implements Serializable {
     }
 
     public void setCodigoBarra(int codigoBarra) {
+        int oldCodigoBarra = this.codigoBarra;
         this.codigoBarra = codigoBarra;
+        changeSupport.firePropertyChange("codigoBarra", oldCodigoBarra, codigoBarra);
     }
 
     public Linea getLineaId() {
@@ -257,7 +283,17 @@ public class Producto implements Serializable {
     }
 
     public void setLineaId(Linea lineaId) {
+        Linea oldLineaId = this.lineaId;
         this.lineaId = lineaId;
+        changeSupport.firePropertyChange("lineaId", oldLineaId, lineaId);
+    }
+
+    public void addPropertyChangeListener(PropertyChangeListener listener) {
+        changeSupport.addPropertyChangeListener(listener);
+    }
+
+    public void removePropertyChangeListener(PropertyChangeListener listener) {
+        changeSupport.removePropertyChangeListener(listener);
     }
     
 }
