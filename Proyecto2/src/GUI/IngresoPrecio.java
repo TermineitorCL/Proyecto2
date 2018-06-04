@@ -9,6 +9,14 @@ package GUI;
  *
  * @author usuario2
  */
+import Data.Producto;
+import Data.UnidadMedida;
+import java.util.List;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+import javax.persistence.Query;
+
 public class IngresoPrecio extends javax.swing.JInternalFrame {
 
     /**
@@ -29,6 +37,7 @@ public class IngresoPrecio extends javax.swing.JInternalFrame {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
+        entityManager1 = java.beans.Beans.isDesignTime() ? null : javax.persistence.Persistence.createEntityManagerFactory("Proyecto2PU").createEntityManager();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -44,6 +53,7 @@ public class IngresoPrecio extends javax.swing.JInternalFrame {
         bt_nuevoprecio = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         tb_fenuevo = new javax.swing.JTable();
+        tf_unidadMedida = new javax.swing.JTextField();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -81,6 +91,11 @@ public class IngresoPrecio extends javax.swing.JInternalFrame {
         });
 
         bt_codigobarra.setText("Buscar");
+        bt_codigobarra.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bt_codigobarraActionPerformed(evt);
+            }
+        });
 
         bt_nuevoprecio.setText("Guardar");
 
@@ -95,6 +110,8 @@ public class IngresoPrecio extends javax.swing.JInternalFrame {
             }
         ));
         jScrollPane2.setViewportView(tb_fenuevo);
+
+        tf_unidadMedida.setText("jTextField1");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -114,14 +131,17 @@ public class IngresoPrecio extends javax.swing.JInternalFrame {
                             .addComponent(jLabel2)
                             .addComponent(jLabel8))
                         .addGap(29, 29, 29)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(tf_codigobarra, javax.swing.GroupLayout.DEFAULT_SIZE, 119, Short.MAX_VALUE)
-                            .addComponent(tf_nombre)
-                            .addComponent(tf_nuevoprecio))
-                        .addGap(46, 46, 46)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(bt_codigobarra)
-                            .addComponent(bt_nuevoprecio)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(tf_codigobarra, javax.swing.GroupLayout.DEFAULT_SIZE, 119, Short.MAX_VALUE)
+                                    .addComponent(tf_nombre)
+                                    .addComponent(tf_nuevoprecio))
+                                .addGap(46, 46, 46)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(bt_codigobarra)
+                                    .addComponent(bt_nuevoprecio)))
+                            .addComponent(tf_unidadMedida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(37, Short.MAX_VALUE))
         );
@@ -138,7 +158,9 @@ public class IngresoPrecio extends javax.swing.JInternalFrame {
                     .addComponent(jLabel2)
                     .addComponent(tf_nombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel3)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(tf_unidadMedida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -155,7 +177,7 @@ public class IngresoPrecio extends javax.swing.JInternalFrame {
                         .addComponent(bt_nuevoprecio)))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(29, Short.MAX_VALUE))
+                .addContainerGap(27, Short.MAX_VALUE))
         );
 
         pack();
@@ -165,10 +187,30 @@ public class IngresoPrecio extends javax.swing.JInternalFrame {
        // TODO add your handling code here:
     }//GEN-LAST:event_tf_codigobarraActionPerformed
 
+    private void bt_codigobarraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_codigobarraActionPerformed
+        // TODO add your handling code here:
+        
+        
+        
+        
+        Producto p = entityManager1.find(Producto.class, Integer.parseInt(tf_codigobarra.getText()));
+        
+        entityManager1.getTransaction().begin();  
+        String producto = "SELECT p.codigobarra FROM producto p WHERE p.codigobarra = '"+tf_codigobarra.getText();
+        Query query = entityManager1.createQuery(producto);
+        List<Producto> productos = query.getResultList();
+        entityManager1.getTransaction().commit();
+        tf_nombre.setText(p.getNombre());
+        
+       
+        
+    }//GEN-LAST:event_bt_codigobarraActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bt_codigobarra;
     private javax.swing.JButton bt_nuevoprecio;
+    private javax.persistence.EntityManager entityManager1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -184,5 +226,6 @@ public class IngresoPrecio extends javax.swing.JInternalFrame {
     private javax.swing.JTextField tf_codigobarra;
     private javax.swing.JTextField tf_nombre;
     private javax.swing.JTextField tf_nuevoprecio;
+    private javax.swing.JTextField tf_unidadMedida;
     // End of variables declaration//GEN-END:variables
 }
