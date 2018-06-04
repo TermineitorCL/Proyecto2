@@ -44,6 +44,16 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Producto.findByEliminadoEl", query = "SELECT p FROM Producto p WHERE p.eliminadoEl = :eliminadoEl")})
 public class Producto implements Serializable {
 
+    @Basic(optional = false)
+    @Column(name = "formato")
+    private String formato;
+    @Basic(optional = false)
+    @Column(name = "codigo_barra")
+    private int codigoBarra;
+    @JoinColumn(name = "linea_id", referencedColumnName = "id")
+    @ManyToOne(optional = false)
+    private Linea lineaId;
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -56,9 +66,6 @@ public class Producto implements Serializable {
     @Basic(optional = false)
     @Column(name = "marca")
     private String marca;
-    @Basic(optional = false)
-    @Column(name = "formato")
-    private int formato;
     @Basic(optional = false)
     @Column(name = "creado_el")
     @Temporal(TemporalType.TIMESTAMP)
@@ -93,7 +100,7 @@ public class Producto implements Serializable {
         this.id = id;
     }
 
-    public Producto(Integer id, String nombre, String marca, int formato, Date creadoEl, Date modificadoEl, Date eliminadoEl) {
+    public Producto(Integer id, String nombre, String marca, String formato, Date creadoEl, Date modificadoEl, Date eliminadoEl) {
         this.id = id;
         this.nombre = nombre;
         this.marca = marca;
@@ -127,13 +134,6 @@ public class Producto implements Serializable {
         this.marca = marca;
     }
 
-    public int getFormato() {
-        return formato;
-    }
-
-    public void setFormato(int formato) {
-        this.formato = formato;
-    }
 
     public Date getCreadoEl() {
         return creadoEl;
@@ -234,6 +234,30 @@ public class Producto implements Serializable {
     @Override
     public String toString() {
         return "Data.Producto[ id=" + id + " ]";
+    }
+
+    public String getFormato() {
+        return formato;
+    }
+
+    public void setFormato(String formato) {
+        this.formato = formato;
+    }
+
+    public int getCodigoBarra() {
+        return codigoBarra;
+    }
+
+    public void setCodigoBarra(int codigoBarra) {
+        this.codigoBarra = codigoBarra;
+    }
+
+    public Linea getLineaId() {
+        return lineaId;
+    }
+
+    public void setLineaId(Linea lineaId) {
+        this.lineaId = lineaId;
     }
     
 }

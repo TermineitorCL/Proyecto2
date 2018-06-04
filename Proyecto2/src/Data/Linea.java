@@ -43,6 +43,9 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Linea.findByEliminadoEl", query = "SELECT l FROM Linea l WHERE l.eliminadoEl = :eliminadoEl")})
 public class Linea implements Serializable {
 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "lineaId")
+    private Collection<Producto> productoCollection;
+
     @Transient
     private PropertyChangeSupport changeSupport = new PropertyChangeSupport(this);
 
@@ -176,6 +179,15 @@ public class Linea implements Serializable {
 
     public void removePropertyChangeListener(PropertyChangeListener listener) {
         changeSupport.removePropertyChangeListener(listener);
+    }
+
+    @XmlTransient
+    public Collection<Producto> getProductoCollection() {
+        return productoCollection;
+    }
+
+    public void setProductoCollection(Collection<Producto> productoCollection) {
+        this.productoCollection = productoCollection;
     }
     
 }
