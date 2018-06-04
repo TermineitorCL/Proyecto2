@@ -5,6 +5,8 @@
  */
 package Data;
 
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
@@ -21,6 +23,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -39,6 +42,9 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Linea.findByModificadoEl", query = "SELECT l FROM Linea l WHERE l.modificadoEl = :modificadoEl")
     , @NamedQuery(name = "Linea.findByEliminadoEl", query = "SELECT l FROM Linea l WHERE l.eliminadoEl = :eliminadoEl")})
 public class Linea implements Serializable {
+
+    @Transient
+    private PropertyChangeSupport changeSupport = new PropertyChangeSupport(this);
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "lineaId")
     private Collection<Familia> familiaCollection;
@@ -85,7 +91,9 @@ public class Linea implements Serializable {
     }
 
     public void setId(Integer id) {
+        Integer oldId = this.id;
         this.id = id;
+        changeSupport.firePropertyChange("id", oldId, id);
     }
 
     public String getNombre() {
@@ -93,7 +101,9 @@ public class Linea implements Serializable {
     }
 
     public void setNombre(String nombre) {
+        String oldNombre = this.nombre;
         this.nombre = nombre;
+        changeSupport.firePropertyChange("nombre", oldNombre, nombre);
     }
 
     public Date getCreadoEl() {
@@ -101,7 +111,9 @@ public class Linea implements Serializable {
     }
 
     public void setCreadoEl(Date creadoEl) {
+        Date oldCreadoEl = this.creadoEl;
         this.creadoEl = creadoEl;
+        changeSupport.firePropertyChange("creadoEl", oldCreadoEl, creadoEl);
     }
 
     public Date getModificadoEl() {
@@ -109,7 +121,9 @@ public class Linea implements Serializable {
     }
 
     public void setModificadoEl(Date modificadoEl) {
+        Date oldModificadoEl = this.modificadoEl;
         this.modificadoEl = modificadoEl;
+        changeSupport.firePropertyChange("modificadoEl", oldModificadoEl, modificadoEl);
     }
 
     public Date getEliminadoEl() {
@@ -117,7 +131,9 @@ public class Linea implements Serializable {
     }
 
     public void setEliminadoEl(Date eliminadoEl) {
+        Date oldEliminadoEl = this.eliminadoEl;
         this.eliminadoEl = eliminadoEl;
+        changeSupport.firePropertyChange("eliminadoEl", oldEliminadoEl, eliminadoEl);
     }
 
     @Override
@@ -142,7 +158,7 @@ public class Linea implements Serializable {
 
     @Override
     public String toString() {
-        return "Data.Linea[ id=" + id + " ]";
+        return nombre;
     }
 
     @XmlTransient
@@ -152,6 +168,14 @@ public class Linea implements Serializable {
 
     public void setFamiliaCollection(Collection<Familia> familiaCollection) {
         this.familiaCollection = familiaCollection;
+    }
+
+    public void addPropertyChangeListener(PropertyChangeListener listener) {
+        changeSupport.addPropertyChangeListener(listener);
+    }
+
+    public void removePropertyChangeListener(PropertyChangeListener listener) {
+        changeSupport.removePropertyChangeListener(listener);
     }
     
 }
