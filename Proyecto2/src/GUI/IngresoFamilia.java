@@ -7,7 +7,6 @@ package GUI;
 
 import Data.Linea;
 import Data.Familia;
-import java.util.List;
 import java.util.Date;
 import javax.swing.JOptionPane;
 /**
@@ -22,15 +21,7 @@ public class IngresoFamilia extends javax.swing.JInternalFrame {
  
     public IngresoFamilia() {
         initComponents();
-        List<Linea> lineas= query1.getResultList();
-        cb_codigo_linea.removeAllItems();
-        
-        for (Linea ln : lineas) {
-            cb_codigo_linea.addItem(ln.getNombre());
-        }
     }
-    
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -39,9 +30,14 @@ public class IngresoFamilia extends javax.swing.JInternalFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+        bindingGroup = new org.jdesktop.beansbinding.BindingGroup();
 
         entityManager1 = java.beans.Beans.isDesignTime() ? null : javax.persistence.Persistence.createEntityManagerFactory("Proyecto2PU").createEntityManager();
         query1 = java.beans.Beans.isDesignTime() ? null : entityManager1.createQuery("select l from Linea l");
+        costoQuery = java.beans.Beans.isDesignTime() ? null : entityManager1.createQuery("SELECT c FROM Costo c");
+        costoList = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : costoQuery.getResultList();
+        lineaQuery = java.beans.Beans.isDesignTime() ? null : entityManager1.createQuery("SELECT l FROM Linea l");
+        lineaList = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : lineaQuery.getResultList();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -53,7 +49,11 @@ public class IngresoFamilia extends javax.swing.JInternalFrame {
 
         jLabel2.setText("Descripcion Familia ");
 
-        cb_codigo_linea.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        org.jdesktop.swingbinding.JComboBoxBinding jComboBoxBinding = org.jdesktop.swingbinding.SwingBindings.createJComboBoxBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, lineaList, cb_codigo_linea);
+        bindingGroup.addBinding(jComboBoxBinding);
+        org.jdesktop.beansbinding.Binding binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, cb_codigo_linea, org.jdesktop.beansbinding.ELProperty.create("${selectedItem.nombre}"), cb_codigo_linea, org.jdesktop.beansbinding.BeanProperty.create("selectedItem"));
+        bindingGroup.addBinding(binding);
+
         cb_codigo_linea.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cb_codigo_lineaActionPerformed(evt);
@@ -109,6 +109,8 @@ public class IngresoFamilia extends javax.swing.JInternalFrame {
 
         getContentPane().add(jPanel1, java.awt.BorderLayout.CENTER);
 
+        bindingGroup.bind();
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -116,16 +118,13 @@ public class IngresoFamilia extends javax.swing.JInternalFrame {
         entityManager1.getTransaction().begin();
         Date d = new Date();
         Familia f = new Familia();
-        Linea l = new Linea();
         
         f.setNombre(tf_familia_descripcion.getText());
         f.setEliminadoEl(d);
         f.setModificadoEl(d);
         f.setCreadoEl(d);
-        
-        int x=(cb_codigo_linea.getSelectedIndex()+1);
-        l.setId(x);
-        f.setLineaId(l);
+        Linea m = (Linea)cb_codigo_linea.getSelectedItem();
+        f.setLineaId(m);
         
         JOptionPane.showMessageDialog(null,"Se a guardado correctamente");
         this.dispose();
@@ -147,12 +146,18 @@ public class IngresoFamilia extends javax.swing.JInternalFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> cb_codigo_linea;
+    private java.util.List<Data.Costo> costoList;
+    private javax.persistence.Query costoQuery;
     private javax.persistence.EntityManager entityManager1;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
+    private java.util.List<Data.Linea> lineaList;
+    private javax.persistence.Query lineaQuery;
     private javax.persistence.Query query1;
     private javax.swing.JTextField tf_familia_descripcion;
+    private org.jdesktop.beansbinding.BindingGroup bindingGroup;
     // End of variables declaration//GEN-END:variables
+
 }
