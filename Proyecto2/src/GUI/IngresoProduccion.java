@@ -5,6 +5,17 @@
  */
 package GUI;
 
+import Data.Produccion;
+import Data.Producto;
+import Data.UnidadMedida;
+import java.util.List;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+import javax.persistence.Query;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author usuario
@@ -26,17 +37,25 @@ public class IngresoProduccion extends javax.swing.JInternalFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+        bindingGroup = new org.jdesktop.beansbinding.BindingGroup();
 
+        Proyecto2PUEntityManager = java.beans.Beans.isDesignTime() ? null : javax.persistence.Persistence.createEntityManagerFactory("Proyecto2PU").createEntityManager();
+        productoQuery = java.beans.Beans.isDesignTime() ? null : Proyecto2PUEntityManager.createQuery("SELECT p FROM Producto p");
+        productoList = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : productoQuery.getResultList();
+        unidadMedidaQuery = java.beans.Beans.isDesignTime() ? null : Proyecto2PUEntityManager.createQuery("SELECT u FROM UnidadMedida u");
+        unidadMedidaList = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : unidadMedidaQuery.getResultList();
+        entityManager1 = java.beans.Beans.isDesignTime() ? null : javax.persistence.Persistence.createEntityManagerFactory("Proyecto2PU").createEntityManager();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         cb_productoFinal = new javax.swing.JComboBox<>();
-        jButton1 = new javax.swing.JButton();
+        bt_guardar = new javax.swing.JButton();
         tf_produccion = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         tb_produccionDiaria = new javax.swing.JTable();
         cb_unidad_medida = new javax.swing.JComboBox<>();
+        jButton2 = new javax.swing.JButton();
 
         jLabel2.setText("Produccion Diaria Pan");
 
@@ -46,10 +65,15 @@ public class IngresoProduccion extends javax.swing.JInternalFrame {
 
         jLabel5.setText("Produccion");
 
-        jButton1.setText("Grabar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        org.jdesktop.swingbinding.JComboBoxBinding jComboBoxBinding = org.jdesktop.swingbinding.SwingBindings.createJComboBoxBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, productoList, cb_productoFinal);
+        bindingGroup.addBinding(jComboBoxBinding);
+        org.jdesktop.beansbinding.Binding binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, cb_productoFinal, org.jdesktop.beansbinding.ELProperty.create("${selectedItem.nombre}"), cb_productoFinal, org.jdesktop.beansbinding.BeanProperty.create("selectedItem"));
+        bindingGroup.addBinding(binding);
+
+        bt_guardar.setText("Grabar");
+        bt_guardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                bt_guardarActionPerformed(evt);
             }
         });
 
@@ -76,6 +100,18 @@ public class IngresoProduccion extends javax.swing.JInternalFrame {
         ));
         jScrollPane1.setViewportView(tb_produccionDiaria);
 
+        jComboBoxBinding = org.jdesktop.swingbinding.SwingBindings.createJComboBoxBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, unidadMedidaList, cb_unidad_medida);
+        bindingGroup.addBinding(jComboBoxBinding);
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, cb_unidad_medida, org.jdesktop.beansbinding.ELProperty.create("${selectedItem.descripcion}"), cb_unidad_medida, org.jdesktop.beansbinding.BeanProperty.create("selectedItem"));
+        bindingGroup.addBinding(binding);
+
+        jButton2.setText("Actualizar Tabla");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -96,7 +132,7 @@ public class IngresoProduccion extends javax.swing.JInternalFrame {
                             .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(tf_produccion))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 185, Short.MAX_VALUE)
-                        .addComponent(jButton1))
+                        .addComponent(bt_guardar))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(140, 140, 140)
                         .addComponent(jLabel2)
@@ -105,6 +141,10 @@ public class IngresoProduccion extends javax.swing.JInternalFrame {
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 586, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jButton2)
+                .addGap(22, 22, 22))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -116,7 +156,7 @@ public class IngresoProduccion extends javax.swing.JInternalFrame {
                     .addComponent(jLabel3)
                     .addComponent(jLabel4)
                     .addComponent(jLabel5)
-                    .addComponent(jButton1))
+                    .addComponent(bt_guardar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cb_productoFinal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -124,31 +164,82 @@ public class IngresoProduccion extends javax.swing.JInternalFrame {
                     .addComponent(cb_unidad_medida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(44, 44, 44)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(54, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jButton2)
+                .addContainerGap(15, Short.MAX_VALUE))
         );
+
+        bindingGroup.bind();
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void bt_guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_guardarActionPerformed
+        entityManager1.getTransaction().begin();
+        Produccion p = new Produccion();
+        
+        
+        Producto m = (Producto)cb_productoFinal.getSelectedItem();
+        p.setProductoId(m);
+        UnidadMedida u = (UnidadMedida)cb_unidad_medida.getSelectedItem();
+        p.setUnidadMedidaId(u);
+        p.setProduccionCantidad(Integer.parseInt(tf_produccion.getText()));
+        
+        JOptionPane.showMessageDialog(null,"Se a guardado correctamente");
+        this.dispose();
+        entityManager1.persist(p);
+        entityManager1.flush();
+        entityManager1.getTransaction().commit();
+        entityManager1.close();
+    }//GEN-LAST:event_bt_guardarActionPerformed
 
     private void tf_produccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tf_produccionActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_tf_produccionActionPerformed
 
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("Proyecto2PU");
+        EntityManager entityManager = emf.createEntityManager();
+
+        try {
+            
+            entityManager.getTransaction().begin();  
+            String qlQuery = "SELECT 'producto'.'id', 'producto'.'nombre' FROM 'producto' WHERE 'producto'.'id' IN (SELECT 'produccion'.'producto_id' FROM 'produccion')";
+            Query query = entityManager.createQuery(qlQuery);
+            List<Producto> productos = query.getResultList();
+            entityManager.getTransaction().commit();
+            
+            for (int i = 0; i < productos.size(); i++) {               
+                tb_produccionDiaria.setValueAt(productos.get(i).getNombre(), i, 0);
+            }
+            
+        }finally {
+
+            entityManager.close();
+            emf.close();
+        }
+
+    }//GEN-LAST:event_jButton2ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.persistence.EntityManager Proyecto2PUEntityManager;
+    private javax.swing.JButton bt_guardar;
     private javax.swing.JComboBox<String> cb_productoFinal;
     private javax.swing.JComboBox<String> cb_unidad_medida;
-    private javax.swing.JButton jButton1;
+    private javax.persistence.EntityManager entityManager1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
+    private java.util.List<Data.Producto> productoList;
+    private javax.persistence.Query productoQuery;
     private javax.swing.JTable tb_produccionDiaria;
     private javax.swing.JTextField tf_produccion;
+    private java.util.List<Data.UnidadMedida> unidadMedidaList;
+    private javax.persistence.Query unidadMedidaQuery;
+    private org.jdesktop.beansbinding.BindingGroup bindingGroup;
     // End of variables declaration//GEN-END:variables
 }

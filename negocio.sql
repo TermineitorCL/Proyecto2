@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 04-06-2018 a las 22:15:27
+-- Tiempo de generación: 05-06-2018 a las 19:53:48
 -- Versión del servidor: 10.1.31-MariaDB
 -- Versión de PHP: 5.6.35
 
@@ -131,8 +131,17 @@ CREATE TABLE `precio_venta` (
 CREATE TABLE `produccion` (
   `id` int(255) NOT NULL,
   `unidad_medida_id` int(255) NOT NULL,
-  `produccion_cantidad` int(255) NOT NULL
+  `produccion_cantidad` int(255) NOT NULL,
+  `producto_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `produccion`
+--
+
+INSERT INTO `produccion` (`id`, `unidad_medida_id`, `produccion_cantidad`, `producto_id`) VALUES
+(1, 1, 30, 6),
+(2, 1, 40, 2);
 
 -- --------------------------------------------------------
 
@@ -161,7 +170,9 @@ CREATE TABLE `producto` (
 INSERT INTO `producto` (`id`, `nombre`, `marca`, `formato`, `creado_el`, `modificado_el`, `eliminado_el`, `familia_id`, `unidad_medida_id`, `linea_id`, `codigo_barra`) VALUES
 (2, 'Palta', 'Hass', 'Malla', '2018-06-04 14:43:37', '2018-06-04 14:43:37', '2018-06-04 14:43:37', 9, 1, 10, 10002),
 (3, 'Queso', 'Colun', 'Laminado', '2018-06-04 14:45:33', '2018-06-04 14:45:33', '2018-06-04 14:45:33', 12, 1, 3, 10005),
-(4, 'Centolla', 'Mariscol', 'Malla', '2018-06-04 14:56:01', '2018-06-04 14:56:01', '2018-06-04 14:56:01', 14, 2, 10, 102211);
+(4, 'Centolla', 'Mariscol', 'Malla', '2018-06-04 14:56:01', '2018-06-04 14:56:01', '2018-06-04 14:56:01', 14, 2, 10, 102211),
+(5, 'Pate', 'San Jorge', 'Bolsas', '2018-06-04 16:40:09', '2018-06-04 16:40:09', '2018-06-04 16:40:09', 14, 2, 1, 32165131),
+(6, 'Mayonesa', 'Hellmans', 'Embase', '2018-06-05 10:37:03', '2018-06-05 10:37:03', '2018-06-05 10:37:03', 12, 1, 10, 10);
 
 -- --------------------------------------------------------
 
@@ -224,7 +235,8 @@ INSERT INTO `usuario` (`id`, `nombre`, `pass`, `correo`) VALUES
 (3, 'Jorge', 'pastrana', 'jorge@gmail.com'),
 (4, 'Roberto', '666', 'roberto@gmail.com'),
 (5, 'Prueba', '123', 'prueba@pepe'),
-(6, 'Brandon', '666', 'brandon@gmail.dios');
+(6, 'Brandon', '666', 'brandon@gmail.dios'),
+(7, 'Ricardo', '123456789', 'ricardo@gmail.dios');
 
 --
 -- Índices para tablas volcadas
@@ -270,7 +282,8 @@ ALTER TABLE `precio_venta`
 --
 ALTER TABLE `produccion`
   ADD PRIMARY KEY (`id`),
-  ADD KEY ` 	fk_produccion_unidad_idx` (`unidad_medida_id`);
+  ADD KEY `fk_produccion_unidad_idx` (`unidad_medida_id`),
+  ADD KEY `fk_producto_idx` (`producto_id`);
 
 --
 -- Indices de la tabla `producto`
@@ -333,13 +346,13 @@ ALTER TABLE `precio_venta`
 -- AUTO_INCREMENT de la tabla `produccion`
 --
 ALTER TABLE `produccion`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `producto`
 --
 ALTER TABLE `producto`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de la tabla `receta`
@@ -357,7 +370,7 @@ ALTER TABLE `unidad_medida`
 -- AUTO_INCREMENT de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- Restricciones para tablas volcadas
@@ -392,7 +405,8 @@ ALTER TABLE `precio_venta`
 -- Filtros para la tabla `produccion`
 --
 ALTER TABLE `produccion`
-  ADD CONSTRAINT ` 	fk_produccion_unidad_idx` FOREIGN KEY (`unidad_medida_id`) REFERENCES `unidad_medida` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_produccion_unidad_idx` FOREIGN KEY (`unidad_medida_id`) REFERENCES `unidad_medida` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_producto_idx` FOREIGN KEY (`producto_id`) REFERENCES `producto` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Filtros para la tabla `producto`
