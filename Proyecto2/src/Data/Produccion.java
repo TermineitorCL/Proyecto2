@@ -32,6 +32,10 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "Produccion.findByProduccionCantidad", query = "SELECT p FROM Produccion p WHERE p.produccionCantidad = :produccionCantidad")})
 public class Produccion implements Serializable {
 
+    @JoinColumn(name = "producto_id", referencedColumnName = "id")
+    @ManyToOne(optional = false)
+    private Producto productoId;
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -104,6 +108,14 @@ public class Produccion implements Serializable {
     @Override
     public String toString() {
         return "Data.Produccion[ id=" + id + " ]";
+    }
+
+    public Producto getProductoId() {
+        return productoId;
+    }
+
+    public void setProductoId(Producto productoId) {
+        this.productoId = productoId;
     }
     
 }
