@@ -12,35 +12,6 @@
     <class>Data.Linea</class>
     <class>Data.Usuario</class>
     <class>Data.Produccion</class>
-    <class>Data.Func</class>
-    <class>Data.Event</class>
-    <class>Data.Db</class>
-    <class>Data.HelpTopic</class>
-    <class>Data.HelpKeyword</class>
-    <class>Data.ProcsPriv</class>
-    <class>Data.InnodbIndexStats</class>
-    <class>Data.Servers</class>
-    <class>Data.SlaveWorkerInfo</class>
-    <class>Data.TimeZoneTransitionType</class>
-    <class>Data.Plugin</class>
-    <class>Data.SlaveRelayLogInfo</class>
-    <class>Data.TimeZoneName</class>
-    <class>Data.TablesPriv</class>
-    <class>Data.TimeZoneTransition</class>
-    <class>Data.InnodbTableStats</class>
-    <class>Data.GtidExecuted</class>
-    <class>Data.Proc</class>
-    <class>Data.HelpRelation</class>
-    <class>Data.NdbBinlogIndex</class>
-    <class>Data.SlaveMasterInfo</class>
-    <class>Data.TimeZoneLeapSecond</class>
-    <class>Data.ColumnsPriv</class>
-    <class>Data.ServerCost</class>
-    <class>Data.HelpCategory</class>
-    <class>Data.User</class>
-    <class>Data.TimeZone</class>
-    <class>Data.ProxiesPriv</class>
-    <class>Data.EngineCost</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/negocio?zeroDateTimeBehavior=convertToNull"/>
       <property name="javax.persistence.jdbc.user" value="root"/>

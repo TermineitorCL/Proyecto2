@@ -28,29 +28,6 @@
         <Property name="persistenceUnit" type="java.lang.String" value="pu"/>
       </Properties>
     </Component>
-    <Component class="javax.persistence.EntityManager" name="Proyecto2PUEntityManager">
-      <Properties>
-        <Property name="persistenceUnit" type="java.lang.String" value="Proyecto2PU"/>
-      </Properties>
-    </Component>
-    <Component class="javax.persistence.Query" name="precioVentaQuery">
-      <Properties>
-        <Property name="query" type="java.lang.String" value="SELECT p FROM PrecioVenta p"/>
-        <Property name="entityManager" type="java.lang.Object" editor="org.netbeans.modules.form.j2ee.J2EEPropertyModifier$EMProperty$EntityManagerEditor">
-          <ComponentRef name="Proyecto2PUEntityManager"/>
-        </Property>
-      </Properties>
-    </Component>
-    <Component class="java.util.List" name="precioVentaList">
-      <Properties>
-        <Property name="query" type="java.lang.Object" editor="org.netbeans.modules.form.j2ee.J2EEPropertyModifier$QueryBeanProperty$QueryEditor">
-          <ComponentRef name="precioVentaQuery"/>
-        </Property>
-      </Properties>
-      <AuxValues>
-        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;Data.PrecioVenta&gt;"/>
-      </AuxValues>
-    </Component>
   </NonVisualComponents>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
@@ -98,11 +75,7 @@
                                   <Component id="bt_nuevoprecio" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
-                          <Component id="lbl_umedida" alignment="0" min="-2" pref="72" max="-2" attributes="0"/>
-                          <Component id="lbl_marca" alignment="0" min="-2" pref="72" max="-2" attributes="0"/>
-                          <Component id="lbl_formato" alignment="0" min="-2" pref="72" max="-2" attributes="0"/>
-                          <Component id="lbl_lineaid" alignment="0" min="-2" pref="72" max="-2" attributes="0"/>
-                          <Component id="lbl_familiaid" alignment="0" min="-2" pref="72" max="-2" attributes="0"/>
+                          <Component id="tf_unidadMedida" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <Component id="jScrollPane2" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -126,30 +99,18 @@
                   <Component id="tf_nombre" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
-                  <Component id="lbl_umedida" max="32767" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="tf_unidadMedida" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                  <Component id="jLabel4" max="32767" attributes="0"/>
-                  <Component id="lbl_marca" max="32767" attributes="0"/>
-              </Group>
+              <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                  <Component id="jLabel5" max="32767" attributes="0"/>
-                  <Component id="lbl_formato" max="32767" attributes="0"/>
-              </Group>
+              <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                  <Component id="jLabel6" max="32767" attributes="0"/>
-                  <Component id="lbl_lineaid" max="32767" attributes="0"/>
-              </Group>
+              <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
-                  <Component id="lbl_familiaid" min="-2" pref="14" max="-2" attributes="0"/>
-              </Group>
+              <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
@@ -160,7 +121,7 @@
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="jScrollPane2" min="-2" pref="81" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
+              <EmptySpace pref="27" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -227,9 +188,6 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Guardar"/>
       </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bt_nuevoprecioActionPerformed"/>
-      </Events>
     </Component>
     <Container class="javax.swing.JScrollPane" name="jScrollPane2">
       <AuxValues>
@@ -238,8 +196,14 @@
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
       <SubComponents>
-        <Component class="javax.swing.JTable" name="tb_precio">
+        <Component class="javax.swing.JTable" name="tb_fenuevo">
           <Properties>
+            <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
+              <Table columnCount="2" rowCount="3">
+                <Column editable="true" title="Fecha" type="java.lang.Object"/>
+                <Column editable="true" title="Nuevo Precio" type="java.lang.Object"/>
+              </Table>
+            </Property>
             <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
               <TableColumnModel selectionModel="0">
                 <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
@@ -258,34 +222,13 @@
               <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
             </Property>
           </Properties>
-          <BindingProperties>
-            <BindingProperty name="elements" source="precioVentaList" target="tb_precio" targetPath="elements" updateStrategy="0" immediately="true">
-              <Subbinding sourcePath="${fecha}">
-                <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="java.util.Date.class"/>
-              </Subbinding>
-              <Subbinding sourcePath="${valor}">
-                <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="Integer.class"/>
-              </Subbinding>
-            </BindingProperty>
-            <BindingProperty name="selectedElement" source="tb_precio" sourcePath="${selectedElement.fecha}" target="tb_precio" targetPath="selectedElement" updateStrategy="0" immediately="false">
-              <BindingParameter name="IGNORE_ADJUSTING" value="N"/>
-            </BindingProperty>
-            <BindingProperty name="selectedElements" source="tb_precio" sourcePath="${selectedElement.valor}" target="tb_precio" targetPath="selectedElements" updateStrategy="0" immediately="false">
-              <BindingParameter name="IGNORE_ADJUSTING" value="N"/>
-            </BindingProperty>
-          </BindingProperties>
         </Component>
       </SubComponents>
     </Container>
-    <Component class="javax.swing.JLabel" name="lbl_umedida">
-    </Component>
-    <Component class="javax.swing.JLabel" name="lbl_marca">
-    </Component>
-    <Component class="javax.swing.JLabel" name="lbl_formato">
-    </Component>
-    <Component class="javax.swing.JLabel" name="lbl_lineaid">
-    </Component>
-    <Component class="javax.swing.JLabel" name="lbl_familiaid">
+    <Component class="javax.swing.JTextField" name="tf_unidadMedida">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="jTextField1"/>
+      </Properties>
     </Component>
   </SubComponents>
 </Form>

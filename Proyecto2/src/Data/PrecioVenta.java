@@ -5,8 +5,6 @@
  */
 package Data;
 
-import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeSupport;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Basic;
@@ -22,7 +20,6 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -42,9 +39,6 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "PrecioVenta.findByModificadoEl", query = "SELECT p FROM PrecioVenta p WHERE p.modificadoEl = :modificadoEl")
     , @NamedQuery(name = "PrecioVenta.findByEliminadoEl", query = "SELECT p FROM PrecioVenta p WHERE p.eliminadoEl = :eliminadoEl")})
 public class PrecioVenta implements Serializable {
-
-    @Transient
-    private PropertyChangeSupport changeSupport = new PropertyChangeSupport(this);
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -100,9 +94,7 @@ public class PrecioVenta implements Serializable {
     }
 
     public void setId(Integer id) {
-        Integer oldId = this.id;
         this.id = id;
-        changeSupport.firePropertyChange("id", oldId, id);
     }
 
     public Date getFecha() {
@@ -110,9 +102,7 @@ public class PrecioVenta implements Serializable {
     }
 
     public void setFecha(Date fecha) {
-        Date oldFecha = this.fecha;
         this.fecha = fecha;
-        changeSupport.firePropertyChange("fecha", oldFecha, fecha);
     }
 
     public int getValor() {
@@ -120,9 +110,7 @@ public class PrecioVenta implements Serializable {
     }
 
     public void setValor(int valor) {
-        int oldValor = this.valor;
         this.valor = valor;
-        changeSupport.firePropertyChange("valor", oldValor, valor);
     }
 
     public int getEsActual() {
@@ -130,9 +118,7 @@ public class PrecioVenta implements Serializable {
     }
 
     public void setEsActual(int esActual) {
-        int oldEsActual = this.esActual;
         this.esActual = esActual;
-        changeSupport.firePropertyChange("esActual", oldEsActual, esActual);
     }
 
     public Date getCreadoEl() {
@@ -140,9 +126,7 @@ public class PrecioVenta implements Serializable {
     }
 
     public void setCreadoEl(Date creadoEl) {
-        Date oldCreadoEl = this.creadoEl;
         this.creadoEl = creadoEl;
-        changeSupport.firePropertyChange("creadoEl", oldCreadoEl, creadoEl);
     }
 
     public Date getModificadoEl() {
@@ -150,9 +134,7 @@ public class PrecioVenta implements Serializable {
     }
 
     public void setModificadoEl(Date modificadoEl) {
-        Date oldModificadoEl = this.modificadoEl;
         this.modificadoEl = modificadoEl;
-        changeSupport.firePropertyChange("modificadoEl", oldModificadoEl, modificadoEl);
     }
 
     public Date getEliminadoEl() {
@@ -160,9 +142,7 @@ public class PrecioVenta implements Serializable {
     }
 
     public void setEliminadoEl(Date eliminadoEl) {
-        Date oldEliminadoEl = this.eliminadoEl;
         this.eliminadoEl = eliminadoEl;
-        changeSupport.firePropertyChange("eliminadoEl", oldEliminadoEl, eliminadoEl);
     }
 
     public Producto getProductoId() {
@@ -170,9 +150,7 @@ public class PrecioVenta implements Serializable {
     }
 
     public void setProductoId(Producto productoId) {
-        Producto oldProductoId = this.productoId;
         this.productoId = productoId;
-        changeSupport.firePropertyChange("productoId", oldProductoId, productoId);
     }
 
     @Override
@@ -198,14 +176,6 @@ public class PrecioVenta implements Serializable {
     @Override
     public String toString() {
         return "Data.PrecioVenta[ id=" + id + " ]";
-    }
-
-    public void addPropertyChangeListener(PropertyChangeListener listener) {
-        changeSupport.addPropertyChangeListener(listener);
-    }
-
-    public void removePropertyChangeListener(PropertyChangeListener listener) {
-        changeSupport.removePropertyChangeListener(listener);
     }
     
 }
