@@ -58,7 +58,7 @@ public class IngresoProduccion extends javax.swing.JInternalFrame {
         tb_produccionDiaria = new javax.swing.JTable();
         cb_unidad_medida = new javax.swing.JComboBox<>();
 
-        jLabel2.setText("Produccion Diaria Pan");
+        jLabel2.setText("Produccion Diaria ");
 
         jLabel3.setText("Producto Final");
 
@@ -92,7 +92,7 @@ public class IngresoProduccion extends javax.swing.JInternalFrame {
         columnBinding.setColumnName("Unidad Medida ");
         columnBinding.setColumnClass(Data.UnidadMedida.class);
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${produccionCantidad}"));
-        columnBinding.setColumnName("Cantidad");
+        columnBinding.setColumnName("Produccion (KG)");
         columnBinding.setColumnClass(Integer.class);
         bindingGroup.addBinding(jTableBinding);
         jTableBinding.bind();binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, tb_produccionDiaria, org.jdesktop.beansbinding.ELProperty.create("${selectedElement.productoId.nombre}"), tb_produccionDiaria, org.jdesktop.beansbinding.BeanProperty.create("selectedElement"));
@@ -126,14 +126,14 @@ public class IngresoProduccion extends javax.swing.JInternalFrame {
                             .addComponent(tf_produccion))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 185, Short.MAX_VALUE)
                         .addComponent(bt_guardar))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(140, 140, 140)
-                        .addComponent(jLabel2)
-                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 586, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(191, 191, 191)
+                .addComponent(jLabel2)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
