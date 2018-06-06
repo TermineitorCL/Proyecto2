@@ -47,16 +47,15 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Producto.findByEliminadoEl", query = "SELECT p FROM Producto p WHERE p.eliminadoEl = :eliminadoEl")})
 public class Producto implements Serializable {
 
-    @Basic(optional = false)
-    @Column(name = "formato")
-    private String formato;
-
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "productoId")
     private Collection<Produccion> produccionCollection;
 
     @Transient
     private PropertyChangeSupport changeSupport = new PropertyChangeSupport(this);
 
+    @Basic(optional = false)
+    @Column(name = "formato")
+    private String formato;
     @Basic(optional = false)
     @Column(name = "codigo_barra")
     private int codigoBarra;
@@ -262,6 +261,15 @@ public class Producto implements Serializable {
         return nombre;
     }
 
+    public String getFormato() {
+        return formato;
+    }
+
+    public void setFormato(String formato) {
+        String oldFormato = this.formato;
+        this.formato = formato;
+        changeSupport.firePropertyChange("formato", oldFormato, formato);
+    }
 
     public int getCodigoBarra() {
         return codigoBarra;
@@ -298,14 +306,6 @@ public class Producto implements Serializable {
 
     public void setProduccionCollection(Collection<Produccion> produccionCollection) {
         this.produccionCollection = produccionCollection;
-    }
-
-    public String getFormato() {
-        return formato;
-    }
-
-    public void setFormato(String formato) {
-        this.formato = formato;
     }
     
 }
