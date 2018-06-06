@@ -27,7 +27,6 @@ public class Login extends javax.swing.JInternalFrame {
     }
     
     private static final String PERSISTENCE_UNIT_NAME = "Proyecto2PU";
-    String logeado = "no";
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -43,6 +42,7 @@ public class Login extends javax.swing.JInternalFrame {
         jLabel2 = new javax.swing.JLabel();
         tf_contraseña = new javax.swing.JPasswordField();
         bt_login = new javax.swing.JButton();
+        imagen1 = new javax.swing.JLabel();
 
         jLabel1.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jLabel1.setText("Correo");
@@ -62,24 +62,33 @@ public class Login extends javax.swing.JInternalFrame {
             }
         });
 
+        imagen1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/login.png"))); // NOI18N
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(73, 73, 73)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 88, Short.MAX_VALUE)
-                    .addComponent(bt_login, javax.swing.GroupLayout.DEFAULT_SIZE, 127, Short.MAX_VALUE)
-                    .addComponent(tf_contraseña)
-                    .addComponent(tf_correo))
-                .addContainerGap(161, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(69, 69, 69)
+                        .addComponent(imagen1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(116, 116, 116)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(bt_login, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(tf_contraseña)
+                            .addComponent(tf_correo, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(79, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(72, 72, 72)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(imagen1, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(31, 31, 31)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(tf_correo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -89,19 +98,19 @@ public class Login extends javax.swing.JInternalFrame {
                 .addComponent(tf_contraseña, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(29, 29, 29)
                 .addComponent(bt_login)
-                .addContainerGap(138, Short.MAX_VALUE))
+                .addContainerGap(38, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void tf_contraseñaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tf_contraseñaActionPerformed
-        
+  
 
     }//GEN-LAST:event_tf_contraseñaActionPerformed
 
     private void bt_loginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_loginActionPerformed
-        Menu me = new Menu();
+
         EntityManagerFactory emf = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
         EntityManager entityManager = emf.createEntityManager();
 
@@ -112,18 +121,33 @@ public class Login extends javax.swing.JInternalFrame {
             Query query = entityManager.createQuery(qlQuery);
             List<Usuario> usuarios = query.getResultList();
             entityManager.getTransaction().commit();
-           
             
-            if (usuarios.isEmpty()) {
-                JOptionPane.showMessageDialog(null, "La contraseña o el correo esta incorrecto intentelo denuevo");
+            String tf1 = tf_correo.getText();
+            String tf2 = tf_contraseña.getText();
+            
+            if (tf1.isEmpty() && tf2.isEmpty()) {
+                
+                JOptionPane.showMessageDialog(null, "Porfavor Ingrese datos", "Error", JOptionPane.ERROR_MESSAGE);
+                
+            
+            }else if (tf1.isEmpty()) {
+                
+                JOptionPane.showMessageDialog(null, "Porfavor Ingrese un correo", "Error", JOptionPane.ERROR_MESSAGE);
+                
+            }else if (tf2.isEmpty()) {
+                
+                JOptionPane.showMessageDialog(null, "Porfavor Ingrese una contraseña ", "Error", JOptionPane.ERROR_MESSAGE);
+                     
+            }else if (usuarios.isEmpty()) {
+                
+                JOptionPane.showMessageDialog(null, "La contraseña o el correo esta incorrecto intentelo denuevo", "Error", JOptionPane.ERROR_MESSAGE);
                 this.dispose();
+                
             }else{
                 JOptionPane.showMessageDialog(null, "Bienvenido");
                 this.dispose();
-                logeado = "si";
-                me.login_menu();
-            }
-       
+            }           
+            
         }finally {
 
             entityManager.close();
@@ -137,6 +161,7 @@ public class Login extends javax.swing.JInternalFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bt_login;
     private javax.persistence.EntityManager entityManager1;
+    private javax.swing.JLabel imagen1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPasswordField tf_contraseña;

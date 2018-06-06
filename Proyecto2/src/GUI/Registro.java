@@ -103,20 +103,33 @@ public class Registro extends javax.swing.JInternalFrame {
 
     private void tf_guardarRegistroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tf_guardarRegistroActionPerformed
 
-        // TODO add your handling code here:
-        entityManager1.getTransaction().begin();
+        String tf1 = tf_nombreRegistro.getText();
+        String tf2 = tf_contraRegistro.getText();
+        String tf3 = tf_correoRegistro.getText();
 
-        Usuario u = new Usuario();
-        u.setNombre(tf_nombreRegistro.getText());
-        u.setPass(tf_contraRegistro.getText());
-        u.setCorreo(tf_correoRegistro.getText());
+        if (tf1.isEmpty() && tf2.isEmpty() && tf3.isEmpty()) {
 
-        entityManager1.persist(u);
-        entityManager1.flush();
-        entityManager1.getTransaction().commit();
-        entityManager1.close();
-        JOptionPane.showMessageDialog(null, "Registro guardado con exito");
-        this.dispose();
+            JOptionPane.showMessageDialog(null, "Porfavor Ingrese datos", "Error", JOptionPane.ERROR_MESSAGE);
+
+        } else {
+
+            entityManager1.getTransaction().begin();
+            Usuario u = new Usuario();
+            u.setNombre(tf_nombreRegistro.getText());
+            u.setPass(tf_contraRegistro.getText());
+            u.setCorreo(tf_correoRegistro.getText());
+
+            entityManager1.persist(u);
+            entityManager1.flush();
+            entityManager1.getTransaction().commit();
+            entityManager1.close();
+
+            JOptionPane.showMessageDialog(null, "Registro guardado con exito");
+            this.dispose();
+            
+        }
+        
+        
 
 
     }//GEN-LAST:event_tf_guardarRegistroActionPerformed
