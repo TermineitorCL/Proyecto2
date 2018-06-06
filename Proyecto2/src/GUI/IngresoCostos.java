@@ -7,6 +7,7 @@ package GUI;
 
 import Data.Producto;
 import Data.Usuario;
+import java.util.Iterator;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -46,13 +47,13 @@ public class IngresoCostos extends javax.swing.JInternalFrame {
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
-        txt_codigo_de_barra = new javax.swing.JTextField();
-        txt_nombre_codigo_de_barra = new javax.swing.JTextField();
-        jLabel10 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
-        jLabel12 = new javax.swing.JLabel();
-        jLabel13 = new javax.swing.JLabel();
-        jLabel14 = new javax.swing.JLabel();
+        tf_codigo = new javax.swing.JTextField();
+        tf_nombre = new javax.swing.JTextField();
+        lb_unidad_medida = new javax.swing.JLabel();
+        lb_marca = new javax.swing.JLabel();
+        lb_formato = new javax.swing.JLabel();
+        lb_linea = new javax.swing.JLabel();
+        lb_familia = new javax.swing.JLabel();
         txt_nuevo_costo = new javax.swing.JTextField();
         btn_buscar = new javax.swing.JButton();
         btn_guardar = new javax.swing.JButton();
@@ -76,15 +77,15 @@ public class IngresoCostos extends javax.swing.JInternalFrame {
 
         jLabel9.setText("Nuevo costo");
 
-        jLabel10.setText("FaltaDatos");
+        lb_unidad_medida.setText("FaltaDatos");
 
-        jLabel11.setText("FaltaDatos");
+        lb_marca.setText("FaltaDatos");
 
-        jLabel12.setText("FaltaDatos");
+        lb_formato.setText("FaltaDatos");
 
-        jLabel13.setText("FaltaDatos");
+        lb_linea.setText("FaltaDatos");
 
-        jLabel14.setText("FaltaDatos");
+        lb_familia.setText("FaltaDatos");
 
         btn_buscar.setText("Buscar");
         btn_buscar.addActionListener(new java.awt.event.ActionListener() {
@@ -94,6 +95,11 @@ public class IngresoCostos extends javax.swing.JInternalFrame {
         });
 
         btn_guardar.setText("Guardar");
+        btn_guardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_guardarActionPerformed(evt);
+            }
+        });
 
         tabla_fecha_precio.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -123,35 +129,32 @@ public class IngresoCostos extends javax.swing.JInternalFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jLabel4)
-                                        .addComponent(jLabel5)
-                                        .addComponent(jLabel6)
-                                        .addComponent(jLabel7)
-                                        .addComponent(jLabel8)
-                                        .addComponent(jLabel9))
+                                    .addComponent(jLabel4)
+                                    .addComponent(jLabel5)
+                                    .addComponent(jLabel6)
+                                    .addComponent(jLabel7)
+                                    .addComponent(jLabel8)
+                                    .addComponent(jLabel9)
                                     .addComponent(jLabel2))
                                 .addGap(202, 202, 202)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(btn_buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(btn_guardar)))
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel3)
-                                .addGap(212, 212, 212))))
+                            .addComponent(jLabel3)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(134, 134, 134)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lb_unidad_medida, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(txt_nombre_codigo_de_barra, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(tf_nombre, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(txt_nuevo_costo, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jLabel15)
-                                .addComponent(txt_codigo_de_barra, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(tf_codigo, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(lb_marca, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lb_formato, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lb_linea, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lb_familia, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -162,32 +165,32 @@ public class IngresoCostos extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 56, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(txt_codigo_de_barra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tf_codigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btn_buscar))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(txt_nombre_codigo_de_barra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(tf_nombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(jLabel10))
+                    .addComponent(lb_unidad_medida))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(jLabel11))
+                    .addComponent(lb_marca))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
-                    .addComponent(jLabel12))
+                    .addComponent(lb_formato))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
-                    .addComponent(jLabel13))
+                    .addComponent(lb_linea))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
-                    .addComponent(jLabel14))
+                    .addComponent(lb_familia))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
@@ -203,49 +206,48 @@ public class IngresoCostos extends javax.swing.JInternalFrame {
 
     private void btn_buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_buscarActionPerformed
 
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
-        EntityManager entityManager = emf.createEntityManager();
-
-        try {
-
-            entityManager.getTransaction().begin();
-            String qlQuery = "SELECT u.nombre FROM Producto u  WHERE u.nombre = '" + txt_nombre_codigo_de_barra.getText()+"'";
-            Query query = entityManager.createQuery(qlQuery);
-            List<Producto> productos = query.getResultList();
-            entityManager.getTransaction().commit();
+       Integer id=  Integer.parseInt(this.tf_codigo.getText());
+       
+       
+        String qlQuery = "SELECT p FROM Producto p  WHERE p.codigoBarra ="+id;
+        entityManager1.getTransaction().begin();
+        Query query = entityManager1.createQuery(qlQuery);
+        List<Producto> pr = query.getResultList();
+        entityManager1.getTransaction().commit();
+        Iterator<Producto> iter = pr.iterator();
+        
+        while (iter.hasNext()) {
             
-            for (int i = 0; i < productos.size(); i++) {
-                
-            jLabel11.setText(productos.get(i).getMarca());
-            //txt_codigo_de_barra.setText(productos.get(i).getCodigoBarra());
-            /*
-            jLabel10.setText(p.getUnidadMedidaId().toString());
-            jLabel11.setText(p.getMarca());
-            jLabel12.setText(p.getFormato());
-            jLabel13.setText(p.getLineaId().toString());
-            jLabel14.setText(p.getFamiliaId().toString());
-            */
-            }
-
-            
-        } finally {
-
-            entityManager.close();
-            emf.close();
+            Producto p = (Producto) iter.next();
+            String dato=String.valueOf(p.getNombre());
+            String dato1 = String.valueOf(p.getCodigoBarra());
+            String dato2 = String.valueOf(p.getUnidadMedidaId());
+            String dato3 = String.valueOf(p.getMarca());
+            String dato4 = String.valueOf(p.getFormato());
+            String dato5 = String.valueOf(p.getLineaId());
+            String dato6 = String.valueOf(p.getFamiliaId());
+            tf_nombre.setText(dato);
+            lb_unidad_medida.setText(dato1);
+            lb_unidad_medida.setText(dato2);
+            lb_marca.setText(dato3);
+            lb_formato.setText(dato4);
+            lb_linea.setText(dato5);
+            lb_familia.setText(dato6);
         }
+    
 
     }//GEN-LAST:event_btn_buscarActionPerformed
+
+    private void btn_guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_guardarActionPerformed
+        // TODO add your handling code here:
+      
+    }//GEN-LAST:event_btn_guardarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_buscar;
     private javax.swing.JButton btn_guardar;
     private javax.persistence.EntityManager entityManager1;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -256,9 +258,14 @@ public class IngresoCostos extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lb_familia;
+    private javax.swing.JLabel lb_formato;
+    private javax.swing.JLabel lb_linea;
+    private javax.swing.JLabel lb_marca;
+    private javax.swing.JLabel lb_unidad_medida;
     private javax.swing.JTable tabla_fecha_precio;
-    private javax.swing.JTextField txt_codigo_de_barra;
-    private javax.swing.JTextField txt_nombre_codigo_de_barra;
+    private javax.swing.JTextField tf_codigo;
+    private javax.swing.JTextField tf_nombre;
     private javax.swing.JTextField txt_nuevo_costo;
     // End of variables declaration//GEN-END:variables
 }
