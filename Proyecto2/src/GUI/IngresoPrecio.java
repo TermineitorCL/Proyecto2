@@ -11,6 +11,7 @@ package GUI;
  */
 import Data.Producto;
 import Data.UnidadMedida;
+import java.util.Iterator;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -53,7 +54,11 @@ public class IngresoPrecio extends javax.swing.JInternalFrame {
         bt_nuevoprecio = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         tb_fenuevo = new javax.swing.JTable();
-        tf_unidadMedida = new javax.swing.JTextField();
+        lb_unidad = new javax.swing.JLabel();
+        lb_marca = new javax.swing.JLabel();
+        lb_formato = new javax.swing.JLabel();
+        lb_linea = new javax.swing.JLabel();
+        lb_familia = new javax.swing.JLabel();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -111,7 +116,15 @@ public class IngresoPrecio extends javax.swing.JInternalFrame {
         ));
         jScrollPane2.setViewportView(tb_fenuevo);
 
-        tf_unidadMedida.setText("jTextField1");
+        lb_unidad.setText("info");
+
+        lb_marca.setText("info");
+
+        lb_formato.setText("info");
+
+        lb_linea.setText("info");
+
+        lb_familia.setText("info");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -139,9 +152,15 @@ public class IngresoPrecio extends javax.swing.JInternalFrame {
                                     .addComponent(tf_nuevoprecio))
                                 .addGap(46, 46, 46)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(bt_codigobarra)
-                                    .addComponent(bt_nuevoprecio)))
-                            .addComponent(tf_unidadMedida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(bt_nuevoprecio)
+                                    .addComponent(bt_codigobarra)))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(lb_linea, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 84, Short.MAX_VALUE)
+                                .addComponent(lb_familia, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(lb_unidad, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 84, Short.MAX_VALUE)
+                                .addComponent(lb_marca, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(lb_formato, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(37, Short.MAX_VALUE))
         );
@@ -160,15 +179,26 @@ public class IngresoPrecio extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(tf_unidadMedida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lb_unidad))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel5)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel6)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(lb_marca)
+                        .addGap(38, 38, 38))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel5)
+                            .addComponent(lb_formato))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(lb_linea))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel7)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel7)
+                    .addComponent(lb_familia))
                 .addGap(11, 11, 11)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel8)
@@ -177,7 +207,7 @@ public class IngresoPrecio extends javax.swing.JInternalFrame {
                         .addComponent(bt_nuevoprecio)))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(27, Short.MAX_VALUE))
+                .addContainerGap(35, Short.MAX_VALUE))
         );
 
         pack();
@@ -188,19 +218,34 @@ public class IngresoPrecio extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_tf_codigobarraActionPerformed
 
     private void bt_codigobarraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_codigobarraActionPerformed
-        // TODO add your handling code here:
-        
-        
-        
-        
-        Producto p = entityManager1.find(Producto.class, Integer.parseInt(tf_codigobarra.getText()));
-        
-        entityManager1.getTransaction().begin();  
-        String producto = "SELECT p.codigobarra FROM producto p WHERE p.codigobarra = '"+tf_codigobarra.getText();
-        Query query = entityManager1.createQuery(producto);
-        List<Producto> productos = query.getResultList();
+        Integer id=  Integer.parseInt(this.tf_codigobarra.getText());
+       
+       
+        String qlQuery = "SELECT p FROM Producto p  WHERE p.codigoBarra ="+id;
+        entityManager1.getTransaction().begin();
+        Query query = entityManager1.createQuery(qlQuery);
+        List<Producto> pr = query.getResultList();
         entityManager1.getTransaction().commit();
-        tf_nombre.setText(p.getNombre());
+        Iterator<Producto> iter = pr.iterator();
+        
+        while (iter.hasNext()) {
+            
+            Producto p = (Producto) iter.next();
+            String dato=String.valueOf(p.getNombre());
+            String dato1 = String.valueOf(p.getCodigoBarra());
+            String dato2 = String.valueOf(p.getUnidadMedidaId());
+            String dato3 = String.valueOf(p.getMarca());
+            String dato4 = String.valueOf(p.getFormato());
+            String dato5 = String.valueOf(p.getLineaId());
+            String dato6 = String.valueOf(p.getFamiliaId());
+            tf_nombre.setText(dato);
+            lb_unidad.setText(dato1);
+            lb_unidad.setText(dato2);
+            lb_marca.setText(dato3);
+            lb_formato.setText(dato4);
+            lb_linea.setText(dato5);
+            lb_familia.setText(dato6);
+        }
         
        
         
@@ -222,10 +267,14 @@ public class IngresoPrecio extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
+    private javax.swing.JLabel lb_familia;
+    private javax.swing.JLabel lb_formato;
+    private javax.swing.JLabel lb_linea;
+    private javax.swing.JLabel lb_marca;
+    private javax.swing.JLabel lb_unidad;
     private javax.swing.JTable tb_fenuevo;
     private javax.swing.JTextField tf_codigobarra;
     private javax.swing.JTextField tf_nombre;
     private javax.swing.JTextField tf_nuevoprecio;
-    private javax.swing.JTextField tf_unidadMedida;
     // End of variables declaration//GEN-END:variables
 }
