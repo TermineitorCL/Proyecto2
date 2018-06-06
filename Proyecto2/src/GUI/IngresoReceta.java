@@ -40,6 +40,8 @@ public class IngresoReceta extends javax.swing.JInternalFrame {
         productoList = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : productoQuery.getResultList();
         unidadMedidaQuery = java.beans.Beans.isDesignTime() ? null : Proyecto2PUEntityManager.createQuery("SELECT u FROM UnidadMedida u");
         unidadMedidaList = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : unidadMedidaQuery.getResultList();
+        recetaQuery = java.beans.Beans.isDesignTime() ? null : Proyecto2PUEntityManager.createQuery("SELECT r FROM Receta r");
+        recetaList = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : recetaQuery.getResultList();
         jLabel1 = new javax.swing.JLabel();
         cb_Productofinal = new javax.swing.JComboBox<>();
         jLabel2 = new javax.swing.JLabel();
@@ -52,7 +54,6 @@ public class IngresoReceta extends javax.swing.JInternalFrame {
         jLabel6 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tb_Tablareceta = new javax.swing.JTable();
-        bt_Guardarreceta = new javax.swing.JButton();
         tf_Insumos = new javax.swing.JTextField();
         cb_unidadMedida = new javax.swing.JComboBox<>();
 
@@ -86,26 +87,21 @@ public class IngresoReceta extends javax.swing.JInternalFrame {
 
         jLabel6.setText("Receta Pan");
 
-        tb_Tablareceta.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
-            },
-            new String [] {
-                "Insumos", "Unidad de Medida", "Cantidad"
-            }
-        ));
-        jScrollPane1.setViewportView(tb_Tablareceta);
+        org.jdesktop.swingbinding.JTableBinding jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, recetaList, tb_Tablareceta);
+        org.jdesktop.swingbinding.JTableBinding.ColumnBinding columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${insumos}"));
+        columnBinding.setColumnName("Insumos");
+        columnBinding.setColumnClass(String.class);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${estado}"));
+        columnBinding.setColumnName("Estado");
+        columnBinding.setColumnClass(String.class);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${cantidad}"));
+        columnBinding.setColumnName("Cantidad");
+        columnBinding.setColumnClass(Integer.class);
+        bindingGroup.addBinding(jTableBinding);
+        jTableBinding.bind();binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, tb_Tablareceta, org.jdesktop.beansbinding.ELProperty.create("${selectedElement.insumos}"), tb_Tablareceta, org.jdesktop.beansbinding.BeanProperty.create("selectedElement"));
+        bindingGroup.addBinding(binding);
 
-        bt_Guardarreceta.setText("Actualizar Tabla");
+        jScrollPane1.setViewportView(tb_Tablareceta);
 
         jComboBoxBinding = org.jdesktop.swingbinding.SwingBindings.createJComboBoxBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, unidadMedidaList, cb_unidadMedida);
         bindingGroup.addBinding(jComboBoxBinding);
@@ -152,11 +148,7 @@ public class IngresoReceta extends javax.swing.JInternalFrame {
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(bt_Guardarreceta, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addComponent(jScrollPane1)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -185,9 +177,7 @@ public class IngresoReceta extends javax.swing.JInternalFrame {
                     .addComponent(cb_unidadMedida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
-                .addComponent(bt_Guardarreceta)
-                .addContainerGap())
+                .addContainerGap(53, Short.MAX_VALUE))
         );
 
         bindingGroup.bind();
@@ -212,7 +202,7 @@ public class IngresoReceta extends javax.swing.JInternalFrame {
         UnidadMedida um = (UnidadMedida)cb_unidadMedida.getSelectedItem();
         r.setUnidadMedidadId(um);
         JOptionPane.showMessageDialog(null,"Se a guardado correctamente");
-
+           this.dispose();
         entityManager1.persist(r);
         entityManager1.flush();
         entityManager1.getTransaction().commit();
@@ -223,7 +213,6 @@ public class IngresoReceta extends javax.swing.JInternalFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.persistence.EntityManager Proyecto2PUEntityManager;
     private javax.swing.JButton bt_Guardar;
-    private javax.swing.JButton bt_Guardarreceta;
     private javax.swing.JComboBox<String> cb_Productofinal;
     private javax.swing.JComboBox<String> cb_unidadMedida;
     private javax.persistence.EntityManager entityManager1;
@@ -236,6 +225,8 @@ public class IngresoReceta extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private java.util.List<Data.Producto> productoList;
     private javax.persistence.Query productoQuery;
+    private java.util.List<Data.Receta> recetaList;
+    private javax.persistence.Query recetaQuery;
     private javax.swing.JTable tb_Tablareceta;
     private javax.swing.JTextField tf_Cantidad;
     private javax.swing.JTextField tf_Estado;
