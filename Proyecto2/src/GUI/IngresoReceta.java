@@ -10,19 +10,21 @@ import Data.Receta;
 import Data.UnidadMedida;
 import java.util.Date;
 import javax.swing.JOptionPane;
+import java.util.*;
+import javax.swing.table.DefaultTableModel;
+
 
 /**
- *
+ *http://www.elprogramador.com.mx/llenar-un-jtable-con-datos-de-una-base-de-datos-mysql/
  * @author HP
  */
 public class IngresoReceta extends javax.swing.JInternalFrame {
-
-    /**
-     * Creates new form Ingreso_receta
-     */
+    DefaultTableModel TablaReceta ;
     public IngresoReceta() {
         initComponents();
     }
+
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -52,7 +54,7 @@ public class IngresoReceta extends javax.swing.JInternalFrame {
         jLabel6 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tb_Tablareceta = new javax.swing.JTable();
-        bt_Guardarreceta = new javax.swing.JButton();
+        bt_actualizar_tabla = new javax.swing.JButton();
         tf_Insumos = new javax.swing.JTextField();
         cb_unidadMedida = new javax.swing.JComboBox<>();
 
@@ -86,26 +88,15 @@ public class IngresoReceta extends javax.swing.JInternalFrame {
 
         jLabel6.setText("Receta Pan");
 
-        tb_Tablareceta.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
-            },
-            new String [] {
-                "Insumos", "Unidad de Medida", "Cantidad"
-            }
-        ));
+        tb_Tablareceta.setModel(TablaReceta);
         jScrollPane1.setViewportView(tb_Tablareceta);
 
-        bt_Guardarreceta.setText("Actualizar Tabla");
+        bt_actualizar_tabla.setText("Actualizar Tabla");
+        bt_actualizar_tabla.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bt_actualizar_tablaActionPerformed(evt);
+            }
+        });
 
         jComboBoxBinding = org.jdesktop.swingbinding.SwingBindings.createJComboBoxBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, unidadMedidaList, cb_unidadMedida);
         bindingGroup.addBinding(jComboBoxBinding);
@@ -156,7 +147,7 @@ public class IngresoReceta extends javax.swing.JInternalFrame {
                     .addComponent(jScrollPane1)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(bt_Guardarreceta, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(bt_actualizar_tabla, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -184,9 +175,9 @@ public class IngresoReceta extends javax.swing.JInternalFrame {
                     .addComponent(tf_Insumos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cb_unidadMedida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
-                .addComponent(bt_Guardarreceta)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 164, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(bt_actualizar_tabla)
                 .addContainerGap())
         );
 
@@ -219,11 +210,22 @@ public class IngresoReceta extends javax.swing.JInternalFrame {
         entityManager1.close();
     }//GEN-LAST:event_bt_GuardarActionPerformed
 
+    private void bt_actualizar_tablaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_actualizar_tablaActionPerformed
+   
+       Receta f=new Receta();
+        try {
+            f.llenarTabla(tb_Tablareceta);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(rootPane, e.getMessage());
+        }
+        
+    }//GEN-LAST:event_bt_actualizar_tablaActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.persistence.EntityManager Proyecto2PUEntityManager;
     private javax.swing.JButton bt_Guardar;
-    private javax.swing.JButton bt_Guardarreceta;
+    private javax.swing.JButton bt_actualizar_tabla;
     private javax.swing.JComboBox<String> cb_Productofinal;
     private javax.swing.JComboBox<String> cb_unidadMedida;
     private javax.persistence.EntityManager entityManager1;

@@ -6,6 +6,12 @@
 package Data;
 
 import java.io.Serializable;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.util.ArrayList;
 import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -20,6 +26,8 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -34,6 +42,12 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Receta.findAll", query = "SELECT r FROM Receta r")
     , @NamedQuery(name = "Receta.findById", query = "SELECT r FROM Receta r WHERE r.id = :id")})
 public class Receta implements Serializable {
+     DefaultTableModel TablaReceta ;
+    Connection cn;
+    private ResultSet rs;
+    PreparedStatement ps;
+    ResultSetMetaData rsm;
+     DefaultTableModel dtm;
 
     @Basic(optional = false)
     @Column(name = "estado")
@@ -149,4 +163,29 @@ public class Receta implements Serializable {
         this.unidadMedidadId = unidadMedidadId;
     }
     
+    
+    private Connection getConexion()throws Exception{
+        Class.forName("com.mysql.jdbc.Driver");
+        cn=DriverManager.getConnection("jdbc:mysql://localhost:3306/negocio?zeroDateTimeBehavior=convertToNull [root on Default schema]",
+                "root","");
+        return cn;
+    }
+    public void llenarTabla(JTable tabla)throws Exception{
+        ps=getConexion().prepareStatement("Select insumos,estado,cantidad from receta");
+        rs=ps.executeQuery();
+        rsm=rs.getMetaData();
+        ArrayList<Object[]> datos=new ArrayList<>();
+        while (rs.next()) {            
+            Object[] filas=new Object[rsm.getColumnCount()];
+            for (int i = 0; i < filas.length; i++) {
+                filas[i]=rs.getObject(i+1);
+                
+            }
+            datos.add(filas);
+        }
+        dtm=(DefaultTableModel)tabla.getModel();
+        for (int i = 0; i <datos.size(); i++) {
+            dtm.addRow(datos.get(i));
+        }
+    }
 }
