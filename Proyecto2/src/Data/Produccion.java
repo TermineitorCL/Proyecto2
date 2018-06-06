@@ -5,6 +5,8 @@
  */
 package Data;
 
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -17,6 +19,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -31,6 +34,9 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "Produccion.findById", query = "SELECT p FROM Produccion p WHERE p.id = :id")
     , @NamedQuery(name = "Produccion.findByProduccionCantidad", query = "SELECT p FROM Produccion p WHERE p.produccionCantidad = :produccionCantidad")})
 public class Produccion implements Serializable {
+
+    @Transient
+    private PropertyChangeSupport changeSupport = new PropertyChangeSupport(this);
 
     @JoinColumn(name = "producto_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
@@ -66,7 +72,9 @@ public class Produccion implements Serializable {
     }
 
     public void setId(Integer id) {
+        Integer oldId = this.id;
         this.id = id;
+        changeSupport.firePropertyChange("id", oldId, id);
     }
 
     public int getProduccionCantidad() {
@@ -74,7 +82,9 @@ public class Produccion implements Serializable {
     }
 
     public void setProduccionCantidad(int produccionCantidad) {
+        int oldProduccionCantidad = this.produccionCantidad;
         this.produccionCantidad = produccionCantidad;
+        changeSupport.firePropertyChange("produccionCantidad", oldProduccionCantidad, produccionCantidad);
     }
 
     public UnidadMedida getUnidadMedidaId() {
@@ -82,7 +92,9 @@ public class Produccion implements Serializable {
     }
 
     public void setUnidadMedidaId(UnidadMedida unidadMedidaId) {
+        UnidadMedida oldUnidadMedidaId = this.unidadMedidaId;
         this.unidadMedidaId = unidadMedidaId;
+        changeSupport.firePropertyChange("unidadMedidaId", oldUnidadMedidaId, unidadMedidaId);
     }
 
     @Override
@@ -115,7 +127,17 @@ public class Produccion implements Serializable {
     }
 
     public void setProductoId(Producto productoId) {
+        Producto oldProductoId = this.productoId;
         this.productoId = productoId;
+        changeSupport.firePropertyChange("productoId", oldProductoId, productoId);
+    }
+
+    public void addPropertyChangeListener(PropertyChangeListener listener) {
+        changeSupport.addPropertyChangeListener(listener);
+    }
+
+    public void removePropertyChangeListener(PropertyChangeListener listener) {
+        changeSupport.removePropertyChangeListener(listener);
     }
     
 }

@@ -5,6 +5,8 @@
  */
 package Data;
 
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.Basic;
@@ -20,6 +22,7 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -34,6 +37,9 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Receta.findAll", query = "SELECT r FROM Receta r")
     , @NamedQuery(name = "Receta.findById", query = "SELECT r FROM Receta r WHERE r.id = :id")})
 public class Receta implements Serializable {
+
+    @Transient
+    private PropertyChangeSupport changeSupport = new PropertyChangeSupport(this);
 
     @Basic(optional = false)
     @Column(name = "estado")
@@ -72,7 +78,9 @@ public class Receta implements Serializable {
     }
 
     public void setId(Integer id) {
+        Integer oldId = this.id;
         this.id = id;
+        changeSupport.firePropertyChange("id", oldId, id);
     }
 
     public Producto getProductoId() {
@@ -80,7 +88,9 @@ public class Receta implements Serializable {
     }
 
     public void setProductoId(Producto productoId) {
+        Producto oldProductoId = this.productoId;
         this.productoId = productoId;
+        changeSupport.firePropertyChange("productoId", oldProductoId, productoId);
     }
 
     @XmlTransient
@@ -122,7 +132,9 @@ public class Receta implements Serializable {
     }
 
     public void setEstado(String estado) {
+        String oldEstado = this.estado;
         this.estado = estado;
+        changeSupport.firePropertyChange("estado", oldEstado, estado);
     }
 
     public String getInsumos() {
@@ -130,7 +142,9 @@ public class Receta implements Serializable {
     }
 
     public void setInsumos(String insumos) {
+        String oldInsumos = this.insumos;
         this.insumos = insumos;
+        changeSupport.firePropertyChange("insumos", oldInsumos, insumos);
     }
 
     public int getCantidad() {
@@ -138,7 +152,9 @@ public class Receta implements Serializable {
     }
 
     public void setCantidad(int cantidad) {
+        int oldCantidad = this.cantidad;
         this.cantidad = cantidad;
+        changeSupport.firePropertyChange("cantidad", oldCantidad, cantidad);
     }
 
     public UnidadMedida getUnidadMedidadId() {
@@ -146,7 +162,17 @@ public class Receta implements Serializable {
     }
 
     public void setUnidadMedidadId(UnidadMedida unidadMedidadId) {
+        UnidadMedida oldUnidadMedidadId = this.unidadMedidadId;
         this.unidadMedidadId = unidadMedidadId;
+        changeSupport.firePropertyChange("unidadMedidadId", oldUnidadMedidadId, unidadMedidadId);
+    }
+
+    public void addPropertyChangeListener(PropertyChangeListener listener) {
+        changeSupport.addPropertyChangeListener(listener);
+    }
+
+    public void removePropertyChangeListener(PropertyChangeListener listener) {
+        changeSupport.removePropertyChangeListener(listener);
     }
     
 }
