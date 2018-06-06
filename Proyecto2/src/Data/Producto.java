@@ -307,5 +307,6 @@ public class Producto implements Serializable {
     public void setProduccionCollection(Collection<Produccion> produccionCollection) {
         this.produccionCollection = produccionCollection;
     }
+   
     
 }
