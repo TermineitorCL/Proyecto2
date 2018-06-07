@@ -177,15 +177,14 @@ public class IngresoProduccion extends javax.swing.JInternalFrame {
     private void bt_guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_guardarActionPerformed
         entityManager1.getTransaction().begin();
         Produccion p = new Produccion();
-        
-        
-        Producto m = (Producto)cb_productoFinal.getSelectedItem();
+
+        Producto m = (Producto) cb_productoFinal.getSelectedItem();
         p.setProductoId(m);
-        UnidadMedida u = (UnidadMedida)cb_unidad_medida.getSelectedItem();
+        UnidadMedida u = (UnidadMedida) cb_unidad_medida.getSelectedItem();
         p.setUnidadMedidaId(u);
         p.setProduccionCantidad(Integer.parseInt(tf_produccion.getText()));
-        
-        JOptionPane.showMessageDialog(null,"Se a guardado correctamente");
+
+        JOptionPane.showMessageDialog(null, "Se a guardado correctamente");
         this.dispose();
         entityManager1.persist(p);
         entityManager1.flush();
@@ -202,18 +201,25 @@ public class IngresoProduccion extends javax.swing.JInternalFrame {
         EntityManager entityManager = emf.createEntityManager();
 
         try {
-            
-            entityManager.getTransaction().begin();  
-            String qlQuery = "SELECT 'producto'.'id', 'producto'.'nombre' FROM 'producto' WHERE 'producto'.'id' IN (SELECT 'produccion'.'producto_id' FROM 'produccion')";
+
+            entityManager.getTransaction().begin();
+            String qlQuery = "SELECT p.nombre,u.descripcion,pr.producion_cantidad,p.creado_el,p.modificado_el, p.eliminado_el FROM producto p JOIN unidad_medida u ON  p.unidad_medida_id = u.id join producion pr ON pr.producto_id = p.id";
             Query query = entityManager.createQuery(qlQuery);
             List<Producto> productos = query.getResultList();
+
             entityManager.getTransaction().commit();
-            
-            for (int i = 0; i < productos.size(); i++) {               
+
+            for (int i = 0; i < productos.size(); i++) {
+
                 tb_produccionDiaria.setValueAt(productos.get(i).getNombre(), i, 0);
+                tb_produccionDiaria.setValueAt(productos.get(i).getUnidadMedidaId(), i, 1);
+                //tb_produccionDiaria.setValueAt(productos.get(i).getUnidadMedidaId(), i, 2);
+                tb_produccionDiaria.setValueAt(productos.get(i).getCreadoEl(), i, 3);
+                tb_produccionDiaria.setValueAt(productos.get(i).getModificadoEl(), i, 4);
+                tb_produccionDiaria.setValueAt(productos.get(i).getEliminadoEl(), i, 5);
             }
-            
-        }finally {
+
+        } finally {
 
             entityManager.close();
             emf.close();
