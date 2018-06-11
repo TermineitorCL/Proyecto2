@@ -43,11 +43,16 @@ public class IngresoFamilia extends javax.swing.JInternalFrame {
         jLabel2 = new javax.swing.JLabel();
         cb_codigo_linea = new javax.swing.JComboBox<>();
         tf_familia_descripcion = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        bt_guardar = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
 
+        jPanel1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel1.setText("Codigo linea");
 
-        jLabel2.setText("Descripcion Familia ");
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel2.setText("Descripción Familia ");
 
         org.jdesktop.swingbinding.JComboBoxBinding jComboBoxBinding = org.jdesktop.swingbinding.SwingBindings.createJComboBoxBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, lineaList, cb_codigo_linea);
         bindingGroup.addBinding(jComboBoxBinding);
@@ -60,50 +65,62 @@ public class IngresoFamilia extends javax.swing.JInternalFrame {
             }
         });
 
+        tf_familia_descripcion.setForeground(new java.awt.Color(0, 0, 204));
         tf_familia_descripcion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tf_familia_descripcionActionPerformed(evt);
             }
         });
 
-        jButton1.setText("Guardar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        bt_guardar.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        bt_guardar.setText("Guardar");
+        bt_guardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                bt_guardarActionPerformed(evt);
             }
         });
+
+        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel3.setText("Crear nueva Familia de articulos");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(41, 41, 41)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton1)
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(49, 49, 49)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel2))
-                        .addGap(40, 40, 40)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(cb_codigo_linea, 0, 110, Short.MAX_VALUE)
-                            .addComponent(tf_familia_descripcion))))
-                .addContainerGap(79, Short.MAX_VALUE))
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel1))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(cb_codigo_linea, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(tf_familia_descripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(118, 118, 118)
+                        .addComponent(bt_guardar))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(61, 61, 61)
+                        .addComponent(jLabel3)))
+                .addContainerGap(33, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(50, 50, 50)
+                .addContainerGap()
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(cb_codigo_linea, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(20, 20, 20)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(tf_familia_descripcion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(35, 35, 35)
-                .addComponent(jButton1)
+                .addGap(18, 18, 18)
+                .addComponent(bt_guardar)
                 .addContainerGap(19, Short.MAX_VALUE))
         );
 
@@ -114,7 +131,7 @@ public class IngresoFamilia extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void bt_guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_guardarActionPerformed
         entityManager1.getTransaction().begin();
         Date d = new Date();
         Familia f = new Familia();
@@ -133,7 +150,7 @@ public class IngresoFamilia extends javax.swing.JInternalFrame {
         entityManager1.getTransaction().commit();
         entityManager1.close();
         
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_bt_guardarActionPerformed
 
     private void cb_codigo_lineaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cb_codigo_lineaActionPerformed
         // TODO add your handling code here:
@@ -145,13 +162,14 @@ public class IngresoFamilia extends javax.swing.JInternalFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton bt_guardar;
     private javax.swing.JComboBox<String> cb_codigo_linea;
     private java.util.List<Data.Costo> costoList;
     private javax.persistence.Query costoQuery;
     private javax.persistence.EntityManager entityManager1;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private java.util.List<Data.Linea> lineaList;
     private javax.persistence.Query lineaQuery;
