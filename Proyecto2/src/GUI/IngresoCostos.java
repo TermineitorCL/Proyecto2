@@ -5,14 +5,18 @@
  */
 package GUI;
 
+import Data.Costo;
+import Data.Linea;
 import Data.Producto;
 import Data.Usuario;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -54,7 +58,7 @@ public class IngresoCostos extends javax.swing.JInternalFrame {
         lb_formato = new javax.swing.JLabel();
         lb_linea = new javax.swing.JLabel();
         lb_familia = new javax.swing.JLabel();
-        txt_nuevo_costo = new javax.swing.JTextField();
+        tf_costo = new javax.swing.JTextField();
         btn_buscar = new javax.swing.JButton();
         btn_guardar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -148,7 +152,7 @@ public class IngresoCostos extends javax.swing.JInternalFrame {
                             .addComponent(lb_unidad_medida, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                 .addComponent(tf_nombre, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(txt_nuevo_costo, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(tf_costo, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jLabel15)
                                 .addComponent(tf_codigo, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(lb_marca, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -194,7 +198,7 @@ public class IngresoCostos extends javax.swing.JInternalFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
-                    .addComponent(txt_nuevo_costo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tf_costo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btn_guardar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -240,6 +244,23 @@ public class IngresoCostos extends javax.swing.JInternalFrame {
 
     private void btn_guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_guardarActionPerformed
         // TODO add your handling code here:
+            entityManager1.getTransaction().begin();
+           
+        Date d = new Date();
+        Costo c = new Costo();
+ 
+        c.setValor((tf_costo.getText()));
+        c.setEliminadoEl(d);
+        c.setModificadoEl(d);
+        c.setCreadoEl(d);
+        JOptionPane.showMessageDialog(null,"Se a guardado correctamente");
+        this.dispose();
+
+        entityManager1.persist(c);
+        entityManager1.flush();
+        entityManager1.getTransaction().commit();
+        entityManager1.close();
+           
       
     }//GEN-LAST:event_btn_guardarActionPerformed
 
@@ -265,7 +286,7 @@ public class IngresoCostos extends javax.swing.JInternalFrame {
     private javax.swing.JLabel lb_unidad_medida;
     private javax.swing.JTable tabla_fecha_precio;
     private javax.swing.JTextField tf_codigo;
+    private javax.swing.JTextField tf_costo;
     private javax.swing.JTextField tf_nombre;
-    private javax.swing.JTextField txt_nuevo_costo;
     // End of variables declaration//GEN-END:variables
 }

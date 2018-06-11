@@ -57,7 +57,7 @@
                           <Component id="lb_unidad_medida" min="-2" pref="142" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="1" attributes="0">
                               <Component id="tf_nombre" min="-2" pref="147" max="-2" attributes="0"/>
-                              <Component id="txt_nuevo_costo" min="-2" pref="142" max="-2" attributes="0"/>
+                              <Component id="tf_costo" min="-2" pref="142" max="-2" attributes="0"/>
                               <Component id="jLabel15" min="-2" max="-2" attributes="0"/>
                               <Component id="tf_codigo" alignment="1" min="-2" pref="147" max="-2" attributes="0"/>
                           </Group>
@@ -116,7 +116,7 @@
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabel9" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="txt_nuevo_costo" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="tf_costo" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btn_guardar" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
@@ -196,7 +196,7 @@
         <Property name="text" type="java.lang.String" value="FaltaDatos"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="txt_nuevo_costo">
+    <Component class="javax.swing.JTextField" name="tf_costo">
     </Component>
     <Component class="javax.swing.JButton" name="btn_buscar">
       <Properties>
