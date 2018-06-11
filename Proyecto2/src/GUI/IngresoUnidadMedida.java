@@ -47,6 +47,7 @@ public class IngresoUnidadMedida extends javax.swing.JInternalFrame {
 
         setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
+        bn_guardar.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         bn_guardar.setText("Guardar");
         bn_guardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
