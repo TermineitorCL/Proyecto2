@@ -41,8 +41,12 @@ public class IngresoCostos extends javax.swing.JInternalFrame {
     private int idproducto = 0;
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+        bindingGroup = new org.jdesktop.beansbinding.BindingGroup();
 
         entityManager1 = java.beans.Beans.isDesignTime() ? null : javax.persistence.Persistence.createEntityManagerFactory("Proyecto2PU").createEntityManager();
+        Proyecto2PUEntityManager = java.beans.Beans.isDesignTime() ? null : javax.persistence.Persistence.createEntityManagerFactory("Proyecto2PU").createEntityManager();
+        costoQuery = java.beans.Beans.isDesignTime() ? null : Proyecto2PUEntityManager.createQuery("SELECT c FROM Costo c");
+        costoList = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : costoQuery.getResultList();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -105,17 +109,19 @@ public class IngresoCostos extends javax.swing.JInternalFrame {
             }
         });
 
-        tabla_fecha_precio.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
-            },
-            new String [] {
-                "Fecha", "Precios costo"
-            }
-        ));
+        org.jdesktop.swingbinding.JTableBinding jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, costoList, tabla_fecha_precio);
+        org.jdesktop.swingbinding.JTableBinding.ColumnBinding columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${fecha}"));
+        columnBinding.setColumnName("Fecha");
+        columnBinding.setColumnClass(java.util.Date.class);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${valor}"));
+        columnBinding.setColumnName("Valor");
+        columnBinding.setColumnClass(Integer.class);
+        bindingGroup.addBinding(jTableBinding);
+        jTableBinding.bind();org.jdesktop.beansbinding.Binding binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, tabla_fecha_precio, org.jdesktop.beansbinding.ELProperty.create("${selectedElement.fecha}"), tabla_fecha_precio, org.jdesktop.beansbinding.BeanProperty.create("selectedElement"));
+        bindingGroup.addBinding(binding);
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, tabla_fecha_precio, org.jdesktop.beansbinding.ELProperty.create("${selectedElement.valor}"), tabla_fecha_precio, org.jdesktop.beansbinding.BeanProperty.create("selectedElements"));
+        bindingGroup.addBinding(binding);
+
         jScrollPane1.setViewportView(tabla_fecha_precio);
 
         jLabel15.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -205,6 +211,8 @@ public class IngresoCostos extends javax.swing.JInternalFrame {
                 .addGap(29, 29, 29))
         );
 
+        bindingGroup.bind();
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -213,7 +221,7 @@ public class IngresoCostos extends javax.swing.JInternalFrame {
        Integer id=  Integer.parseInt(this.tf_codigo.getText());
        
        
-        String qlQuery = "SELECT p FROM Producto p  WHERE p.codigoBarra ="+id;
+        String qlQuery = "SELECT p FROM Producto p  WHERE p.codigoBarra ="+id ;
         entityManager1.getTransaction().begin();
         Query query = entityManager1.createQuery(qlQuery);
         List<Producto> pr = query.getResultList();
@@ -273,8 +281,11 @@ public class IngresoCostos extends javax.swing.JInternalFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.persistence.EntityManager Proyecto2PUEntityManager;
     private javax.swing.JButton btn_buscar;
     private javax.swing.JButton btn_guardar;
+    private java.util.List<Data.Costo> costoList;
+    private javax.persistence.Query costoQuery;
     private javax.persistence.EntityManager entityManager1;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel2;
@@ -295,5 +306,6 @@ public class IngresoCostos extends javax.swing.JInternalFrame {
     private javax.swing.JTextField tf_codigo;
     private javax.swing.JTextField tf_costo;
     private javax.swing.JTextField tf_nombre;
+    private org.jdesktop.beansbinding.BindingGroup bindingGroup;
     // End of variables declaration//GEN-END:variables
 }
