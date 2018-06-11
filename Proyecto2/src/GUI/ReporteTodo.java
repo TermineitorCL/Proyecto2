@@ -29,9 +29,9 @@ public class ReporteTodo extends javax.swing.JInternalFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        jDateChooser1 = new com.toedter.calendar.JDateChooser();
         jLabel2 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
+        jDateChooser2 = new com.toedter.calendar.JDateChooser();
         jPanel2 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
@@ -42,11 +42,11 @@ public class ReporteTodo extends javax.swing.JInternalFrame {
 
         jLabel1.setText("Fecha Inicio");
         jPanel1.add(jLabel1);
-        jPanel1.add(jTextField1);
+        jPanel1.add(jDateChooser1);
 
         jLabel2.setText("Fecha Final");
         jPanel1.add(jLabel2);
-        jPanel1.add(jTextField2);
+        jPanel1.add(jDateChooser2);
 
         jPanel2.setLayout(new java.awt.GridLayout(1, 0));
 
@@ -99,14 +99,14 @@ public class ReporteTodo extends javax.swing.JInternalFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
+    private com.toedter.calendar.JDateChooser jDateChooser1;
+    private com.toedter.calendar.JDateChooser jDateChooser2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
     private javax.swing.JScrollPane tb_reportetodo;
     // End of variables declaration//GEN-END:variables
 }

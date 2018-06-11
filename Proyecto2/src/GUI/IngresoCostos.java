@@ -218,65 +218,65 @@ public class IngresoCostos extends javax.swing.JInternalFrame {
 
     private void btn_buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_buscarActionPerformed
 
-       Integer id=  Integer.parseInt(this.tf_codigo.getText());
-       
-       
-        String qlQuery = "SELECT p FROM Producto p  WHERE p.codigoBarra ="+id ;
-        entityManager1.getTransaction().begin();
-        Query query = entityManager1.createQuery(qlQuery);
-        List<Producto> pr = query.getResultList();
-        entityManager1.getTransaction().commit();
-        Iterator<Producto> iter = pr.iterator();
-        
-        while (iter.hasNext()) {
-            
-            Producto p = (Producto) iter.next();
-            
-            idproducto = p.getId();
-            String dato=String.valueOf(p.getNombre());
-            String dato1 = String.valueOf(p.getCodigoBarra());
-            String dato2 = String.valueOf(p.getUnidadMedidaId());
-            String dato3 = String.valueOf(p.getMarca());
-            String dato4 = String.valueOf(p.getFormato());
-            String dato5 = String.valueOf(p.getLineaId());
-            String dato6 = String.valueOf(p.getFamiliaId());
-            tf_nombre.setText(dato);
-            lb_unidad_medida.setText(dato1);
-            lb_unidad_medida.setText(dato2);
-            lb_marca.setText(dato3);
-            lb_formato.setText(dato4);
-            lb_linea.setText(dato5);
-            lb_familia.setText(dato6);
-        }
-    
+        Integer id = Integer.parseInt(this.tf_codigo.getText());
 
+        
+      
+            String qlQuery = "SELECT p FROM Producto p  WHERE p.codigoBarra =" + id;
+            entityManager1.getTransaction().begin();
+            Query query = entityManager1.createQuery(qlQuery);
+            List<Producto> pr = query.getResultList();
+            entityManager1.getTransaction().commit();
+            Iterator<Producto> iter = pr.iterator();
+
+            while (iter.hasNext()) {
+
+                Producto p = (Producto) iter.next();
+
+                idproducto = p.getId();
+                String dato = String.valueOf(p.getNombre());
+                String dato1 = String.valueOf(p.getCodigoBarra());
+                String dato2 = String.valueOf(p.getUnidadMedidaId());
+                String dato3 = String.valueOf(p.getMarca());
+                String dato4 = String.valueOf(p.getFormato());
+                String dato5 = String.valueOf(p.getLineaId());
+                String dato6 = String.valueOf(p.getFamiliaId());
+                tf_nombre.setText(dato);
+                lb_unidad_medida.setText(dato1);
+                lb_unidad_medida.setText(dato2);
+                lb_marca.setText(dato3);
+                lb_formato.setText(dato4);
+                lb_linea.setText(dato5);
+                lb_familia.setText(dato6);
+            }
+        
     }//GEN-LAST:event_btn_buscarActionPerformed
 
     private void btn_guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_guardarActionPerformed
         // TODO add your handling code here:
-            entityManager1.getTransaction().begin();
-           
+        entityManager1.getTransaction().begin();
+
         Date d = new Date();
         Costo c = new Costo();
         Producto p = new Producto();
-        
+
         p.setId(idproducto);
-        
+
         c.setValor(Integer.parseInt(tf_costo.getText()));
         c.setEliminadoEl(d);
         c.setFecha(d);
         c.setModificadoEl(d);
         c.setCreadoEl(d);
         c.setProductoId(p);
-        JOptionPane.showMessageDialog(null,"Se a guardado correctamente");
+        JOptionPane.showMessageDialog(null, "Se a guardado correctamente");
         this.dispose();
 
         entityManager1.persist(c);
         entityManager1.flush();
         entityManager1.getTransaction().commit();
         entityManager1.close();
-           
-      
+
+
     }//GEN-LAST:event_btn_guardarActionPerformed
 
 
