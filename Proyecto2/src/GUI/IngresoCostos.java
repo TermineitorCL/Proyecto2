@@ -38,7 +38,7 @@ public class IngresoCostos extends javax.swing.JInternalFrame {
      */
     @SuppressWarnings("unchecked")
     private static final String PERSISTENCE_UNIT_NAME = "Proyecto2PU";
-    
+    private int idproducto = 0;
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -223,6 +223,8 @@ public class IngresoCostos extends javax.swing.JInternalFrame {
         while (iter.hasNext()) {
             
             Producto p = (Producto) iter.next();
+            
+            idproducto = p.getId();
             String dato=String.valueOf(p.getNombre());
             String dato1 = String.valueOf(p.getCodigoBarra());
             String dato2 = String.valueOf(p.getUnidadMedidaId());
@@ -248,11 +250,16 @@ public class IngresoCostos extends javax.swing.JInternalFrame {
            
         Date d = new Date();
         Costo c = new Costo();
- 
-        c.setValor((tf_costo.getText()));
+        Producto p = new Producto();
+        
+        p.setId(idproducto);
+        
+        c.setValor(Integer.parseInt(tf_costo.getText()));
         c.setEliminadoEl(d);
+        c.setFecha(d);
         c.setModificadoEl(d);
         c.setCreadoEl(d);
+        c.setProductoId(p);
         JOptionPane.showMessageDialog(null,"Se a guardado correctamente");
         this.dispose();
 
