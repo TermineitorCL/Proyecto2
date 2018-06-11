@@ -45,13 +45,13 @@ public class IngresoProducto extends javax.swing.JInternalFrame {
         lineaList1 = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : lineaQuery1.getResultList();
         familiaQuery = java.beans.Beans.isDesignTime() ? null : Proyecto2PUEntityManager.createQuery("SELECT f FROM Familia f");
         familiaList = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : familiaQuery.getResultList();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
+        lb_codigo_barra = new javax.swing.JLabel();
+        lb_nombre = new javax.swing.JLabel();
+        lb_unidad_medida = new javax.swing.JLabel();
+        lb_marca = new javax.swing.JLabel();
+        lb_formato = new javax.swing.JLabel();
+        lb_linea = new javax.swing.JLabel();
+        lb_familia = new javax.swing.JLabel();
         tf_codigo_barra = new javax.swing.JTextField();
         tf_nombre_producto = new javax.swing.JTextField();
         cb_unidad_medida = new javax.swing.JComboBox<>();
@@ -62,19 +62,19 @@ public class IngresoProducto extends javax.swing.JInternalFrame {
         bt_guardar = new javax.swing.JButton();
         jLabel8 = new javax.swing.JLabel();
 
-        jLabel1.setText("Codigo Barra");
+        lb_codigo_barra.setText("Codigo Barra");
 
-        jLabel2.setText("Nombre");
+        lb_nombre.setText("Nombre");
 
-        jLabel3.setText("Unidad de medida ");
+        lb_unidad_medida.setText("Unidad de medida ");
 
-        jLabel4.setText("Marca");
+        lb_marca.setText("Marca");
 
-        jLabel5.setText("Formato");
+        lb_formato.setText("Formato");
 
-        jLabel6.setText("Linea");
+        lb_linea.setText("Linea");
 
-        jLabel7.setText("Familia");
+        lb_familia.setText("Familia");
 
         org.jdesktop.swingbinding.JComboBoxBinding jComboBoxBinding = org.jdesktop.swingbinding.SwingBindings.createJComboBoxBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, unidadMedidaList, cb_unidad_medida);
         bindingGroup.addBinding(jComboBoxBinding);
@@ -108,13 +108,13 @@ public class IngresoProducto extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(78, 78, 78)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.LEADING))
+                    .addComponent(lb_unidad_medida)
+                    .addComponent(lb_codigo_barra, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lb_nombre, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lb_marca, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lb_formato, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lb_linea, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lb_familia, javax.swing.GroupLayout.Alignment.LEADING))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(tf_codigo_barra)
@@ -144,31 +144,31 @@ public class IngresoProducto extends javax.swing.JInternalFrame {
                 .addComponent(jLabel8)
                 .addGap(36, 36, 36)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
+                    .addComponent(lb_codigo_barra)
                     .addComponent(tf_codigo_barra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
+                    .addComponent(lb_nombre)
                     .addComponent(tf_nombre_producto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
+                    .addComponent(lb_unidad_medida)
                     .addComponent(cb_unidad_medida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
+                    .addComponent(lb_marca)
                     .addComponent(tf_nombre_marca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
+                    .addComponent(lb_formato)
                     .addComponent(tf_formato_nombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
+                    .addComponent(lb_linea)
                     .addComponent(cb_linea_definicion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel7)
+                    .addComponent(lb_familia)
                     .addComponent(cb_familia_definicion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(bt_guardar)
@@ -216,14 +216,14 @@ public class IngresoProducto extends javax.swing.JInternalFrame {
     private javax.persistence.EntityManager entityManager1;
     private java.util.List<Data.Familia> familiaList;
     private javax.persistence.Query familiaQuery;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel lb_codigo_barra;
+    private javax.swing.JLabel lb_familia;
+    private javax.swing.JLabel lb_formato;
+    private javax.swing.JLabel lb_linea;
+    private javax.swing.JLabel lb_marca;
+    private javax.swing.JLabel lb_nombre;
+    private javax.swing.JLabel lb_unidad_medida;
     private java.util.List<Data.Linea> lineaList;
     private java.util.List<Data.Linea> lineaList1;
     private javax.persistence.Query lineaQuery;
