@@ -59,7 +59,7 @@ public class IngresoProducto extends javax.swing.JInternalFrame {
         tf_formato_nombre = new javax.swing.JTextField();
         cb_linea_definicion = new javax.swing.JComboBox<>();
         cb_familia_definicion = new javax.swing.JComboBox<>();
-        jButton1 = new javax.swing.JButton();
+        bt_guardar = new javax.swing.JButton();
         jLabel8 = new javax.swing.JLabel();
 
         jLabel1.setText("Codigo Barra");
@@ -91,10 +91,10 @@ public class IngresoProducto extends javax.swing.JInternalFrame {
         binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, cb_familia_definicion, org.jdesktop.beansbinding.ELProperty.create("${selectedItem.nombre}"), cb_familia_definicion, org.jdesktop.beansbinding.BeanProperty.create("selectedItem"));
         bindingGroup.addBinding(binding);
 
-        jButton1.setText("Guardar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        bt_guardar.setText("Guardar");
+        bt_guardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                bt_guardarActionPerformed(evt);
             }
         });
 
@@ -132,7 +132,7 @@ public class IngresoProducto extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(166, 166, 166)
-                        .addComponent(jButton1))
+                        .addComponent(bt_guardar))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(111, 111, 111)
                         .addComponent(jLabel8)))
@@ -171,7 +171,7 @@ public class IngresoProducto extends javax.swing.JInternalFrame {
                     .addComponent(jLabel7)
                     .addComponent(cb_familia_definicion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(jButton1)
+                .addComponent(bt_guardar)
                 .addContainerGap(17, Short.MAX_VALUE))
         );
 
@@ -180,7 +180,7 @@ public class IngresoProducto extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void bt_guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_guardarActionPerformed
           entityManager1.getTransaction().begin();
         Date d = new Date();
         Producto u = new Producto();
@@ -204,18 +204,18 @@ public class IngresoProducto extends javax.swing.JInternalFrame {
         entityManager1.flush();
         entityManager1.getTransaction().commit();
         entityManager1.close();
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_bt_guardarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.persistence.EntityManager Proyecto2PUEntityManager;
+    private javax.swing.JButton bt_guardar;
     private javax.swing.JComboBox<String> cb_familia_definicion;
     private javax.swing.JComboBox<String> cb_linea_definicion;
     private javax.swing.JComboBox<String> cb_unidad_medida;
     private javax.persistence.EntityManager entityManager1;
     private java.util.List<Data.Familia> familiaList;
     private javax.persistence.Query familiaQuery;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
