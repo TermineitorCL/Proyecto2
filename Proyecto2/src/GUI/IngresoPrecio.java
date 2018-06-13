@@ -103,6 +103,11 @@ public class IngresoPrecio extends javax.swing.JInternalFrame {
         });
 
         bt_nuevoprecio.setText("Guardar");
+        bt_nuevoprecio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bt_nuevoprecioActionPerformed(evt);
+            }
+        });
 
         tb_fenuevo.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -250,6 +255,10 @@ public class IngresoPrecio extends javax.swing.JInternalFrame {
        
         
     }//GEN-LAST:event_bt_codigobarraActionPerformed
+
+    private void bt_nuevoprecioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_nuevoprecioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_bt_nuevoprecioActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
