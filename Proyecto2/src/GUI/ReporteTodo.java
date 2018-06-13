@@ -28,13 +28,14 @@ public class ReporteTodo extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         jDateChooser3 = new com.toedter.calendar.JDateChooser();
+        jSpinField1 = new com.toedter.components.JSpinField();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jd_inicio = new com.toedter.calendar.JDateChooser();
         jLabel2 = new javax.swing.JLabel();
         jd_final = new com.toedter.calendar.JDateChooser();
         jPanel2 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
+        bt_reportetodo = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         tb_reportetodo = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
@@ -51,8 +52,8 @@ public class ReporteTodo extends javax.swing.JInternalFrame {
 
         jPanel2.setLayout(new java.awt.GridLayout(1, 0));
 
-        jButton1.setText("Mostrar Reporte");
-        jPanel2.add(jButton1);
+        bt_reportetodo.setText("Mostrar Reporte");
+        jPanel2.add(bt_reportetodo);
 
         jPanel3.setLayout(new java.awt.GridLayout(1, 1));
 
@@ -81,8 +82,11 @@ public class ReporteTodo extends javax.swing.JInternalFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 744, Short.MAX_VALUE)
+            .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 705, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(248, 248, 248))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -91,7 +95,7 @@ public class ReporteTodo extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 195, Short.MAX_VALUE))
+                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 199, Short.MAX_VALUE))
         );
 
         pack();
@@ -99,13 +103,14 @@ public class ReporteTodo extends javax.swing.JInternalFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton bt_reportetodo;
     private com.toedter.calendar.JDateChooser jDateChooser3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private com.toedter.components.JSpinField jSpinField1;
     private javax.swing.JTable jTable1;
     private com.toedter.calendar.JDateChooser jd_final;
     private com.toedter.calendar.JDateChooser jd_inicio;
