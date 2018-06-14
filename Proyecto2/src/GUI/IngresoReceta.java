@@ -5,12 +5,17 @@
  */
 package GUI;
 
+import Controladores.LineaJpaController;
+import Controladores.RecetaJpaController;
 import Data.Producto;
 import Data.Receta;
 import Data.UnidadMedida;
+import static java.nio.file.Files.list;
+import static java.util.Collections.list;
 import java.util.Date;
+import java.util.List;
 import javax.swing.JOptionPane;
-
+import javax.swing.table.DefaultTableModel;
 /**
  *
  * @author HP
@@ -22,6 +27,8 @@ public class IngresoReceta extends javax.swing.JInternalFrame {
      */
     public IngresoReceta() {
         initComponents();
+         CrearModelo2 ();
+         
     }
 
     /**
@@ -56,6 +63,7 @@ public class IngresoReceta extends javax.swing.JInternalFrame {
         tb_Tablareceta = new javax.swing.JTable();
         tf_Insumos = new javax.swing.JTextField();
         cb_unidadMedida = new javax.swing.JComboBox<>();
+        bt_recargar_tabla = new javax.swing.JButton();
 
         jLabel1.setText("Producto Final");
 
@@ -88,15 +96,6 @@ public class IngresoReceta extends javax.swing.JInternalFrame {
         jLabel6.setText("Receta ");
 
         org.jdesktop.swingbinding.JTableBinding jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, recetaList, tb_Tablareceta);
-        org.jdesktop.swingbinding.JTableBinding.ColumnBinding columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${insumos}"));
-        columnBinding.setColumnName("Insumos");
-        columnBinding.setColumnClass(String.class);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${estado}"));
-        columnBinding.setColumnName("Estado");
-        columnBinding.setColumnClass(String.class);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${cantidad}"));
-        columnBinding.setColumnName("Cantidad");
-        columnBinding.setColumnClass(Integer.class);
         bindingGroup.addBinding(jTableBinding);
         jTableBinding.bind();binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, tb_Tablareceta, org.jdesktop.beansbinding.ELProperty.create("${selectedElement.insumos}"), tb_Tablareceta, org.jdesktop.beansbinding.BeanProperty.create("selectedElement"));
         bindingGroup.addBinding(binding);
@@ -107,6 +106,13 @@ public class IngresoReceta extends javax.swing.JInternalFrame {
         bindingGroup.addBinding(jComboBoxBinding);
         binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, cb_unidadMedida, org.jdesktop.beansbinding.ELProperty.create("${selectedItem.descripcion}"), cb_unidadMedida, org.jdesktop.beansbinding.BeanProperty.create("selectedItem"));
         bindingGroup.addBinding(binding);
+
+        bt_recargar_tabla.setText("Recargar tabla");
+        bt_recargar_tabla.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bt_recargar_tablaActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -150,6 +156,10 @@ public class IngresoReceta extends javax.swing.JInternalFrame {
                 .addGap(258, 258, 258)
                 .addComponent(jLabel6)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(bt_recargar_tabla)
+                .addGap(26, 26, 26))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -177,7 +187,9 @@ public class IngresoReceta extends javax.swing.JInternalFrame {
                     .addComponent(cb_unidadMedida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(53, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(bt_recargar_tabla)
+                .addContainerGap(16, Short.MAX_VALUE))
         );
 
         bindingGroup.bind();
@@ -209,10 +221,70 @@ public class IngresoReceta extends javax.swing.JInternalFrame {
         entityManager1.close();
     }//GEN-LAST:event_bt_GuardarActionPerformed
 
+    private void bt_recargar_tablaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_recargar_tablaActionPerformed
+
+        // aqui se llama al metodo que permite cargar los datos a la tabla
+        llenar_tabla(); 
+    }//GEN-LAST:event_bt_recargar_tablaActionPerformed
+    DefaultTableModel modelo2;
+    private void CrearModelo2(){
+        
+        try {
+            
+            modelo2 = (new DefaultTableModel(
+            null, new String [] {
+            "insumo","estado",
+            "cantidad"}){
+            Class[] types = new Class [] {
+            java.lang.String.class,
+            java.lang.String.class,
+            java.lang.String.class,
+            java.lang.String.class
+             };
+            boolean[] canEdit = new boolean [] {
+            false,false,false,false
+            };
+            @Override
+            public Class getColumnClass(int columnIndex) {
+            return types [columnIndex];
+            }
+            @Override
+            public boolean isCellEditable(int rowIndex, int colIndex){
+            return canEdit [colIndex];
+            }
+            });
+            tb_Tablareceta.setModel(modelo2);
+            } catch (Exception e) {
+            JOptionPane.showMessageDialog(null,e.toString()+"error2");
+            }
+        }
+     private void llenar_tabla(){
+         
+        RecetaJpaController controlador_receta = new RecetaJpaController (entityManager1.getEntityManagerFactory());
+        try{
+            Object A[]=null;
+            List<Receta> listaReceta;
+            listaReceta=controlador_receta.findRecetaEntities();
+            for (int i = 0; i < listaReceta.size(); i++) {
+                modelo2.addRow(A);
+                modelo2.setValueAt(listaReceta.get(i).getEstado(), i, 0);
+                modelo2.setValueAt(listaReceta.get(i).getInsumos(), i, 1);
+                modelo2.setValueAt(listaReceta.get(i).getCantidad(), i, 2);            
+            }         
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(this, e.getMessage());
+        }
+    
+    
+    
+    
+    }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.persistence.EntityManager Proyecto2PUEntityManager;
     private javax.swing.JButton bt_Guardar;
+    private javax.swing.JButton bt_recargar_tabla;
     private javax.swing.JComboBox<String> cb_Productofinal;
     private javax.swing.JComboBox<String> cb_unidadMedida;
     private javax.persistence.EntityManager entityManager1;
