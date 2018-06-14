@@ -27,7 +27,7 @@ import javax.persistence.EntityManagerFactory;
  * @author siberion
  */
 public class RecetaJpaController implements Serializable {
-
+//
     public RecetaJpaController(EntityManagerFactory emf) {
         this.emf = emf;
     }
