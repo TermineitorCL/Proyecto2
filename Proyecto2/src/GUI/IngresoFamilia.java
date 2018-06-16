@@ -11,7 +11,7 @@ import java.util.Date;
 import javax.swing.JOptionPane;
 /**
  *
- * @author Pyther
+ * @author Diseño Pyther y Cachi Codigo Matias
  */
 public class IngresoFamilia extends javax.swing.JInternalFrame {
 

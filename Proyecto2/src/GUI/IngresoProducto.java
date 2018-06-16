@@ -14,7 +14,7 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author Jose Cachi
+ * @author Diseño Cachi Codigo Matias
  */
 public class IngresoProducto extends javax.swing.JInternalFrame {
 
@@ -60,21 +60,28 @@ public class IngresoProducto extends javax.swing.JInternalFrame {
         cb_linea_definicion = new javax.swing.JComboBox<>();
         cb_familia_definicion = new javax.swing.JComboBox<>();
         bt_guardar = new javax.swing.JButton();
-        jLabel8 = new javax.swing.JLabel();
+        lb_titulo = new javax.swing.JLabel();
 
-        lb_codigo_barra.setText("Codigo Barra");
+        lb_codigo_barra.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        lb_codigo_barra.setText("Codigo Barra :");
 
-        lb_nombre.setText("Nombre");
+        lb_nombre.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        lb_nombre.setText("Nombre :");
 
-        lb_unidad_medida.setText("Unidad de medida ");
+        lb_unidad_medida.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        lb_unidad_medida.setText("Unidad de medida :");
 
-        lb_marca.setText("Marca");
+        lb_marca.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        lb_marca.setText("Marca :");
 
-        lb_formato.setText("Formato");
+        lb_formato.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        lb_formato.setText("Formato :");
 
-        lb_linea.setText("Linea");
+        lb_linea.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        lb_linea.setText("Linea :");
 
-        lb_familia.setText("Familia");
+        lb_familia.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        lb_familia.setText("Familia :");
 
         org.jdesktop.swingbinding.JComboBoxBinding jComboBoxBinding = org.jdesktop.swingbinding.SwingBindings.createJComboBoxBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, unidadMedidaList, cb_unidad_medida);
         bindingGroup.addBinding(jComboBoxBinding);
@@ -98,24 +105,24 @@ public class IngresoProducto extends javax.swing.JInternalFrame {
             }
         });
 
-        jLabel8.setFont(new java.awt.Font("Calibri", 0, 24)); // NOI18N
-        jLabel8.setText("Ingreso de Producto");
+        lb_titulo.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        lb_titulo.setText("Ingreso de Producto");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(78, 78, 78)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGap(39, 39, 39)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lb_nombre)
                     .addComponent(lb_unidad_medida)
-                    .addComponent(lb_codigo_barra, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lb_nombre, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lb_marca, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lb_formato, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lb_linea, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lb_familia, javax.swing.GroupLayout.Alignment.LEADING))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addComponent(lb_codigo_barra)
+                    .addComponent(lb_marca)
+                    .addComponent(lb_formato)
+                    .addComponent(lb_linea)
+                    .addComponent(lb_familia))
+                .addGap(51, 51, 51)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(tf_codigo_barra)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -134,15 +141,16 @@ public class IngresoProducto extends javax.swing.JInternalFrame {
                         .addGap(166, 166, 166)
                         .addComponent(bt_guardar))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(111, 111, 111)
-                        .addComponent(jLabel8)))
+                        .addGap(124, 124, 124)
+                        .addComponent(lb_titulo)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jLabel8)
-                .addGap(36, 36, 36)
+                .addContainerGap()
+                .addComponent(lb_titulo)
+                .addGap(23, 23, 23)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lb_codigo_barra)
                     .addComponent(tf_codigo_barra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -172,7 +180,7 @@ public class IngresoProducto extends javax.swing.JInternalFrame {
                     .addComponent(cb_familia_definicion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(bt_guardar)
-                .addContainerGap(17, Short.MAX_VALUE))
+                .addContainerGap(34, Short.MAX_VALUE))
         );
 
         bindingGroup.bind();
@@ -216,13 +224,13 @@ public class IngresoProducto extends javax.swing.JInternalFrame {
     private javax.persistence.EntityManager entityManager1;
     private java.util.List<Data.Familia> familiaList;
     private javax.persistence.Query familiaQuery;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel lb_codigo_barra;
     private javax.swing.JLabel lb_familia;
     private javax.swing.JLabel lb_formato;
     private javax.swing.JLabel lb_linea;
     private javax.swing.JLabel lb_marca;
     private javax.swing.JLabel lb_nombre;
+    private javax.swing.JLabel lb_titulo;
     private javax.swing.JLabel lb_unidad_medida;
     private java.util.List<Data.Linea> lineaList;
     private java.util.List<Data.Linea> lineaList1;

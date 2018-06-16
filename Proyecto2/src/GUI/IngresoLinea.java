@@ -11,7 +11,7 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author Pyther
+ * @author Diseño Pyther y Cachi Codigo Matias
  */
 public class IngresoLinea extends javax.swing.JInternalFrame {
 

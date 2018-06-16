@@ -16,7 +16,7 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author gabri
+ * @author Diseño Gabriel y Cachi Codigo Matias
  */
 public class IngresoUnidadMedida extends javax.swing.JInternalFrame {
 

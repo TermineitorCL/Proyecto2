@@ -9,7 +9,7 @@ package GUI;
 
 /**
  *
- * @author Matia
+ * @author Matias
  */
 public class Menu extends javax.swing.JFrame {
 
