@@ -8,6 +8,7 @@ package Data;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.io.Serializable;
+import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -41,7 +42,7 @@ public class Produccion implements Serializable {
     @JoinColumn(name = "producto_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Producto productoId;
-
+    
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -54,7 +55,7 @@ public class Produccion implements Serializable {
     @JoinColumn(name = "unidad_medida_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private UnidadMedida unidadMedidaId;
-
+    //private Date fecha;
     public Produccion() {
     }
 
@@ -65,6 +66,7 @@ public class Produccion implements Serializable {
     public Produccion(Integer id, int produccionCantidad) {
         this.id = id;
         this.produccionCantidad = produccionCantidad;
+       
     }
 
     public Integer getId() {
