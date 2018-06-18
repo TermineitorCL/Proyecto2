@@ -125,6 +125,11 @@ public class IngresoProducto extends javax.swing.JInternalFrame {
 
         bt_eliminar.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         bt_eliminar.setText("Eliminar");
+        bt_eliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bt_eliminarActionPerformed(evt);
+            }
+        });
 
         bt_buscar.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         bt_buscar.setText("Buscar");
@@ -206,15 +211,15 @@ public class IngresoProducto extends javax.swing.JInternalFrame {
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(tf_formato_nombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(lb_formato)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(11, 11, 11)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lb_linea)
-                    .addComponent(cb_linea_definicion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                    .addComponent(cb_linea_definicion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lb_linea))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lb_familia)
                     .addComponent(cb_familia_definicion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
                 .addComponent(bt_guardar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(bt_buscar)
@@ -248,12 +253,10 @@ public class IngresoProducto extends javax.swing.JInternalFrame {
         Familia fa = (Familia)cb_familia_definicion.getSelectedItem();
         u.setFamiliaId(fa);
         JOptionPane.showMessageDialog(null,"Se a guardado correctamente");
-        this.dispose();
         
         entityManager1.persist(u);
         entityManager1.flush();
         entityManager1.getTransaction().commit();
-        entityManager1.close();
     }//GEN-LAST:event_bt_guardarActionPerformed
 
     private void bt_buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_buscarActionPerformed
@@ -293,11 +296,10 @@ public class IngresoProducto extends javax.swing.JInternalFrame {
      
     
     private void bt_editarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_editarActionPerformed
+        Producto u = entityManager1.find(Producto.class, idproducto);
+
         entityManager1.getTransaction().begin();
- 
         Date d = new Date();
-        Producto u = new Producto();
-        
         u.setCodigoBarra(Integer.parseInt(tf_codigo_barra.getText()));
         u.setNombre(tf_nombre_producto.getText());
         u.setMarca(tf_nombre_marca.getText());
@@ -305,21 +307,34 @@ public class IngresoProducto extends javax.swing.JInternalFrame {
         u.setCreadoEl(d);
         u.setModificadoEl(d);
         u.setEliminadoEl(d);
-        UnidadMedida un = (UnidadMedida)cb_unidad_medida.getSelectedItem();
+        UnidadMedida un = (UnidadMedida) cb_unidad_medida.getSelectedItem();
         u.setUnidadMedidaId(un);
-        Linea l = (Linea)cb_linea_definicion.getSelectedItem();
+        Linea l = (Linea) cb_linea_definicion.getSelectedItem();
         u.setLineaId(l);
-        Familia fa = (Familia)cb_familia_definicion.getSelectedItem();
+        Familia fa = (Familia) cb_familia_definicion.getSelectedItem();
         u.setFamiliaId(fa);
-        JOptionPane.showMessageDialog(null,"Se a actualizado correctamente");
-        this.dispose();
-        
+        JOptionPane.showMessageDialog(null, "Se a actualizado correctamente");
+
         entityManager1.persist(u);
-        entityManager1.flush();
         entityManager1.getTransaction().commit();
-        entityManager1.close();
     }//GEN-LAST:event_bt_editarActionPerformed
 
+    private void bt_eliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_eliminarActionPerformed
+        Producto u = entityManager1.find(Producto.class, idproducto);
+
+        entityManager1.getTransaction().begin();
+        entityManager1.remove(u);
+        JOptionPane.showMessageDialog(null, "Se a eliminado correctamente");
+        entityManager1.getTransaction().commit();
+        limpiar();
+    }//GEN-LAST:event_bt_eliminarActionPerformed
+
+    public void limpiar() {
+        tf_codigo_barra.setText("");
+        tf_nombre_producto.setText("");
+        tf_nombre_marca.setText("");
+        tf_formato_nombre.setText("");
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.persistence.EntityManager Proyecto2PUEntityManager;
