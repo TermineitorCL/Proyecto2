@@ -6,6 +6,12 @@
 
 package GUI;
 
+import Controladores.RecetaJpaController;
+import Data.Receta;
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Kevin2016
@@ -25,7 +31,12 @@ public class ReporteTipoPan extends javax.swing.JInternalFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+        bindingGroup = new org.jdesktop.beansbinding.BindingGroup();
 
+        entityManager1 = java.beans.Beans.isDesignTime() ? null : javax.persistence.Persistence.createEntityManagerFactory("Proyecto2PU").createEntityManager();
+        Proyecto2PUEntityManager = java.beans.Beans.isDesignTime() ? null : javax.persistence.Persistence.createEntityManagerFactory("Proyecto2PU").createEntityManager();
+        productoQuery = java.beans.Beans.isDesignTime() ? null : Proyecto2PUEntityManager.createQuery("SELECT p FROM Producto p");
+        productoList = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : productoQuery.getResultList();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jd_inicio = new com.toedter.calendar.JDateChooser();
@@ -55,28 +66,37 @@ public class ReporteTipoPan extends javax.swing.JInternalFrame {
         jLabel3.setText("Tipo Pan");
         jPanel1.add(jLabel3);
 
-        cb_TipoPan.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        org.jdesktop.swingbinding.JComboBoxBinding jComboBoxBinding = org.jdesktop.swingbinding.SwingBindings.createJComboBoxBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, productoList, cb_TipoPan);
+        bindingGroup.addBinding(jComboBoxBinding);
+        org.jdesktop.beansbinding.Binding binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, cb_TipoPan, org.jdesktop.beansbinding.ELProperty.create("${selectedItem.nombre}"), cb_TipoPan, org.jdesktop.beansbinding.BeanProperty.create("selectedItem"));
+        bindingGroup.addBinding(binding);
+
         jPanel1.add(cb_TipoPan);
 
         jPanel2.setLayout(new java.awt.GridLayout(1, 0));
 
         bt_reportepan.setText("Mostar Reporte");
+        bt_reportepan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bt_reportepanActionPerformed(evt);
+            }
+        });
         jPanel2.add(bt_reportepan);
 
         tb_reporteTipoPan.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {},
+                {},
+                {},
+                {},
+                {},
+                {},
+                {},
+                {},
+                {}
             },
             new String [] {
-                "Precio", "Precio Costo", "Precio Venta", "Rentabilidad en porcentaje", "Rentabilidad en moneda"
+
             }
         ));
         jScrollPane1.setViewportView(tb_reporteTipoPan);
@@ -126,13 +146,80 @@ public class ReporteTipoPan extends javax.swing.JInternalFrame {
                 .addContainerGap())
         );
 
+        bindingGroup.bind();
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void bt_reportepanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_reportepanActionPerformed
 
+    entityManager1.getTransaction().begin();       
+    }//GEN-LAST:event_bt_reportepanActionPerformed
+
+  DefaultTableModel modelo3;
+    private void CrearModelo2() {
+
+        try {
+
+            modelo3 = (new DefaultTableModel(
+                    null, new String[]{
+                        "Precio", "Precio costo", "Precio venta",
+                        "Rentabilidad en porrcentaje","Rentabilidad en moneda"}) {
+                Class[] types = new Class[]{
+                    java.lang.String.class,
+                    java.lang.String.class,
+                    java.lang.String.class,
+                    java.lang.String.class,
+                    java.lang.String.class,
+                    java.lang.String.class,
+                    java.lang.String.class
+                };
+                boolean[] canEdit = new boolean[]{
+                    false, false, false, false
+                };
+
+                @Override
+                public Class getColumnClass(int columnIndex) {
+                    return types[columnIndex];
+                }
+
+                @Override
+                public boolean isCellEditable(int rowIndex, int colIndex) {
+                    return canEdit[colIndex];
+                }
+            });
+            tb_reporteTipoPan.setModel(modelo3);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e.toString() + "error2");
+        }
+    }
+     private void llenar_tabla(){
+         
+        RecetaJpaController controlador_receta = new RecetaJpaController (entityManager1.getEntityManagerFactory());
+        try{
+            Object A[]=null;
+            List<Receta> listaTipoPan;
+            listaTipoPan=controlador_receta.findRecetaEntities();
+            for (int i = 0; i < listaTipoPan.size(); i++) {
+                modelo3.addRow(A);
+                modelo3.setValueAt(listaTipoPan.get(i).getEstado(), i, 0);
+                modelo3.setValueAt(listaTipoPan.get(i).getInsumos(), i, 1);
+                modelo3.setValueAt(listaTipoPan.get(i).getCantidad(), i, 2);            
+            }         
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(this, e.getMessage());
+        }
+    
+    
+    
+    
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.persistence.EntityManager Proyecto2PUEntityManager;
     private javax.swing.JButton bt_reportepan;
     private javax.swing.JComboBox<String> cb_TipoPan;
+    private javax.persistence.EntityManager entityManager1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -142,7 +229,10 @@ public class ReporteTipoPan extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private com.toedter.calendar.JDateChooser jd_final;
     private com.toedter.calendar.JDateChooser jd_inicio;
+    private java.util.List<Data.Producto> productoList;
+    private javax.persistence.Query productoQuery;
     private javax.swing.JTable tb_reporteTipoPan;
+    private org.jdesktop.beansbinding.BindingGroup bindingGroup;
     // End of variables declaration//GEN-END:variables
 
 }
