@@ -5,14 +5,10 @@
  */
 package GUI;
 
-import Controladores.LineaJpaController;
 import Controladores.RecetaJpaController;
 import Data.Producto;
 import Data.Receta;
 import Data.UnidadMedida;
-import static java.nio.file.Files.list;
-import static java.util.Collections.list;
-import java.util.Date;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -52,7 +48,6 @@ public class IngresoReceta extends javax.swing.JInternalFrame {
         jLabel1 = new javax.swing.JLabel();
         cb_Productofinal = new javax.swing.JComboBox<>();
         jLabel2 = new javax.swing.JLabel();
-        tf_Estado = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
@@ -64,8 +59,12 @@ public class IngresoReceta extends javax.swing.JInternalFrame {
         tf_Insumos = new javax.swing.JTextField();
         cb_unidadMedida = new javax.swing.JComboBox<>();
         bt_recargar_tabla = new javax.swing.JButton();
+        cb_estado = new javax.swing.JComboBox<>();
 
-        jLabel1.setText("Producto Final");
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel1.setText("Producto");
+
+        cb_Productofinal.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
 
         org.jdesktop.swingbinding.JComboBoxBinding jComboBoxBinding = org.jdesktop.swingbinding.SwingBindings.createJComboBoxBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, productoList, cb_Productofinal);
         bindingGroup.addBinding(jComboBoxBinding);
@@ -78,14 +77,19 @@ public class IngresoReceta extends javax.swing.JInternalFrame {
             }
         });
 
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel2.setText("Estado");
 
-        jLabel3.setText("Ingreso Insumos");
+        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel3.setText("Insumos");
 
+        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel4.setText("Unidad de medida");
 
+        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel5.setText("Cantidad");
 
+        bt_Guardar.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         bt_Guardar.setText("Guardar");
         bt_Guardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -93,7 +97,8 @@ public class IngresoReceta extends javax.swing.JInternalFrame {
             }
         });
 
-        jLabel6.setText("Receta ");
+        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel6.setText("Ingreso de Nueva Receta");
 
         org.jdesktop.swingbinding.JTableBinding jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, recetaList, tb_Tablareceta);
         bindingGroup.addBinding(jTableBinding);
@@ -107,12 +112,16 @@ public class IngresoReceta extends javax.swing.JInternalFrame {
         binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, cb_unidadMedida, org.jdesktop.beansbinding.ELProperty.create("${selectedItem.descripcion}"), cb_unidadMedida, org.jdesktop.beansbinding.BeanProperty.create("selectedItem"));
         bindingGroup.addBinding(binding);
 
+        bt_recargar_tabla.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         bt_recargar_tabla.setText("Recargar tabla");
         bt_recargar_tabla.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bt_recargar_tablaActionPerformed(evt);
             }
         });
+
+        cb_estado.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        cb_estado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Activo", "Desactivado" }));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -123,9 +132,9 @@ public class IngresoReceta extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 80, Short.MAX_VALUE)
                             .addComponent(tf_Insumos))
-                        .addGap(77, 77, 77)
+                        .addGap(45, 45, 45)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(cb_unidadMedida, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -138,16 +147,16 @@ public class IngresoReceta extends javax.swing.JInternalFrame {
                                 .addComponent(tf_Cantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(35, 35, 35)
                                 .addComponent(bt_Guardar)
-                                .addContainerGap(99, Short.MAX_VALUE))))
+                                .addContainerGap(138, Short.MAX_VALUE))))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1)
                             .addComponent(jLabel2))
                         .addGap(29, 29, 29)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(cb_Productofinal, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(tf_Estado, javax.swing.GroupLayout.DEFAULT_SIZE, 111, Short.MAX_VALUE))
-                        .addGap(273, 273, 273))))
+                            .addComponent(cb_Productofinal, 0, 111, Short.MAX_VALUE)
+                            .addComponent(cb_estado, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addContainerGap())))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane1)
@@ -173,7 +182,7 @@ public class IngresoReceta extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(tf_Estado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cb_estado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(39, 39, 39)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
@@ -189,7 +198,7 @@ public class IngresoReceta extends javax.swing.JInternalFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(bt_recargar_tabla)
-                .addContainerGap(16, Short.MAX_VALUE))
+                .addContainerGap(28, Short.MAX_VALUE))
         );
 
         bindingGroup.bind();
@@ -203,10 +212,9 @@ public class IngresoReceta extends javax.swing.JInternalFrame {
 
     private void bt_GuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_GuardarActionPerformed
         entityManager1.getTransaction().begin();
-        Date d = new Date();
         Receta r = new Receta();
         
-        r.setEstado(tf_Estado.getText());
+        r.setEstado((String)cb_estado.getSelectedItem());
         r.setInsumos(tf_Insumos.getText());
         r.setCantidad(Integer.parseInt(tf_Cantidad.getText()));
         Producto pr = (Producto)cb_Productofinal.getSelectedItem();
@@ -214,11 +222,9 @@ public class IngresoReceta extends javax.swing.JInternalFrame {
         UnidadMedida um = (UnidadMedida)cb_unidadMedida.getSelectedItem();
         r.setUnidadMedidadId(um);
         JOptionPane.showMessageDialog(null,"Se a guardado correctamente");
-           this.dispose();
         entityManager1.persist(r);
         entityManager1.flush();
         entityManager1.getTransaction().commit();
-        entityManager1.close();
     }//GEN-LAST:event_bt_GuardarActionPerformed
 
     private void bt_recargar_tablaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_recargar_tablaActionPerformed
@@ -286,6 +292,7 @@ public class IngresoReceta extends javax.swing.JInternalFrame {
     private javax.swing.JButton bt_Guardar;
     private javax.swing.JButton bt_recargar_tabla;
     private javax.swing.JComboBox<String> cb_Productofinal;
+    private javax.swing.JComboBox<String> cb_estado;
     private javax.swing.JComboBox<String> cb_unidadMedida;
     private javax.persistence.EntityManager entityManager1;
     private javax.swing.JLabel jLabel1;
@@ -301,7 +308,6 @@ public class IngresoReceta extends javax.swing.JInternalFrame {
     private javax.persistence.Query recetaQuery;
     private javax.swing.JTable tb_Tablareceta;
     private javax.swing.JTextField tf_Cantidad;
-    private javax.swing.JTextField tf_Estado;
     private javax.swing.JTextField tf_Insumos;
     private java.util.List<Data.UnidadMedida> unidadMedidaList;
     private javax.persistence.Query unidadMedidaQuery;
