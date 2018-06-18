@@ -5,9 +5,11 @@
  */
 package GUI;
 
+import Controladores.ProduccionJpaController;
 import Data.Produccion;
 import Data.Producto;
 import Data.UnidadMedida;
+import java.util.Date;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -27,6 +29,7 @@ public class IngresoProduccion extends javax.swing.JInternalFrame {
      */
     public IngresoProduccion() {
         initComponents();
+        CrearModelo1();
     }
 
     /**
@@ -51,13 +54,13 @@ public class IngresoProduccion extends javax.swing.JInternalFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        cb_productoFinal = new javax.swing.JComboBox<String>();
+        cb_productoFinal = new javax.swing.JComboBox<>();
         bt_grabar = new javax.swing.JButton();
         tf_produccion = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         tb_produccionDiaria = new javax.swing.JTable();
-        cb_unidad_medida = new javax.swing.JComboBox<String>();
-        bt_guardar = new javax.swing.JButton();
+        cb_unidad_medida = new javax.swing.JComboBox<>();
+        bt_mostrar_datos = new javax.swing.JButton();
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel2.setText("Produccion Diaria ");
@@ -91,15 +94,6 @@ public class IngresoProduccion extends javax.swing.JInternalFrame {
         });
 
         org.jdesktop.swingbinding.JTableBinding jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, produccionList, tb_produccionDiaria);
-        org.jdesktop.swingbinding.JTableBinding.ColumnBinding columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${productoId}"));
-        columnBinding.setColumnName("Producto ");
-        columnBinding.setColumnClass(Data.Producto.class);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${unidadMedidaId}"));
-        columnBinding.setColumnName("Unidad Medida ");
-        columnBinding.setColumnClass(Data.UnidadMedida.class);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${produccionCantidad}"));
-        columnBinding.setColumnName("Produccion (KG)");
-        columnBinding.setColumnClass(Integer.class);
         bindingGroup.addBinding(jTableBinding);
         jTableBinding.bind();binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, tb_produccionDiaria, org.jdesktop.beansbinding.ELProperty.create("${selectedElement.productoId.nombre}"), tb_produccionDiaria, org.jdesktop.beansbinding.BeanProperty.create("selectedElement"));
         bindingGroup.addBinding(binding);
@@ -111,11 +105,11 @@ public class IngresoProduccion extends javax.swing.JInternalFrame {
         binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, cb_unidad_medida, org.jdesktop.beansbinding.ELProperty.create("${selectedItem.descripcion}"), cb_unidad_medida, org.jdesktop.beansbinding.BeanProperty.create("selectedItem"));
         bindingGroup.addBinding(binding);
 
-        bt_guardar.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        bt_guardar.setText("Guardar");
-        bt_guardar.addActionListener(new java.awt.event.ActionListener() {
+        bt_mostrar_datos.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        bt_mostrar_datos.setText("Mostrar datos");
+        bt_mostrar_datos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bt_guardarActionPerformed(evt);
+                bt_mostrar_datosActionPerformed(evt);
             }
         });
 
@@ -130,7 +124,7 @@ public class IngresoProduccion extends javax.swing.JInternalFrame {
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 586, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(bt_guardar)))
+                        .addComponent(bt_mostrar_datos)))
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
                 .addGap(203, 203, 203)
@@ -173,7 +167,7 @@ public class IngresoProduccion extends javax.swing.JInternalFrame {
                 .addGap(33, 33, 33)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
-                .addComponent(bt_guardar)
+                .addComponent(bt_mostrar_datos)
                 .addContainerGap())
         );
 
@@ -185,15 +179,15 @@ public class IngresoProduccion extends javax.swing.JInternalFrame {
     private void bt_grabarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_grabarActionPerformed
         entityManager1.getTransaction().begin();
         Produccion p = new Produccion();
-        
-        
-        Producto m = (Producto)cb_productoFinal.getSelectedItem();
+        Date d = new Date();
+
+        Producto m = (Producto) cb_productoFinal.getSelectedItem();
         p.setProductoId(m);
-        UnidadMedida u = (UnidadMedida)cb_unidad_medida.getSelectedItem();
+        UnidadMedida u = (UnidadMedida) cb_unidad_medida.getSelectedItem();
         p.setUnidadMedidaId(u);
         p.setProduccionCantidad(Integer.parseInt(tf_produccion.getText()));
-        
-        JOptionPane.showMessageDialog(null,"Se a guardado correctamente");
+        //p.setFecha(d);
+        JOptionPane.showMessageDialog(null, "Se a guardado correctamente");
         this.dispose();
         entityManager1.persist(p);
         entityManager1.flush();
@@ -205,15 +199,77 @@ public class IngresoProduccion extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_tf_produccionActionPerformed
 
-    private void bt_guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_guardarActionPerformed
+    private void bt_mostrar_datosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_mostrar_datosActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_bt_guardarActionPerformed
+        llenar_tabla();
+    }//GEN-LAST:event_bt_mostrar_datosActionPerformed
 
+    DefaultTableModel modelo1;
+
+    private void CrearModelo1() {
+
+        try {
+
+            modelo1 = (new DefaultTableModel(
+                    null, new String[]{
+                        "Produccion", "Unidad de medida",
+                        "Produccion (Kl)"}) {
+                Class[] types = new Class[]{
+                    java.lang.String.class,
+                    java.lang.String.class,
+                    java.lang.String.class, //java.lang.String.class
+                //java.lang.String.class,
+                //java.lang.String.class
+                };
+                boolean[] canEdit = new boolean[]{
+                    false, false, false, false
+                };
+
+                @Override
+                public Class getColumnClass(int columnIndex) {
+                    return types[columnIndex];
+                }
+
+                @Override
+                public boolean isCellEditable(int rowIndex, int colIndex) {
+                    return canEdit[colIndex];
+                }
+            });
+            tb_produccionDiaria.setModel(modelo1);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e.toString() + "error2");
+        }
+    }
+
+    private void llenar_tabla() {
+
+        ProduccionJpaController controlador_produccion = new ProduccionJpaController(entityManager1.getEntityManagerFactory());
+        
+
+        try {
+            Object A[] = null;
+            List<Produccion> listaProduccion;
+            listaProduccion = controlador_produccion.findProduccionEntities();
+            for (int i = 0; i < listaProduccion.size(); i++) {
+
+                modelo1.addRow(A);
+                modelo1.setValueAt(listaProduccion.get(i).getProductoId(), i, 0);
+                modelo1.setValueAt(listaProduccion.get(i).getUnidadMedidaId(), i, 1);
+                modelo1.setValueAt(listaProduccion.get(i).getProduccionCantidad(), i, 2);
+                //modelo1.setValueAt(listaProduccion.get(i).getFecha(), i, 3);
+                //modelo1.setValueAt(listaProduccion.get(i).getProduccionCantidad(), i, 4);
+                //modelo1.setValueAt(listaProduccion.get(i).getProduccionCantidad(), i, 5);  
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, e.getMessage());
+        }
+
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.persistence.EntityManager Proyecto2PUEntityManager;
     private javax.swing.JButton bt_grabar;
-    private javax.swing.JButton bt_guardar;
+    private javax.swing.JButton bt_mostrar_datos;
     private javax.swing.JComboBox<String> cb_productoFinal;
     private javax.swing.JComboBox<String> cb_unidad_medida;
     private javax.persistence.EntityManager entityManager1;
