@@ -14,6 +14,7 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EntityManager;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -117,6 +118,10 @@ public class Producto implements Serializable {
         this.creadoEl = creadoEl;
         this.modificadoEl = modificadoEl;
         this.eliminadoEl = eliminadoEl;
+    }
+
+    public Producto(EntityManager em) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     public Integer getId() {

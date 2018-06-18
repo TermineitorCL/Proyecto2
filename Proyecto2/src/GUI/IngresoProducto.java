@@ -10,6 +10,9 @@ import Data.Linea;
 import Data.Producto;
 import Data.UnidadMedida;
 import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
+import javax.persistence.Query;
 import javax.swing.JOptionPane;
 
 /**
@@ -24,7 +27,7 @@ public class IngresoProducto extends javax.swing.JInternalFrame {
     public IngresoProducto() {
         initComponents();
     }
-
+    private int idproducto = 0;
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -61,6 +64,9 @@ public class IngresoProducto extends javax.swing.JInternalFrame {
         cb_familia_definicion = new javax.swing.JComboBox<>();
         bt_guardar = new javax.swing.JButton();
         lb_titulo = new javax.swing.JLabel();
+        bt_editar = new javax.swing.JButton();
+        bt_eliminar = new javax.swing.JButton();
+        bt_buscar = new javax.swing.JButton();
 
         lb_codigo_barra.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         lb_codigo_barra.setText("Codigo Barra :");
@@ -98,6 +104,7 @@ public class IngresoProducto extends javax.swing.JInternalFrame {
         binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, cb_familia_definicion, org.jdesktop.beansbinding.ELProperty.create("${selectedItem.nombre}"), cb_familia_definicion, org.jdesktop.beansbinding.BeanProperty.create("selectedItem"));
         bindingGroup.addBinding(binding);
 
+        bt_guardar.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         bt_guardar.setText("Guardar");
         bt_guardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -108,69 +115,98 @@ public class IngresoProducto extends javax.swing.JInternalFrame {
         lb_titulo.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         lb_titulo.setText("Ingreso de Producto");
 
+        bt_editar.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        bt_editar.setText("Guardar Nuevos Cambios");
+        bt_editar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bt_editarActionPerformed(evt);
+            }
+        });
+
+        bt_eliminar.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        bt_eliminar.setText("Eliminar");
+
+        bt_buscar.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        bt_buscar.setText("Buscar");
+        bt_buscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bt_buscarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(39, 39, 39)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lb_nombre)
-                    .addComponent(lb_unidad_medida)
-                    .addComponent(lb_codigo_barra)
-                    .addComponent(lb_marca)
-                    .addComponent(lb_formato)
-                    .addComponent(lb_linea)
-                    .addComponent(lb_familia))
-                .addGap(51, 51, 51)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(tf_codigo_barra)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(tf_nombre_producto)
-                            .addComponent(cb_unidad_medida, 0, 140, Short.MAX_VALUE)
-                            .addComponent(tf_nombre_marca)
-                            .addComponent(tf_formato_nombre)
-                            .addComponent(cb_linea_definicion, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(cb_familia_definicion, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addGap(81, 81, 81))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(176, 176, 176)
+                        .addComponent(lb_titulo))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(39, 39, 39)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lb_linea)
+                                    .addComponent(lb_familia))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(cb_linea_definicion, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(cb_familia_definicion, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lb_nombre)
+                                    .addComponent(lb_unidad_medida)
+                                    .addComponent(lb_codigo_barra)
+                                    .addComponent(lb_marca)
+                                    .addComponent(lb_formato))
+                                .addGap(51, 51, 51)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(tf_nombre_producto, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
+                                    .addComponent(cb_unidad_medida, 0, 140, Short.MAX_VALUE)
+                                    .addComponent(tf_nombre_marca, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
+                                    .addComponent(tf_formato_nombre, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
+                                    .addComponent(tf_codigo_barra))))))
+                .addGap(0, 128, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
+                .addGap(124, 124, 124)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(166, 166, 166)
-                        .addComponent(bt_guardar))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(124, 124, 124)
-                        .addComponent(lb_titulo)))
+                    .addComponent(bt_eliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(bt_editar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(bt_buscar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(bt_guardar, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(lb_titulo)
-                .addGap(23, 23, 23)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lb_codigo_barra)
-                    .addComponent(tf_codigo_barra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lb_nombre)
-                    .addComponent(tf_nombre_producto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lb_unidad_medida)
-                    .addComponent(cb_unidad_medida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lb_marca)
-                    .addComponent(tf_nombre_marca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(lb_titulo)
+                        .addGap(21, 21, 21)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lb_codigo_barra)
+                            .addComponent(tf_codigo_barra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lb_nombre)
+                            .addComponent(tf_nombre_producto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lb_unidad_medida)
+                            .addComponent(cb_unidad_medida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lb_marca)
+                            .addComponent(tf_nombre_marca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(30, 30, 30))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(tf_formato_nombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lb_formato)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lb_formato)
-                    .addComponent(tf_formato_nombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lb_linea)
                     .addComponent(cb_linea_definicion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -178,9 +214,15 @@ public class IngresoProducto extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lb_familia)
                     .addComponent(cb_familia_definicion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
                 .addComponent(bt_guardar)
-                .addContainerGap(34, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(bt_buscar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(bt_editar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(bt_eliminar)
+                .addGap(23, 23, 23))
         );
 
         bindingGroup.bind();
@@ -189,7 +231,7 @@ public class IngresoProducto extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void bt_guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_guardarActionPerformed
-          entityManager1.getTransaction().begin();
+        entityManager1.getTransaction().begin();
         Date d = new Date();
         Producto u = new Producto();
         u.setCodigoBarra(Integer.parseInt(tf_codigo_barra.getText()));
@@ -214,9 +256,76 @@ public class IngresoProducto extends javax.swing.JInternalFrame {
         entityManager1.close();
     }//GEN-LAST:event_bt_guardarActionPerformed
 
+    private void bt_buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_buscarActionPerformed
+
+        Integer id = Integer.parseInt(this.tf_codigo_barra.getText());
+
+        String qlQuery = "SELECT p FROM Producto p  WHERE p.codigoBarra =" + id;
+        entityManager1.getTransaction().begin();
+        Query query = entityManager1.createQuery(qlQuery);
+        List<Producto> pr = query.getResultList();
+        entityManager1.getTransaction().commit();
+        Iterator<Producto> iter = pr.iterator();
+
+        while (iter.hasNext()) {
+
+            Producto p = (Producto) iter.next();
+
+            idproducto = p.getId();
+            String dato = String.valueOf(p.getNombre());
+            String dato1 = String.valueOf(p.getCodigoBarra());
+            String dato2 = String.valueOf(p.getUnidadMedidaId());
+            String dato3 = String.valueOf(p.getMarca());
+            String dato4 = String.valueOf(p.getFormato());
+            String dato5 = String.valueOf(p.getLineaId());
+            String dato6 = String.valueOf(p.getFamiliaId());
+            
+            tf_codigo_barra.setText(dato1);
+            tf_nombre_producto.setText(dato);
+            cb_unidad_medida.setSelectedItem(dato2);
+            tf_nombre_marca.setText(dato3);
+            tf_formato_nombre.setText(dato4);
+            cb_linea_definicion.setSelectedItem(dato5);
+            cb_familia_definicion.setSelectedItem(dato6);
+        }
+        
+    }//GEN-LAST:event_bt_buscarActionPerformed
+     
+    
+    private void bt_editarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_editarActionPerformed
+        entityManager1.getTransaction().begin();
+ 
+        Date d = new Date();
+        Producto u = new Producto();
+        
+        u.setCodigoBarra(Integer.parseInt(tf_codigo_barra.getText()));
+        u.setNombre(tf_nombre_producto.getText());
+        u.setMarca(tf_nombre_marca.getText());
+        u.setFormato(tf_formato_nombre.getText());
+        u.setCreadoEl(d);
+        u.setModificadoEl(d);
+        u.setEliminadoEl(d);
+        UnidadMedida un = (UnidadMedida)cb_unidad_medida.getSelectedItem();
+        u.setUnidadMedidaId(un);
+        Linea l = (Linea)cb_linea_definicion.getSelectedItem();
+        u.setLineaId(l);
+        Familia fa = (Familia)cb_familia_definicion.getSelectedItem();
+        u.setFamiliaId(fa);
+        JOptionPane.showMessageDialog(null,"Se a actualizado correctamente");
+        this.dispose();
+        
+        entityManager1.persist(u);
+        entityManager1.flush();
+        entityManager1.getTransaction().commit();
+        entityManager1.close();
+    }//GEN-LAST:event_bt_editarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.persistence.EntityManager Proyecto2PUEntityManager;
+    private javax.swing.JButton bt_buscar;
+    private javax.swing.JButton bt_editar;
+    private javax.swing.JButton bt_eliminar;
     private javax.swing.JButton bt_guardar;
     private javax.swing.JComboBox<String> cb_familia_definicion;
     private javax.swing.JComboBox<String> cb_linea_definicion;
