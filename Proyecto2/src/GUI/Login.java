@@ -6,6 +6,7 @@
 package GUI;
 
 import Data.Usuario;
+import java.awt.HeadlessException;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -44,6 +45,8 @@ public class Login extends javax.swing.JInternalFrame {
         bt_login = new javax.swing.JButton();
         im_login = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        cb_tipo = new javax.swing.JComboBox<>();
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel1.setText("Correo :");
@@ -70,6 +73,12 @@ public class Login extends javax.swing.JInternalFrame {
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel3.setText("Ingreso de Usuario");
 
+        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel4.setText("Tipo de Usuario:");
+
+        cb_tipo.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        cb_tipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Administrador\t", "Gerente" }));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -81,17 +90,21 @@ public class Login extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(54, 54, 54)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(tf_contraseña, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(tf_correo, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(bt_login, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGap(61, 61, 61)
+                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(54, 54, 54)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(tf_contraseña, javax.swing.GroupLayout.DEFAULT_SIZE, 127, Short.MAX_VALUE)
+                            .addComponent(tf_correo, javax.swing.GroupLayout.DEFAULT_SIZE, 127, Short.MAX_VALUE)
+                            .addComponent(bt_login, javax.swing.GroupLayout.DEFAULT_SIZE, 127, Short.MAX_VALUE)
+                            .addComponent(cb_tipo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(72, 72, 72)
                         .addComponent(im_login)))
@@ -112,9 +125,13 @@ public class Login extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(tf_contraseña, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(30, 30, 30)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(cb_tipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
                 .addComponent(bt_login)
-                .addContainerGap(66, Short.MAX_VALUE))
+                .addGap(29, 29, 29))
         );
 
         pack();
@@ -131,44 +148,45 @@ public class Login extends javax.swing.JInternalFrame {
         EntityManager entityManager = emf.createEntityManager();
 
         try {
+           
+            entityManager.getTransaction().begin();
             
-            entityManager.getTransaction().begin();  
-            String qlQuery = "SELECT u.correo FROM Usuario u  WHERE u.correo = '"+tf_correo.getText()+"' AND u.pass = '"+tf_contraseña.getText()+"'";
+            String qlQuery = "SELECT u.correo FROM Usuario u  WHERE u.correo = '" + tf_correo.getText() + "' AND u.pass = '" + tf_contraseña.getText() + "'";
             Query query = entityManager.createQuery(qlQuery);
             List<Usuario> usuarios = query.getResultList();
             entityManager.getTransaction().commit();
-            
+
             String tf1 = tf_correo.getText();
             String tf2 = tf_contraseña.getText();
-            
+
             if (tf1.isEmpty() && tf2.isEmpty()) {
-                
+
                 JOptionPane.showMessageDialog(null, "Porfavor Ingrese datos", "Error", JOptionPane.ERROR_MESSAGE);
-                
-            
-            }else if (tf1.isEmpty()) {
-                
+
+            } else if (tf1.isEmpty()) {
+
                 JOptionPane.showMessageDialog(null, "Porfavor Ingrese un correo", "Error", JOptionPane.ERROR_MESSAGE);
-                
-            }else if (tf2.isEmpty()) {
-                
+
+            } else if (tf2.isEmpty()) {
+
                 JOptionPane.showMessageDialog(null, "Porfavor Ingrese una contraseña ", "Error", JOptionPane.ERROR_MESSAGE);
-                     
-            }else if (usuarios.isEmpty()) {
-                
+
+            } else if (usuarios.isEmpty()) {
+
                 JOptionPane.showMessageDialog(null, "La contraseña o el correo esta incorrecto intentelo denuevo", "Error", JOptionPane.ERROR_MESSAGE);
-                this.dispose();
-                
-            }else{
+
+            } else {
                 JOptionPane.showMessageDialog(null, "Bienvenido");
                 this.dispose();
-            }           
-            
-        }finally {
 
-            entityManager.close();
-            emf.close();
-        }
+            }
+            
+            } catch (NumberFormatException e) {
+
+                JOptionPane.showMessageDialog(null, "Ingrese los datos correctamente");
+
+            } finally {
+            }
     
         
     }//GEN-LAST:event_bt_loginActionPerformed
@@ -176,11 +194,13 @@ public class Login extends javax.swing.JInternalFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bt_login;
+    private javax.swing.JComboBox<String> cb_tipo;
     private javax.persistence.EntityManager entityManager1;
     private javax.swing.JLabel im_login;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JPasswordField tf_contraseña;
     private javax.swing.JTextField tf_correo;
     // End of variables declaration//GEN-END:variables
