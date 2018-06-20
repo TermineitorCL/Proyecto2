@@ -285,6 +285,7 @@ public class IngresoCostos extends javax.swing.JInternalFrame {
         c.setCreadoEl(d);
         c.setProductoId(p);
         JOptionPane.showMessageDialog(null, "Se a guardado correctamente");
+        this.dispose();
 
         entityManager1.persist(c);
         entityManager1.flush();
