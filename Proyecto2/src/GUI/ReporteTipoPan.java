@@ -8,9 +8,13 @@ package GUI;
 
 import Controladores.RecetaJpaController;
 import Data.Receta;
+import com.toedter.calendar.JDateChooser;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+
 
 /**
  *
@@ -39,11 +43,11 @@ public class ReporteTipoPan extends javax.swing.JInternalFrame {
         productoList = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : productoQuery.getResultList();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jd_inicio = new com.toedter.calendar.JDateChooser();
+        jDateChooser_finicio = new com.toedter.calendar.JDateChooser();
         jLabel2 = new javax.swing.JLabel();
-        jd_final = new com.toedter.calendar.JDateChooser();
+        jDateChooser_ffinal = new com.toedter.calendar.JDateChooser();
         jLabel3 = new javax.swing.JLabel();
-        cb_TipoPan = new javax.swing.JComboBox<>();
+        cb_TipoPan = new javax.swing.JComboBox<String>();
         jPanel2 = new javax.swing.JPanel();
         bt_reportepan = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
@@ -55,12 +59,12 @@ public class ReporteTipoPan extends javax.swing.JInternalFrame {
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Fecha Inicio");
         jPanel1.add(jLabel1);
-        jPanel1.add(jd_inicio);
+        jPanel1.add(jDateChooser_finicio);
 
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("Fecha Final");
         jPanel1.add(jLabel2);
-        jPanel1.add(jd_final);
+        jPanel1.add(jDateChooser_ffinal);
 
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setText("Tipo Pan");
@@ -210,16 +214,32 @@ public class ReporteTipoPan extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(this, e.getMessage());
         }
     
-    
-    
-    
     }
+    public class Funciones {
+        SimpleDateFormat Formato = new SimpleDateFormat("dd-MM-yyyy");
+        
+        Date fechacaptura1 = jDateChooser_finicio.getDate();
+        Date fechacaptura2 = jDateChooser_ffinal.getDate();
+        
+        
+        
+        String fechainicio = Formato.format(fechacaptura1);
+        
+        
+        
+    }
+     
+     
+     
+     
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.persistence.EntityManager Proyecto2PUEntityManager;
     private javax.swing.JButton bt_reportepan;
     private javax.swing.JComboBox<String> cb_TipoPan;
     private javax.persistence.EntityManager entityManager1;
+    private com.toedter.calendar.JDateChooser jDateChooser_ffinal;
+    private com.toedter.calendar.JDateChooser jDateChooser_finicio;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -227,8 +247,6 @@ public class ReporteTipoPan extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private com.toedter.calendar.JDateChooser jd_final;
-    private com.toedter.calendar.JDateChooser jd_inicio;
     private java.util.List<Data.Producto> productoList;
     private javax.persistence.Query productoQuery;
     private javax.swing.JTable tb_reporteTipoPan;

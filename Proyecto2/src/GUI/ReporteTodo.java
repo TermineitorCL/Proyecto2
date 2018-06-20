@@ -27,8 +27,6 @@ public class ReporteTodo extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jDateChooser3 = new com.toedter.calendar.JDateChooser();
-        jSpinField1 = new com.toedter.components.JSpinField();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jd_inicio = new com.toedter.calendar.JDateChooser();
@@ -104,13 +102,11 @@ public class ReporteTodo extends javax.swing.JInternalFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bt_reportetodo;
-    private com.toedter.calendar.JDateChooser jDateChooser3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private com.toedter.components.JSpinField jSpinField1;
     private javax.swing.JTable jTable1;
     private com.toedter.calendar.JDateChooser jd_final;
     private com.toedter.calendar.JDateChooser jd_inicio;
