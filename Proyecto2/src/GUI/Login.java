@@ -48,6 +48,10 @@ public class Login extends javax.swing.JInternalFrame {
         jLabel4 = new javax.swing.JLabel();
         cb_tipo = new javax.swing.JComboBox<>();
 
+        setIconifiable(true);
+        setMaximizable(true);
+        setResizable(true);
+
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel1.setText("Correo :");
 

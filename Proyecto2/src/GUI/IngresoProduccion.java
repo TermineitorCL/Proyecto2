@@ -62,6 +62,10 @@ public class IngresoProduccion extends javax.swing.JInternalFrame {
         cb_unidad_medida = new javax.swing.JComboBox<>();
         bt_mostrar_datos = new javax.swing.JButton();
 
+        setIconifiable(true);
+        setMaximizable(true);
+        setResizable(true);
+
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel2.setText("Produccion Diaria ");
 

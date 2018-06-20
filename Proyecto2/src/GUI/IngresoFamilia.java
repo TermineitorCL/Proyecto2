@@ -46,6 +46,10 @@ public class IngresoFamilia extends javax.swing.JInternalFrame {
         bt_guardar = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
 
+        setIconifiable(true);
+        setMaximizable(true);
+        setResizable(true);
+
         jPanel1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -121,7 +125,7 @@ public class IngresoFamilia extends javax.swing.JInternalFrame {
                     .addComponent(tf_familia_descripcion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(bt_guardar)
-                .addContainerGap(19, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         getContentPane().add(jPanel1, java.awt.BorderLayout.CENTER);
@@ -132,6 +136,15 @@ public class IngresoFamilia extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void bt_guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_guardarActionPerformed
+        
+        String tf1 = tf_familia_descripcion.getText();
+        
+        if (tf1.isEmpty()) {
+            
+            JOptionPane.showMessageDialog(null, "Porfavor Ingrese datos", "Error", JOptionPane.ERROR_MESSAGE);
+            
+        }else {
+            
         entityManager1.getTransaction().begin();
         Date d = new Date();
         Familia f = new Familia();
@@ -144,14 +157,19 @@ public class IngresoFamilia extends javax.swing.JInternalFrame {
         f.setLineaId(m);
         
         JOptionPane.showMessageDialog(null,"Se a guardado correctamente");
-        this.dispose();
+        limpiar();
         entityManager1.persist(f);
         entityManager1.flush();
         entityManager1.getTransaction().commit();
-        entityManager1.close();
-        
+        }
     }//GEN-LAST:event_bt_guardarActionPerformed
-
+    
+    public void limpiar() {
+        
+        tf_familia_descripcion.setText("");
+        
+    }
+    
     private void cb_codigo_lineaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cb_codigo_lineaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cb_codigo_lineaActionPerformed

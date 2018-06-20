@@ -40,6 +40,10 @@ public class Registro extends javax.swing.JInternalFrame {
         jLabel5 = new javax.swing.JLabel();
         cb_tipo = new javax.swing.JComboBox<>();
 
+        setIconifiable(true);
+        setMaximizable(true);
+        setResizable(true);
+
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel1.setText("Nombre :");
 
@@ -139,6 +143,18 @@ public class Registro extends javax.swing.JInternalFrame {
         if (tf1.isEmpty() && tf2.isEmpty() && tf3.isEmpty()) {
 
             JOptionPane.showMessageDialog(null, "Porfavor Ingrese datos", "Error", JOptionPane.ERROR_MESSAGE);
+
+        } else if (tf1.isEmpty()) {
+
+            JOptionPane.showMessageDialog(null, "Porfavor Ingrese un nombre", "Error", JOptionPane.ERROR_MESSAGE);
+
+        } else if (tf2.isEmpty()) {
+
+            JOptionPane.showMessageDialog(null, "Porfavor Ingrese una contraseña ", "Error", JOptionPane.ERROR_MESSAGE);
+
+        } else if (tf3.isEmpty()) {
+
+            JOptionPane.showMessageDialog(null, "Porfavor ingrese un correo", "Error", JOptionPane.ERROR_MESSAGE);
 
         } else {
 
