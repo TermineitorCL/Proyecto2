@@ -61,6 +61,10 @@ public class IngresoReceta extends javax.swing.JInternalFrame {
         bt_recargar_tabla = new javax.swing.JButton();
         cb_estado = new javax.swing.JComboBox<>();
 
+        setIconifiable(true);
+        setMaximizable(true);
+        setResizable(true);
+
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel1.setText("Producto");
 

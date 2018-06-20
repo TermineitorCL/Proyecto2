@@ -35,7 +35,7 @@ public class IngresoLinea extends javax.swing.JInternalFrame {
         entityManager1 = java.beans.Beans.isDesignTime() ? null : javax.persistence.Persistence.createEntityManagerFactory("Proyecto2PU").createEntityManager();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        txt_descripcion_linea = new javax.swing.JTextField();
+        tf_descripcion_linea = new javax.swing.JTextField();
         bt_guardar = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
 
@@ -50,12 +50,16 @@ public class IngresoLinea extends javax.swing.JInternalFrame {
             .addGap(0, 100, Short.MAX_VALUE)
         );
 
+        setIconifiable(true);
+        setMaximizable(true);
+        setResizable(true);
+
         jPanel2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel1.setText("Descripción Línea");
 
-        txt_descripcion_linea.setForeground(new java.awt.Color(0, 0, 255));
+        tf_descripcion_linea.setForeground(new java.awt.Color(0, 0, 255));
 
         bt_guardar.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         bt_guardar.setText("Guardar");
@@ -82,7 +86,7 @@ public class IngresoLinea extends javax.swing.JInternalFrame {
                         .addGap(48, 48, 48)
                         .addComponent(jLabel1)
                         .addGap(45, 45, 45)
-                        .addComponent(txt_descripcion_linea, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(tf_descripcion_linea, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(124, 124, 124)
                         .addComponent(bt_guardar)))
@@ -95,7 +99,7 @@ public class IngresoLinea extends javax.swing.JInternalFrame {
                 .addComponent(jLabel2)
                 .addGap(31, 31, 31)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txt_descripcion_linea, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tf_descripcion_linea, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1))
                 .addGap(18, 18, 18)
                 .addComponent(bt_guardar)
@@ -108,25 +112,38 @@ public class IngresoLinea extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void bt_guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_guardarActionPerformed
-        // TODO add your handling code here:
         
+        String tf1 = tf_descripcion_linea.getText();
+        
+        if (tf1.isEmpty()) {
+            
+            JOptionPane.showMessageDialog(null, "Porfavor Ingrese datos", "Error", JOptionPane.ERROR_MESSAGE);
+            
+        }else{
+            
         entityManager1.getTransaction().begin();
         Date d = new Date();
         Linea l = new Linea();
-        l.setNombre(txt_descripcion_linea.getText());
+        l.setNombre(tf_descripcion_linea.getText());
         l.setEliminadoEl(d);
         l.setModificadoEl(d);
         l.setCreadoEl(d);
+        
         JOptionPane.showMessageDialog(null,"Se a guardado correctamente");
-        this.dispose();
-
+        limpiar();
+        
         entityManager1.persist(l);
         entityManager1.flush();
         entityManager1.getTransaction().commit();
-        entityManager1.close();
+        
+        }
     }//GEN-LAST:event_bt_guardarActionPerformed
 
+    public void limpiar() {
 
+        tf_descripcion_linea.setText("");
+
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bt_guardar;
     private javax.persistence.EntityManager entityManager1;
@@ -134,6 +151,6 @@ public class IngresoLinea extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JTextField txt_descripcion_linea;
+    private javax.swing.JTextField tf_descripcion_linea;
     // End of variables declaration//GEN-END:variables
 }

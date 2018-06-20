@@ -45,6 +45,9 @@ public class IngresoUnidadMedida extends javax.swing.JInternalFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
 
+        setIconifiable(true);
+        setMaximizable(true);
+        setResizable(true);
         setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         bn_guardar.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -80,21 +83,19 @@ public class IngresoUnidadMedida extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(55, 55, 55)
-                        .addComponent(tf_codigo, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(tf_descripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(tf_codigo, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tf_descripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addGap(52, 52, 52)
                 .addComponent(jLabel3)
                 .addContainerGap(70, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
-                .addGap(92, 92, 92)
+                .addGap(96, 96, 96)
                 .addComponent(bn_guardar, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -103,17 +104,21 @@ public class IngresoUnidadMedida extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(tf_descripcion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(tf_codigo, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(tf_descripcion, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 19, Short.MAX_VALUE)
+                        .addGap(29, 29, 29))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(tf_codigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(26, 26, 26)))
                 .addComponent(bn_guardar, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(21, 21, 21))
+                .addContainerGap())
         );
 
         pack();
@@ -124,21 +129,40 @@ public class IngresoUnidadMedida extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_tf_codigoActionPerformed
 
     private void bn_guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bn_guardarActionPerformed
-        // TODO add your handling code here:
-        entityManager1.getTransaction().begin();
-        Date d = new Date();
-        UnidadMedida u = new UnidadMedida();
-        u.setCodigo(tf_codigo.getText());
-        u.setDescripcion(tf_descripcion.getText());
-        u.setCreadoEl(d);
-        u.setModificadoEl(d);
-        u.setEliminadoEl(d);
-        JOptionPane.showMessageDialog(null,"Se a guardado correctamente");
-        entityManager1.persist(u);
-        entityManager1.flush();
-        entityManager1.getTransaction().commit();
-        entityManager1.close();
+       
+        String tf1 = tf_descripcion.getText();
+        String tf2 = tf_codigo.getText();
 
+        if (tf1.isEmpty()) {
+            
+            JOptionPane.showMessageDialog(null, "Porfavor Ingrese una descripcion", "Error", JOptionPane.ERROR_MESSAGE);
+            
+        } else if (tf2.isEmpty()) {
+            
+            JOptionPane.showMessageDialog(null, "Porfavor Ingrese un codigo", "Error", JOptionPane.ERROR_MESSAGE);
+
+        } else if (tf1.isEmpty() && tf2.isEmpty()) {
+            
+            JOptionPane.showMessageDialog(null, "Porfavor Ingrese los datos", "Error", JOptionPane.ERROR_MESSAGE);
+
+        } else {
+            
+            entityManager1.getTransaction().begin();
+            Date d = new Date();
+            UnidadMedida u = new UnidadMedida();
+            u.setCodigo(tf_codigo.getText());
+            u.setDescripcion(tf_descripcion.getText());
+            u.setCreadoEl(d);
+            u.setModificadoEl(d);
+            u.setEliminadoEl(d);
+            
+            JOptionPane.showMessageDialog(null, "Se a guardado correctamente");
+            
+            entityManager1.persist(u);
+            entityManager1.flush();
+            entityManager1.getTransaction().commit();
+            
+        }
     }//GEN-LAST:event_bn_guardarActionPerformed
 
 

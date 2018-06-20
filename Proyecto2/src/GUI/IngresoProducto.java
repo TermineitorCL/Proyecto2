@@ -68,6 +68,10 @@ public class IngresoProducto extends javax.swing.JInternalFrame {
         bt_eliminar = new javax.swing.JButton();
         bt_buscar = new javax.swing.JButton();
 
+        setIconifiable(true);
+        setMaximizable(true);
+        setResizable(true);
+
         lb_codigo_barra.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         lb_codigo_barra.setText("Codigo Barra :");
 
