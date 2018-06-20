@@ -157,14 +157,19 @@ public class IngresoUnidadMedida extends javax.swing.JInternalFrame {
             u.setEliminadoEl(d);
             
             JOptionPane.showMessageDialog(null, "Se a guardado correctamente");
-            
+            limpiar();
             entityManager1.persist(u);
             entityManager1.flush();
             entityManager1.getTransaction().commit();
             
         }
     }//GEN-LAST:event_bn_guardarActionPerformed
-
+    public void limpiar() {
+        
+        tf_descripcion.setText("");
+        tf_codigo.setText("");
+        
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bn_guardar;

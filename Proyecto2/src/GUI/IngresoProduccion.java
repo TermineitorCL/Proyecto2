@@ -192,11 +192,9 @@ public class IngresoProduccion extends javax.swing.JInternalFrame {
         p.setProduccionCantidad(Integer.parseInt(tf_produccion.getText()));
         //p.setFecha(d);
         JOptionPane.showMessageDialog(null, "Se a guardado correctamente");
-        this.dispose();
         entityManager1.persist(p);
         entityManager1.flush();
         entityManager1.getTransaction().commit();
-        entityManager1.close();
     }//GEN-LAST:event_bt_grabarActionPerformed
 
     private void tf_produccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tf_produccionActionPerformed
