@@ -45,6 +45,9 @@ public class IngresoUnidadMedida extends javax.swing.JInternalFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
 
+        setIconifiable(true);
+        setMaximizable(true);
+        setResizable(true);
         setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         bn_guardar.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N

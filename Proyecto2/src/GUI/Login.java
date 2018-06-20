@@ -46,7 +46,11 @@ public class Login extends javax.swing.JInternalFrame {
         im_login = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        cb_tipo = new javax.swing.JComboBox<>();
+        cb_tipo = new javax.swing.JComboBox<String>();
+
+        setIconifiable(true);
+        setMaximizable(true);
+        setResizable(true);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel1.setText("Correo :");
@@ -77,7 +81,7 @@ public class Login extends javax.swing.JInternalFrame {
         jLabel4.setText("Tipo de Usuario:");
 
         cb_tipo.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        cb_tipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Administrador\t", "Gerente" }));
+        cb_tipo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Administrador\t", "Gerente" }));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

@@ -50,6 +50,10 @@ public class IngresoLinea extends javax.swing.JInternalFrame {
             .addGap(0, 100, Short.MAX_VALUE)
         );
 
+        setIconifiable(true);
+        setMaximizable(true);
+        setResizable(true);
+
         jPanel2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N

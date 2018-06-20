@@ -57,16 +57,20 @@ public class IngresoProducto extends javax.swing.JInternalFrame {
         lb_familia = new javax.swing.JLabel();
         tf_codigo_barra = new javax.swing.JTextField();
         tf_nombre_producto = new javax.swing.JTextField();
-        cb_unidad_medida = new javax.swing.JComboBox<>();
+        cb_unidad_medida = new javax.swing.JComboBox<String>();
         tf_nombre_marca = new javax.swing.JTextField();
         tf_formato_nombre = new javax.swing.JTextField();
-        cb_linea_definicion = new javax.swing.JComboBox<>();
-        cb_familia_definicion = new javax.swing.JComboBox<>();
+        cb_linea_definicion = new javax.swing.JComboBox<String>();
+        cb_familia_definicion = new javax.swing.JComboBox<String>();
         bt_guardar = new javax.swing.JButton();
         lb_titulo = new javax.swing.JLabel();
         bt_editar = new javax.swing.JButton();
         bt_eliminar = new javax.swing.JButton();
         bt_buscar = new javax.swing.JButton();
+
+        setIconifiable(true);
+        setMaximizable(true);
+        setResizable(true);
 
         lb_codigo_barra.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         lb_codigo_barra.setText("Codigo Barra :");
@@ -155,7 +159,7 @@ public class IngresoProducto extends javax.swing.JInternalFrame {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(lb_linea)
                                     .addComponent(lb_familia))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 120, Short.MAX_VALUE)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(cb_linea_definicion, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(cb_familia_definicion, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)))

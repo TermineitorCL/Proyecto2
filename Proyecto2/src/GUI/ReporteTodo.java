@@ -40,6 +40,10 @@ public class ReporteTodo extends javax.swing.JInternalFrame {
         tb_reportetodo = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
 
+        setIconifiable(true);
+        setMaximizable(true);
+        setResizable(true);
+
         jPanel1.setLayout(new java.awt.GridLayout(2, 2, 10, 10));
 
         jLabel1.setText("Fecha Inicio");

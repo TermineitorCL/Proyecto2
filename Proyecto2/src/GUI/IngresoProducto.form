@@ -85,6 +85,11 @@
       </AuxValues>
     </Component>
   </NonVisualComponents>
+  <Properties>
+    <Property name="iconifiable" type="boolean" value="true"/>
+    <Property name="maximizable" type="boolean" value="true"/>
+    <Property name="resizable" type="boolean" value="true"/>
+  </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
   </SyntheticProperties>
@@ -117,7 +122,7 @@
                                   <Component id="lb_linea" min="-2" max="-2" attributes="0"/>
                                   <Component id="lb_familia" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace max="32767" attributes="0"/>
+                              <EmptySpace pref="120" max="32767" attributes="0"/>
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                   <Component id="cb_linea_definicion" max="32767" attributes="0"/>
                                   <Component id="cb_familia_definicion" min="-2" pref="140" max="-2" attributes="0"/>

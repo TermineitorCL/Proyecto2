@@ -46,7 +46,7 @@ public class IngresoReceta extends javax.swing.JInternalFrame {
         recetaQuery = java.beans.Beans.isDesignTime() ? null : Proyecto2PUEntityManager.createQuery("SELECT r FROM Receta r");
         recetaList = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : recetaQuery.getResultList();
         jLabel1 = new javax.swing.JLabel();
-        cb_Productofinal = new javax.swing.JComboBox<>();
+        cb_Productofinal = new javax.swing.JComboBox<String>();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -57,9 +57,13 @@ public class IngresoReceta extends javax.swing.JInternalFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tb_Tablareceta = new javax.swing.JTable();
         tf_Insumos = new javax.swing.JTextField();
-        cb_unidadMedida = new javax.swing.JComboBox<>();
+        cb_unidadMedida = new javax.swing.JComboBox<String>();
         bt_recargar_tabla = new javax.swing.JButton();
-        cb_estado = new javax.swing.JComboBox<>();
+        cb_estado = new javax.swing.JComboBox<String>();
+
+        setIconifiable(true);
+        setMaximizable(true);
+        setResizable(true);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel1.setText("Producto");
@@ -121,7 +125,7 @@ public class IngresoReceta extends javax.swing.JInternalFrame {
         });
 
         cb_estado.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        cb_estado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Activo", "Desactivado" }));
+        cb_estado.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Activo", "Desactivado" }));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

@@ -69,6 +69,10 @@ public class IngresoCostos extends javax.swing.JInternalFrame {
         tabla_fecha_precio = new javax.swing.JTable();
         jLabel15 = new javax.swing.JLabel();
 
+        setIconifiable(true);
+        setMaximizable(true);
+        setResizable(true);
+
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel2.setText("Codigo de barra :");
 

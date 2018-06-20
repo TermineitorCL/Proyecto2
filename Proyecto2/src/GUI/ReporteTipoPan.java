@@ -43,12 +43,16 @@ public class ReporteTipoPan extends javax.swing.JInternalFrame {
         jLabel2 = new javax.swing.JLabel();
         jd_final = new com.toedter.calendar.JDateChooser();
         jLabel3 = new javax.swing.JLabel();
-        cb_TipoPan = new javax.swing.JComboBox<>();
+        cb_TipoPan = new javax.swing.JComboBox<String>();
         jPanel2 = new javax.swing.JPanel();
         bt_reportepan = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tb_reporteTipoPan = new javax.swing.JTable();
+
+        setIconifiable(true);
+        setMaximizable(true);
+        setResizable(true);
 
         jPanel1.setLayout(new java.awt.GridLayout(3, 3, 12, 15));
 
